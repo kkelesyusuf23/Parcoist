@@ -1,9 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35707.178 d17.12
+VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parcoist.UI", "Parcoist.UI\Parcoist.UI.csproj", "{19A843E9-D3C8-406E-94D4-7AED77039340}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parcoist.Business", "Parcoist.Business\Parcoist.Business.csproj", "{08DFE1D8-458D-4E15-BA52-B28400FBE604}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parcoist.DataAccess", "Parcoist.DataAccess\Parcoist.DataAccess.csproj", "{655E4694-E7AD-485C-AE24-EF4945E4251B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parcoist.Entity", "Parcoist.Entity\Parcoist.Entity.csproj", "{AAF7F363-B4ED-4C8C-A35A-FDCA6C9264AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parcoist.DTO", "Parcoist.DTO\Parcoist.DTO.csproj", "{34D74329-2EEF-44F4-B646-F226259E2242}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +23,22 @@ Global
 		{19A843E9-D3C8-406E-94D4-7AED77039340}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19A843E9-D3C8-406E-94D4-7AED77039340}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19A843E9-D3C8-406E-94D4-7AED77039340}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08DFE1D8-458D-4E15-BA52-B28400FBE604}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08DFE1D8-458D-4E15-BA52-B28400FBE604}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08DFE1D8-458D-4E15-BA52-B28400FBE604}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08DFE1D8-458D-4E15-BA52-B28400FBE604}.Release|Any CPU.Build.0 = Release|Any CPU
+		{655E4694-E7AD-485C-AE24-EF4945E4251B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{655E4694-E7AD-485C-AE24-EF4945E4251B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{655E4694-E7AD-485C-AE24-EF4945E4251B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{655E4694-E7AD-485C-AE24-EF4945E4251B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAF7F363-B4ED-4C8C-A35A-FDCA6C9264AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAF7F363-B4ED-4C8C-A35A-FDCA6C9264AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAF7F363-B4ED-4C8C-A35A-FDCA6C9264AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAF7F363-B4ED-4C8C-A35A-FDCA6C9264AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34D74329-2EEF-44F4-B646-F226259E2242}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34D74329-2EEF-44F4-B646-F226259E2242}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34D74329-2EEF-44F4-B646-F226259E2242}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34D74329-2EEF-44F4-B646-F226259E2242}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
