@@ -1,14 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Parcoist.UI.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Parcoist.DataAccess.Concrete
+namespace Parcoist.Business.Abstract
 {
-    public class ParcoContext:DbContext
+    public interface IProductService:IGenericService<Product>
     {
-        
     }
 }
