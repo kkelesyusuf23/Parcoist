@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parcoist.Entity", "Parcoist
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parcoist.DTO", "Parcoist.DTO\Parcoist.DTO.csproj", "{34D74329-2EEF-44F4-B646-F226259E2242}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parcoist.API", "Parcoist.API\Parcoist.API.csproj", "{7585A014-257D-461E-8FE4-0CAE04CA53F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{34D74329-2EEF-44F4-B646-F226259E2242}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34D74329-2EEF-44F4-B646-F226259E2242}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34D74329-2EEF-44F4-B646-F226259E2242}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7585A014-257D-461E-8FE4-0CAE04CA53F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7585A014-257D-461E-8FE4-0CAE04CA53F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7585A014-257D-461E-8FE4-0CAE04CA53F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7585A014-257D-461E-8FE4-0CAE04CA53F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
