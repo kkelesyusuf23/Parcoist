@@ -3,8 +3,12 @@
     public class ReturnImage
     {
         public int ReturnImageID { get; set; }
-        public int ReturnRequestID { get; set; }
-        public string ImageUrl { get; set; }
-        public DateTime UpdateDate { get; set; }
+
+        public int ReturnRequestID { get; set; } // İade talebinin ID'si
+        public string ImageUrl { get; set; } // Görselin URL'si
+        public DateTime UpdateDate { get; set; } // Görselin güncellenme tarihi
+
+        public ReturnRequest ReturnRequest { get; set; } // İade talebine navigasyon
     }
+
 }

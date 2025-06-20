@@ -11,5 +11,11 @@
         public string PasswordHash { get; set; }
         public int RoleID { get; set; }
         public int Gender { get; set; }
+
+        public Admin Admin { get; set; } // one-to-one
+        public Customer Customer { get; set; } // one-to-one
+        public List<UserComment> UserComments { get; set; }
+
     }
+
 }

@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Parcoist.Business.Concrete
 {
-    public class RetrnItemManager : IReturnItemService
+    public class ReturnItemManager : IReturnItemService
     {
         private readonly IReturnItemDal _returnItemDal;
 
-        public RetrnItemManager(IReturnItemDal returnItemDal)
+        public ReturnItemManager(IReturnItemDal returnItemDal)
         {
             _returnItemDal = returnItemDal;
         }

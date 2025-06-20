@@ -4,5 +4,19 @@
     {
         public int CustomeID { get; set; }
         public int UserID { get; set; }
+
+        public Users User { get; set; }
+        public List<Adress> Adresses { get; set; }
+
+        public List<CustomerCoupon> CustomerCoupons { get; set; }
+        public List<CustomerFavory> FavoriteProducts { get; set; }
+
+        public List<Order> Orders { get; set; }
+        public List<Delivery> Deliveries { get; set; }
+
+        // Ödeme kartları ilişki ekleniyor
+        public List<PaymentCard> PaymentCards { get; set; }
     }
+
+
 }

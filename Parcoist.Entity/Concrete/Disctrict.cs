@@ -1,9 +1,13 @@
 ﻿namespace Parcoist.UI.Entities
 {
-    public class Disctrict
+    public class District
     {
-        public int DisctrictID { get; set; }
+        public int DistrictID { get; set; }
         public string Name { get; set; }
         public int CityID { get; set; }
+
+        public City City { get; set; }
+        public List<Adress> Adresses { get; set; }
     }
+
 }

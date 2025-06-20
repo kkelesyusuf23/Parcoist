@@ -2,15 +2,20 @@
 {
     public class ReturnRequest
     {
-        public int ReturnRequestID { get; set; }
-        public int OrderID { get; set; }
-        public int ReturnNumber { get; set; }
-        public DateTime RequestDate { get; set; }
-        public string Description { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
-        public int ReturnStatusID { get; set; }
-        public int ReturnReasonID { get; set; }
+        public int ReturnRequestID { get; set; } // İade talebinin ID'si
+        public int OrderID { get; set; } // İlgili siparişin ID'si
+        public Order Order { get; set; } // Siparişin ilişkisi
 
+        public int ReturnStatusID { get; set; } // İade durumunun ID'si
+        public ReturnStatus ReturnStatus { get; set; } // İade durumu ilişkisi
+
+        public int ReturnReasonID { get; set; } // İade sebebinin ID'si
+        public ReturnReason ReturnReason { get; set; } // İade sebebi ilişkisi
+
+        public DateTime RequestDate { get; set; } // İade talebinin yapıldığı tarih
+        public DateTime? ResolutionDate { get; set; } // İade işleminin tamamlanma tarihi
     }
+
+
+
 }

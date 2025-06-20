@@ -5,5 +5,8 @@
         public int DeliveryStatusID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+
+        public List<Delivery> Deliveries { get; set; }
     }
+
 }
