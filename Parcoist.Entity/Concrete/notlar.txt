@@ -1,0 +1,2 @@
+﻿parco ist için extra olarak,
+logo, contact, slider alanları eklenmiştir.

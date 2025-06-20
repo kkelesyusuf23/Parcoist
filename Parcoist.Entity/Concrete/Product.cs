@@ -4,6 +4,7 @@
     {
         public int ProductID { get; set; }
         public int SKU { get; set; }
+        public string ModelNo { get; set; }
         public string Name { get; set; }    
         public string Slug { get; set; }
         public int CategoryID { get; set; }

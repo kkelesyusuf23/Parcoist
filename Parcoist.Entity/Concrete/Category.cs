@@ -4,6 +4,8 @@
     {
         public int CategoryID { get; set; }
         public string CategoryName { get; set; }
+        public string CategoryDescription { get; set; }
+        public string CategoryImage { get; set; }
         public int ParentCategoryID { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
