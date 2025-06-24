@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Parcoist.DataAccess.EntityFramework
 {
-    public class EfDisctrictDal : GenericRepository<Disctrict>, IDistrictDal
+    public class EfDisctrictDal : GenericRepository<District>, IDistrictDal
     {
         public EfDisctrictDal(ParcoContext context) : base(context)
         {

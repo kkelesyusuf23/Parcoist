@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Parcoist.Business.Abstract
 {
-    public interface IDisctrictService:IGenericService<Disctrict>
+    public interface IDisctrictService:IGenericService<District>
     {
     }
 }

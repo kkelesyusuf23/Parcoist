@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Parcoist.DataAccess.Abstract
 {
-    public interface IDistrictDal:IGenericDal<Disctrict>
+    public interface IDistrictDal:IGenericDal<District>
     {
     }
 }

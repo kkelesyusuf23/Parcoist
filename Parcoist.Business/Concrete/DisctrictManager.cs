@@ -18,27 +18,27 @@ namespace Parcoist.Business.Concrete
             _disctrictDal = disctrictDal;
         }
 
-        public void TAdd(Disctrict entity)
+        public void TAdd(District entity)
         {
             _disctrictDal.Add(entity);
         }
 
-        public void TDelete(Disctrict entity)
+        public void TDelete(District entity)
         {
             _disctrictDal.Delete(entity);
         }
 
-        public Disctrict TGetById(int id)
+        public District TGetById(int id)
         {
             return _disctrictDal.GetById(id);
         }
 
-        public List<Disctrict> TGetListAll()
+        public List<District> TGetListAll()
         {
             return _disctrictDal.GetListAll();
         }
 
-        public void TUpdate(Disctrict entity)
+        public void TUpdate(District entity)
         {
             _disctrictDal.Update(entity);
         }
