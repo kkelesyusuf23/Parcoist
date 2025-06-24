@@ -101,6 +101,12 @@ builder.Services.AddScoped<ISliderService, SliderManager>();
 builder.Services.AddScoped<IUserCommentDal, EfUserCommentDal>();
 builder.Services.AddScoped<IUserCommentService, UserCommentManager>();
 
+builder.Services.AddScoped<IFeatureValueDal, EfFeatureValueDal>();
+builder.Services.AddScoped<IFeatureValueService, FeatureValueManager>();
+
+builder.Services.AddScoped<IProductVariantCombinationDal, EfProductVariantCombinationDal>();
+builder.Services.AddScoped<IProductVariantCombinationService, ProductVariantCombinationManager>();
+
 // Add services to the container.
 
 builder.Services.AddControllers();

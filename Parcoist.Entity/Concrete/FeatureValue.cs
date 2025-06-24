@@ -15,7 +15,7 @@ namespace Parcoist.Entity.Concrete
         public FeatureType FeatureType { get; set; }
 
         public string Value { get; set; } // Örneğin "Kırmızı", "M", "XL"
-        public DateTime UpdatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; } 
         public int PriceAdjustment { get; set; } // Bu değerin fiyat üzerindeki etkisi
         public int Stock { get; set; } // Bu değerin stoğu
     }
