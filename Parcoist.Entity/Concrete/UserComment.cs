@@ -2,8 +2,9 @@
 {
     public class UserComment
     {
+        public int UserCommentID { get; set; }
         public int UserID { get; set; }
-        public Users User { get; set; } // Navigasyon
+        public User User { get; set; } // Navigasyon
 
         public int ProductID { get; set; }
         public Product Product { get; set; } // Navigasyon

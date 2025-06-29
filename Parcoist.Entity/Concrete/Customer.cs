@@ -2,10 +2,10 @@
 {
     public class Customer
     {
-        public int CustomeID { get; set; }
+        public int CustomerID { get; set; }
         public int UserID { get; set; }
 
-        public Users User { get; set; }
+        public User User { get; set; }
         public List<Adress> Adresses { get; set; }
 
         public List<CustomerCoupon> CustomerCoupons { get; set; }

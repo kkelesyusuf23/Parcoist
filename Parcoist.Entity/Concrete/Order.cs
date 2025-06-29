@@ -14,7 +14,6 @@
 
         public DateTime OrderDate { get; set; }
 
-        public int DeliveryID { get; set; }
         public Delivery Delivery { get; set; }
 
         public int TaxAmount { get; set; }

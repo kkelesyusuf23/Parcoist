@@ -1,6 +1,8 @@
+﻿using Microsoft.EntityFrameworkCore;
 using Parcoist.Business.Abstract;
 using Parcoist.Business.Concrete;
 using Parcoist.DataAccess.Abstract;
+using Parcoist.DataAccess.Concrete;
 using Parcoist.DataAccess.EntityFramework;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -106,6 +108,11 @@ builder.Services.AddScoped<IFeatureValueService, FeatureValueManager>();
 
 builder.Services.AddScoped<IProductVariantCombinationDal, EfProductVariantCombinationDal>();
 builder.Services.AddScoped<IProductVariantCombinationService, ProductVariantCombinationManager>();
+
+builder.Services.AddDbContext<ParcoContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+        b => b.MigrationsAssembly("Parcoist.DataAccess"))); // ← önemli satır
+
 
 // Add services to the container.
 

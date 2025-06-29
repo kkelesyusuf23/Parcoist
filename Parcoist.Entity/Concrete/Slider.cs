@@ -8,7 +8,7 @@ namespace Parcoist.Entity.Concrete
 {
     public class Slider
     {
-        public int SlderID { get; set; }
+        public int SliderID { get; set; }
         public string SliderTitle { get; set; }
         public string SliderImage { get; set; }
         public string SliderLink { get; set; }

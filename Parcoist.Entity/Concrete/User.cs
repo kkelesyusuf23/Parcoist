@@ -1,6 +1,6 @@
 ﻿namespace Parcoist.UI.Entities
 {
-    public class Users
+    public class User
     {
         public int UserID { get; set; }
         public string Name { get; set; }

@@ -5,12 +5,13 @@ using Parcoist.UI.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Parcoist.DataAccess.Concrete
 {
-    public class ParcoContext:DbContext
+    public class ParcoContext : DbContext
     {
         readonly IConfiguration _configuration;
 
@@ -22,6 +23,40 @@ namespace Parcoist.DataAccess.Concrete
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+
+            modelBuilder.Entity<ProductVariantValue>()
+            .HasOne(pvv => pvv.FeatureValue)
+            .WithMany()
+            .HasForeignKey(pvv => pvv.FeatureValueID)
+            .OnDelete(DeleteBehavior.NoAction); // 🚫 Cascade değil
+
+
+            modelBuilder.Entity<Adress>()
+            .HasOne(a => a.District)
+            .WithMany()
+            .HasForeignKey(a => a.DistrictID)
+            .OnDelete(DeleteBehavior.NoAction); // ✅ Bu satır sorunu çözer
+
+
+            modelBuilder.Entity<Delivery>()
+            .HasOne(d => d.Order) // Delivery ile Order ilişkisi
+            .WithOne(o => o.Delivery) // Order ile Delivery'nin bire bir ilişkisi
+            .HasForeignKey<Delivery>(d => d.OrderID) // OrderID foreign key
+            .OnDelete(DeleteBehavior.NoAction); // Cascade değil
+
+            modelBuilder.Entity<ReturnItem>()
+    .HasOne(ri => ri.ReturnRequest)
+    .WithOne(rr => rr.ReturnItem)
+    .HasForeignKey<ReturnItem>(ri => ri.ReturnRequestID)
+    .OnDelete(DeleteBehavior.Restrict); // veya DeleteBehavior.NoAction
+
+
         }
 
         public DbSet<Admin> Admins { get; set; }
