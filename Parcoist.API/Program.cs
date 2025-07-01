@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using Parcoist.Business.Abstract;
 using Parcoist.Business.Concrete;
 using Parcoist.DataAccess.Abstract;
 using Parcoist.DataAccess.Concrete;
 using Parcoist.DataAccess.EntityFramework;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -114,18 +116,25 @@ builder.Services.AddDbContext<ParcoContext>(options =>
         b => b.MigrationsAssembly("Parcoist.DataAccess"))); // ← önemli satır
 
 
-// Add services to the container.
-
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+
+// Add Swagger services
+builder.Services.AddSwaggerGen();
+
+//builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+//if (app.Environment.IsDevelopment())
+//{
+//    app.MapOpenApi();
+//}
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
@@ -135,3 +144,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
