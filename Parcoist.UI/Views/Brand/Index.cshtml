@@ -1,0 +1,57 @@
+﻿@using Parcoist.UI.Entities
+@model List<Brand>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Dashboard</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard v1</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+
+<div class="container" style="height: 100%; overflow-x: hidden; overflow-y: scroll;">
+
+    <table class="table table-hover mt-3" id="example">
+        <thead>
+            <tr>
+
+                <th>#</th>
+                <th>Marka Ad</th>
+                @* <th>Slug</th> *@
+                <th>LogoURL</th>
+                <th>Website</th>
+                <th>Açıklama</th>
+                <th>Durum</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@(Model.IndexOf(item) + 1)</td>
+                    <td>@item.Name</td>
+                    @* <td>@item.Slug</td> *@
+                    <td><i class="fas fa-image icon" style="font-size: 1.5rem; color: #28a745;" onclick="showImage('@Url.Content(@item.LogoURL)')"></i></td>
+                    <td>@item.Website</td>
+                    <td>@item.IsActive</td>
+                    <td><a href="/Brand/DeleteBrand/@item.BrandID" class="btn btn-outline-danger">Sil</a></td>
+                    <td><a href="/Brand/UpdateBrand/@item.BrandID" class="btn btn-outline-success">Güncelle</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<a href="/Brand/AddBrand" class="btn btn-outline-info">Yeni Marka Ekle</a>

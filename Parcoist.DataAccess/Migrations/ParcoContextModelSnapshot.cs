@@ -84,7 +84,7 @@ namespace Parcoist.DataAccess.Migrations
 
                     b.HasIndex("DistrictID1");
 
-                    b.ToTable("Adresses");
+                    b.ToTable("Adress");
                 });
 
             modelBuilder.Entity("Parcoist.Entity.Concrete.Contact", b =>
@@ -277,7 +277,7 @@ namespace Parcoist.DataAccess.Migrations
                     b.HasIndex("UserID")
                         .IsUnique();
 
-                    b.ToTable("Admins");
+                    b.ToTable("Admin");
                 });
 
             modelBuilder.Entity("Parcoist.UI.Entities.Brand", b =>
@@ -406,7 +406,7 @@ namespace Parcoist.DataAccess.Migrations
 
                     b.HasKey("CityID");
 
-                    b.ToTable("Cities");
+                    b.ToTable("City");
                 });
 
             modelBuilder.Entity("Parcoist.UI.Entities.Customer", b =>
@@ -425,7 +425,7 @@ namespace Parcoist.DataAccess.Migrations
                     b.HasIndex("UserID")
                         .IsUnique();
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customer");
                 });
 
             modelBuilder.Entity("Parcoist.UI.Entities.CustomerCoupon", b =>
@@ -456,7 +456,7 @@ namespace Parcoist.DataAccess.Migrations
 
                     b.HasIndex("CustomerID");
 
-                    b.ToTable("CustomerCoupons");
+                    b.ToTable("CustomerCoupon");
                 });
 
             modelBuilder.Entity("Parcoist.UI.Entities.CustomerFavory", b =>
@@ -482,7 +482,7 @@ namespace Parcoist.DataAccess.Migrations
 
                     b.HasIndex("ProductID");
 
-                    b.ToTable("CustomerFavories");
+                    b.ToTable("CustomerFavory");
                 });
 
             modelBuilder.Entity("Parcoist.UI.Entities.Delivery", b =>
@@ -537,7 +537,7 @@ namespace Parcoist.DataAccess.Migrations
                     b.HasIndex("OrderID")
                         .IsUnique();
 
-                    b.ToTable("Deliveries");
+                    b.ToTable("Delivery");
                 });
 
             modelBuilder.Entity("Parcoist.UI.Entities.DeliveryStatus", b =>
@@ -558,7 +558,7 @@ namespace Parcoist.DataAccess.Migrations
 
                     b.HasKey("DeliveryStatusID");
 
-                    b.ToTable("DeliveriesStatus");
+                    b.ToTable("DeliveryStatus");
                 });
 
             modelBuilder.Entity("Parcoist.UI.Entities.District", b =>
@@ -580,7 +580,7 @@ namespace Parcoist.DataAccess.Migrations
 
                     b.HasIndex("CityID");
 
-                    b.ToTable("Districts");
+                    b.ToTable("District");
                 });
 
             modelBuilder.Entity("Parcoist.UI.Entities.FeatureType", b =>
@@ -693,7 +693,7 @@ namespace Parcoist.DataAccess.Migrations
 
                     b.HasIndex("CustomerID");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Order");
                 });
 
             modelBuilder.Entity("Parcoist.UI.Entities.OrderBrandStatus", b =>
@@ -718,7 +718,7 @@ namespace Parcoist.DataAccess.Migrations
                     b.HasIndex("BrandID")
                         .IsUnique();
 
-                    b.ToTable("OrdersBrandStatus");
+                    b.ToTable("OrderBrandStatus");
                 });
 
             modelBuilder.Entity("Parcoist.UI.Entities.OrderItem", b =>
@@ -769,7 +769,7 @@ namespace Parcoist.DataAccess.Migrations
 
                     b.HasIndex("ProductID");
 
-                    b.ToTable("OrderItems");
+                    b.ToTable("OrderItem");
                 });
 
             modelBuilder.Entity("Parcoist.UI.Entities.PaymentCard", b =>
@@ -815,27 +815,7 @@ namespace Parcoist.DataAccess.Migrations
 
                     b.HasIndex("CustomerID");
 
-                    b.ToTable("PaymentCards");
-                });
-
-            modelBuilder.Entity("Parcoist.UI.Entities.PaymentMethod", b =>
-                {
-                    b.Property<int>("PaymentMethodID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PaymentMethodID"));
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("MethodName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("PaymentMethodID");
-
-                    b.ToTable("PaymentMethods");
+                    b.ToTable("PaymentCard");
                 });
 
             modelBuilder.Entity("Parcoist.UI.Entities.Product", b =>
@@ -963,31 +943,6 @@ namespace Parcoist.DataAccess.Migrations
                     b.ToTable("ProductVariantValues");
                 });
 
-            modelBuilder.Entity("Parcoist.UI.Entities.ReturnImage", b =>
-                {
-                    b.Property<int>("ReturnImageID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReturnImageID"));
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ReturnRequestID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("ReturnImageID");
-
-                    b.HasIndex("ReturnRequestID");
-
-                    b.ToTable("ReturnImages");
-                });
-
             modelBuilder.Entity("Parcoist.UI.Entities.ReturnItem", b =>
                 {
                     b.Property<int>("ReturnItemID")
@@ -1025,45 +980,7 @@ namespace Parcoist.DataAccess.Migrations
                     b.HasIndex("ReturnRequestID")
                         .IsUnique();
 
-                    b.ToTable("ReturnItems");
-                });
-
-            modelBuilder.Entity("Parcoist.UI.Entities.ReturnProcess", b =>
-                {
-                    b.Property<int>("ReturnProcessID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReturnProcessID"));
-
-                    b.Property<string>("AdminNotes")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CarrierID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ComplatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("CourierID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("RefundDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ReturnRequestID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TrackingNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ReturnProcessID");
-
-                    b.HasIndex("ReturnRequestID");
-
-                    b.ToTable("ReturnProcesss");
+                    b.ToTable("ReturnItem");
                 });
 
             modelBuilder.Entity("Parcoist.UI.Entities.ReturnReason", b =>
@@ -1083,7 +1000,7 @@ namespace Parcoist.DataAccess.Migrations
 
                     b.HasKey("ReturnReasonID");
 
-                    b.ToTable("ReturnReasons");
+                    b.ToTable("ReturnReason");
                 });
 
             modelBuilder.Entity("Parcoist.UI.Entities.ReturnRequest", b =>
@@ -1117,7 +1034,7 @@ namespace Parcoist.DataAccess.Migrations
 
                     b.HasIndex("ReturnStatusID");
 
-                    b.ToTable("ReturnRequests");
+                    b.ToTable("ReturnRequest");
                 });
 
             modelBuilder.Entity("Parcoist.UI.Entities.ReturnStatus", b =>
@@ -1138,7 +1055,7 @@ namespace Parcoist.DataAccess.Migrations
 
                     b.HasKey("ReturnStatusID");
 
-                    b.ToTable("ReturnStatuses");
+                    b.ToTable("ReturnStatus");
                 });
 
             modelBuilder.Entity("Parcoist.UI.Entities.User", b =>
@@ -1156,9 +1073,6 @@ namespace Parcoist.DataAccess.Migrations
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Gender")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -1507,17 +1421,6 @@ namespace Parcoist.DataAccess.Migrations
                     b.Navigation("FeatureValue");
                 });
 
-            modelBuilder.Entity("Parcoist.UI.Entities.ReturnImage", b =>
-                {
-                    b.HasOne("Parcoist.UI.Entities.ReturnRequest", "ReturnRequest")
-                        .WithMany()
-                        .HasForeignKey("ReturnRequestID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ReturnRequest");
-                });
-
             modelBuilder.Entity("Parcoist.UI.Entities.ReturnItem", b =>
                 {
                     b.HasOne("Parcoist.UI.Entities.OrderItem", "OrderItem")
@@ -1533,17 +1436,6 @@ namespace Parcoist.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("OrderItem");
-
-                    b.Navigation("ReturnRequest");
-                });
-
-            modelBuilder.Entity("Parcoist.UI.Entities.ReturnProcess", b =>
-                {
-                    b.HasOne("Parcoist.UI.Entities.ReturnRequest", "ReturnRequest")
-                        .WithMany()
-                        .HasForeignKey("ReturnRequestID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
 
                     b.Navigation("ReturnRequest");
                 });
