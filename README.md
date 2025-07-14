@@ -33,8 +33,8 @@
 ## 📁 Proje Yapısı
 
 Parcoist/<br>
-├── Parcoist.UI/ # MVC arayüz (müşteri & admin paneli)<br>
-├── Parcoist.Business/ # İş mantığı ve servisler<br>
-├── Parcoist.DataAccess/ # Entity Framework & Repository yapısı<br>
-├── Parcoist.Entities/ # Veritabanı Entity tanımları<br>
-├── Parcoist.DTO/ # Veri transfer objeleri (DTO'lar)<br>
+├── Parcoist.UI/ # MVC arayüz (müşteri & admin paneli) <br>
+├── Parcoist.Business/ # İş mantığı ve servisler <br>
+├── Parcoist.DataAccess/ # Entity Framework & Repository yapısı <br>
+├── Parcoist.Entities/ # Veritabanı Entity tanımları <br>
+├── Parcoist.DTO/ # Veri transfer objeleri (DTO'lar) <br>
