@@ -22,7 +22,6 @@
 - **ASP.NET 9** – MVC & Web API
 - **Entity Framework Core** – ORM işlemleri
 - **MSSQL** – Veritabanı yönetimi
-- **AutoMapper** – DTO ↔ Entity dönüşümleri
 - **Repository Pattern** – Temiz ve sürdürülebilir veri erişimi
 - **Swagger** – API test ve dökümantasyon
 - **Bootstrap 5** – Responsive tasarım
