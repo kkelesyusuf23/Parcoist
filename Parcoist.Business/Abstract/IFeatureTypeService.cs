@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Parcoist.Business.Abstract
 {
-    public interface IFeatureTypeService:IGenericService<FeatureType>
+    public interface IFeatureTypeCateg:IGenericService<FeatureType>
     {
     }
 }

@@ -49,7 +49,7 @@ builder.Services.AddScoped<IDistrictDal,EfDisctrictDal>();
 builder.Services.AddScoped<IDisctrictService, DisctrictManager>();
 
 builder.Services.AddScoped<IFeatureTypeDal,EfFeatureTypeDal>();
-builder.Services.AddScoped<IFeatureTypeService, FeatureTypeManager>();
+builder.Services.AddScoped<IFeatureTypeCateg, FeatureTypeManager>();
 
 builder.Services.AddScoped<IFeatureTypeCategoryDal,EfFeatureTypeCategoryDal>();
 builder.Services.AddScoped<IFeatureTypeCategoryService, FeatureTypeCategoryManager>();

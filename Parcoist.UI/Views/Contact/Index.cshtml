@@ -1,0 +1,68 @@
+﻿@using Parcoist.Entity.Concrete
+@model List<Contact>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Dashboard</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard v1</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="height: 100%; overflow-x: hidden; overflow-y: scroll;">
+
+    <table class="table table-hover mt-3" id="example">
+        <thead>
+            <tr>
+
+                <th>#</th>
+                <th>Ad</th>
+                <th>Email</th>
+                <th>Konu</th>
+                <th>Mesaj</th>
+                <th>Tarih</th>
+                <th>Telefon</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Count > 0)
+            {
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@(Model.IndexOf(item) + 1)</td>
+                        <td>@item.ContactName</td>
+                        <td>@item.ContactEmail</td>
+                        <td>@item.ContactSubject</td>
+                        <td>@item.ContactMessage</td>
+                        <td>@item.ContactDate</td>
+                        <td>@item.ContactPhone</td>
+                        <td><a href="/Contact/Delete/@item.ContactID" class="btn btn-outline-danger">Sil</a></td>
+                        <td><a href="/Contact/Update/@item.ContactID" class="btn btn-outline-success">Güncelle</a></td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="7" class="text-center">Hiç mesaj bulunamadı.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<a href="/Contact/Add" class="btn btn-outline-info">Yeni Mesaj Ekle</a>

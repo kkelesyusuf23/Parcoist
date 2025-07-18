@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Parcoist.Business.Concrete
 {
-    public class FeatureTypeManager : IFeatureTypeService
+    public class FeatureTypeManager : IFeatureTypeCateg
     {
         private readonly IFeatureTypeDal _featureTypeDal;
 

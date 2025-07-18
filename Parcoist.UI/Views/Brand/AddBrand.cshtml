@@ -1,0 +1,39 @@
+﻿@model Parcoist.DTO.BrandDtos.CreateBrandDto
+
+@{
+    ViewData["Title"] = "Add Brand";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-3">Yeni Marka Ekle</h2>
+
+    <form asp-action="AddBrand" asp-controller="Brand" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label">Marka Adı</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Website" class="form-label">Web Sitesi</label>
+            <input asp-for="Website" class="form-control" />
+            <span asp-validation-for="Website" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label">Açıklama</label>
+            <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Logo Yükle</label>
+            <input type="file" name="logoFile" class="form-control" asp-for="LogoURL"/>
+        </div>
+
+        <button type="submit" class="btn btn-success">Markayı Ekle</button>
+        <a asp-action="Index" class="btn btn-secondary">İptal</a>
+    </form>
+</div>
+

@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Parcoist.Business\Parcoist.Business.csproj" />
+    <ProjectReference Include="..\Parcoist.DTO\Parcoist.DTO.csproj" />
     <ProjectReference Include="..\Parcoist.Entity\Parcoist.Entity.csproj" />
   </ItemGroup>
 

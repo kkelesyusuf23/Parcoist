@@ -1,9 +1,10 @@
 ﻿@using Parcoist.UI.Entities
-@model List<Brand>
+@model List<Category>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
 
 <div class="content-header">
     <div class="container-fluid">
@@ -16,9 +17,9 @@
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
                     <li class="breadcrumb-item active">Dashboard v1</li>
                 </ol>
-            </div><!-- /.col -->
-        </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="container" style="height: 100%; overflow-x: hidden; overflow-y: scroll;">
@@ -28,11 +29,10 @@
             <tr>
 
                 <th>#</th>
-                <th>Marka Ad</th>
-                @* <th>Slug</th> *@
-                <th>LogoURL</th>
-                <th>Website</th>
+                <th>Kategori</th>
                 <th>Açıklama</th>
+                <th>Resim</th>
+                <th>Üst Kategori</th>
                 <th>Durum</th>
                 <th>İşlemler</th>
             </tr>
@@ -44,28 +44,28 @@
                 {
                     <tr>
                         <td>@(Model.IndexOf(item) + 1)</td>
-                        <td>@item.Name</td>
-                        @* <td>@item.Slug</td> *@
+                        <td>@item.CategoryName</td>
+                        <td>@item.CategoryDescription</td>
                         <td>
-                            <img src="@Url.Content(item.LogoURL)" alt="Logo" style="height: 50px; cursor: pointer;" onclick="showImage('@Url.Content(item.LogoURL)')" />
+                            <img src="@Url.Content(item.CategoryImage)" alt="Logo" style="height: 50px; cursor: pointer;" onclick="showImage('@Url.Content(item.CategoryImage)')" />
                         </td>
-                        <td>@item.Website</td>
+                        <td>@item.ParentCategoryID</td>
                         <td>@item.IsActive</td>
-                        <td><a href="/Brand/DeleteBrand/@item.BrandID" class="btn btn-outline-danger">Sil</a></td>
-                        <td><a href="/Brand/UpdateBrand/@item.BrandID" class="btn btn-outline-success">Güncelle</a></td>
+                        <td><a href="/Category/Delete/@item.CategoryID" class="btn btn-outline-danger">Sil</a></td>
+                        <td><a href="/Category/Update/@item.CategoryID" class="btn btn-outline-success">Güncelle</a></td>
                     </tr>
                 }
             }
             else
             {
                 <tr>
-                    <td colspan="7" class="text-center">Hiç marka bulunamadı.</td>
+                    <td colspan="7" class="text-center">Hiç kategori bulunamadı.</td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
-<a href="/Brand/AddBrand" class="btn btn-outline-info">Yeni Marka Ekle</a>
+<a href="/Category/Add" class="btn btn-outline-info">Yeni Kategori Ekle</a>
 
 
 

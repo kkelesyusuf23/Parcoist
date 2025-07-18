@@ -1,0 +1,48 @@
+﻿@using Parcoist.DTO.ContactDtos
+@model UpdateContactDto
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">İletişim Mesajı Güncelle</h2>
+
+    <form asp-action="Update" asp-controller="Contact" method="post">
+        <input type="hidden" asp-for="ContactID" class="form-control" />
+        <div class="form-group mb-3">
+            <label asp-for="ContactName" class="form-label">Ad Soyad</label>
+            <input asp-for="ContactName" class="form-control" />
+            <span asp-validation-for="ContactName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="ContactEmail" class="form-label">E-Posta</label>
+            <input asp-for="ContactEmail" type="email" class="form-control" />
+            <span asp-validation-for="ContactEmail" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="ContactPhone" class="form-label">Telefon</label>
+            <input asp-for="ContactPhone" class="form-control" />
+            <span asp-validation-for="ContactPhone" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="ContactSubject" class="form-label">Konu</label>
+            <input asp-for="ContactSubject" class="form-control" />
+            <span asp-validation-for="ContactSubject" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="ContactMessage" class="form-label">Mesaj</label>
+            <textarea asp-for="ContactMessage" class="form-control" rows="4"></textarea>
+            <span asp-validation-for="ContactMessage" class="text-danger"></span>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Kaydet</button>
+        <a asp-action="Index" class="btn btn-secondary ms-2">İptal</a>
+    </form>
+</div>
+

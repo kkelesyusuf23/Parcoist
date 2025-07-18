@@ -20,6 +20,7 @@ namespace Parcoist.DataAccess.Repositories
         public void Add(T entity)
         {
             _context.Add(entity);
+            _context.SaveChanges(); 
         }
 
         public void Delete(T entity)
@@ -40,6 +41,7 @@ namespace Parcoist.DataAccess.Repositories
         public void Update(T entity)
         {
             _context.Update(entity);
+            _context.SaveChanges();
         }
     }
 }

@@ -1,0 +1,48 @@
+﻿@model Parcoist.DTO.BrandDtos.UpdateBrandDto
+
+@{
+    ViewData["Title"] = "Marka Güncelle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-3">Markayı Güncelle</h2>
+
+    <form asp-action="UpdateBrand" asp-controller="Brand" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="BrandID" />
+
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label">Marka Adı</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Website" class="form-label">Web Sitesi</label>
+            <input asp-for="Website" class="form-control" />
+            <span asp-validation-for="Website" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label">Açıklama</label>
+            <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Mevcut Logo</label><br />
+            @if (!string.IsNullOrEmpty(Model.LogoURL))
+            {
+                <img src="@Url.Content("~/" + Model.LogoURL)" alt="Mevcut Logo" style="max-height: 100px;" class="mb-2" />
+            }
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Yeni Logo Yükle (İsteğe Bağlı)</label>
+            <input type="file" name="logoFile" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Markayı Güncelle</button>
+        <a asp-action="Index" class="btn btn-secondary">İptal</a>
+    </form>
+</div>

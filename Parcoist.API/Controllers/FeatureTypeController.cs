@@ -8,9 +8,9 @@ namespace Parcoist.API.Controllers
     [ApiController]
     public class FeatureTypeController : ControllerBase
     {
-        private readonly IFeatureTypeService _featureTypeService;
+        private readonly IFeatureTypeCateg _featureTypeService;
 
-        public FeatureTypeController(IFeatureTypeService featureTypeService)
+        public FeatureTypeController(IFeatureTypeCateg featureTypeService)
         {
             _featureTypeService = featureTypeService;
         }
