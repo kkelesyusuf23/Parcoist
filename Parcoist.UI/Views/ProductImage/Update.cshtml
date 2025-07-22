@@ -1,0 +1,49 @@
+﻿@using Parcoist.DTO.ProductImage
+@model UpdateProductImageDto
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<div class="container mt-4">
+    <h2 class="mb-3">Ürün Görselini Güncelle</h2>
+
+    <form asp-action="Update" asp-controller="ProductImage" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="ProductImageID" />
+
+        <div class="mb-3">
+            <label asp-for="ProductID" class="form-label">Ürün</label>
+            <select asp-for="ProductID" class="form-select" asp-items="ViewBag.ParentProduct">
+                <option value="">-- Ürün Seçin --</option>
+            </select>
+            <span asp-validation-for="ProductID" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Order" class="form-label">Görsel Sırası</label>
+            <input asp-for="Order" class="form-control" />
+            <span asp-validation-for="Order" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Mevcut Görsel</label><br />
+            @if (!string.IsNullOrEmpty(Model.ImagePath))
+            {
+                <img src="~/@Model.ImagePath" alt="Ürün Görseli" style="max-width: 200px;" />
+            }
+        </div>
+
+        <div class="mb-3">
+            <label for="logoFile" class="form-label">Yeni Görsel Yükle (İsteğe Bağlı)</label>
+            <input type="file" name="logoFile" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Güncelle</button>
+        <a asp-action="Index" class="btn btn-secondary">İptal</a>
+    </form>
+</div>
+
+

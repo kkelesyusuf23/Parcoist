@@ -1,0 +1,38 @@
+﻿@using Parcoist.DTO.ProductVariantValueDtos
+@model CreateProductVariantValueDto
+
+@{
+    ViewData["Title"] = "Add";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<div class="container mt-4">
+    <h2>Yeni Varyant Değeri Ekle</h2>
+    <form asp-action="Add" method="post">
+        <div class="form-group">
+            <label>Ürün Varyant Kombinasyonu</label>
+            <select asp-for="CombinationID" class="form-control" asp-items="ViewBag.Combinations">
+                <option value="">Seçiniz</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Özellik Türü</label>
+            <select asp-for="FeatureTypeID" class="form-control" asp-items="ViewBag.FeatureTypes">
+                <option value="">Seçiniz</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Özellik Değeri</label>
+            <select asp-for="FeatureValueID" class="form-control" asp-items="ViewBag.FeatureValues">
+                <option value="">Seçiniz</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Kaydet</button>
+        <a asp-action="Index" class="btn btn-secondary mt-3">İptal</a>
+    </form>
+</div>

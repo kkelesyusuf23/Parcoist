@@ -1,0 +1,47 @@
+﻿@using Parcoist.DTO.ProductVariantCombinationDtos
+@model UpdateProductVariantCombinationDto
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<div class="container mt-4">
+    <h2 class="mb-4">Varyant Kombinasyonu Güncelle</h2>
+
+    <form asp-action="Update" asp-controller="ProductVariantCombination" method="post">
+        <input type="hidden" asp-for="ProductVariantCombinationID" />
+
+        <div class="form-group mb-3">
+            <label asp-for="ProductID">Ürün</label>
+            <select asp-for="ProductID" asp-items="ViewBag.ParentProduct" class="form-control">
+                <option value="">-- Ürün Seçin --</option>
+            </select>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="VariantKey">Varyant Anahtarı</label>
+            <input asp-for="VariantKey" class="form-control" placeholder="Örnek: Siyah-L" />
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Stock">Stok</label>
+            <input asp-for="Stock" class="form-control" type="number" />
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="PriceAdjustment">Fiyat Farkı</label>
+            <input asp-for="PriceAdjustment" class="form-control" type="number" />
+        </div>
+
+        <div class="form-group form-check mb-3">
+            <input asp-for="isDefault" class="form-check-input" />
+            <label asp-for="isDefault" class="form-check-label">Varsayılan olarak ayarla</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Güncelle</button>
+        <a asp-action="Index" class="btn btn-secondary">İptal</a>
+    </form>
+</div>

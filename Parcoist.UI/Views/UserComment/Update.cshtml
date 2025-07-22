@@ -1,0 +1,38 @@
+﻿@using Parcoist.DTO.UserCommentDtos
+@model UpdateUserCommentDto
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="container mt-4">
+    <h2>Yorumu Güncelle</h2>
+
+    <form asp-action="Update" method="post">
+        <input type="hidden" asp-for="UserCommentID" />
+
+        <div class="form-group mb-3">
+            <label asp-for="ProductID">Ürün</label>
+            <select asp-for="ProductID" class="form-control"
+                    asp-items="@(ViewBag.ProductList as SelectList)">
+                <option value="">-- Ürün Seçin --</option>
+            </select>
+            <span asp-validation-for="ProductID" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Başlık</label>
+            <input asp-for="Description" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Yorum</label>
+            <textarea asp-for="Comment" class="form-control" rows="4"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Güncelle</button>
+        <a asp-action="Index" class="btn btn-secondary mt-3">İptal</a>
+    </form>
+</div>
