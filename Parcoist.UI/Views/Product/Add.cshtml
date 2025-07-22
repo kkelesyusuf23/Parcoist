@@ -1,0 +1,96 @@
+﻿@model Parcoist.DTO.ProductDtos.CreateProductDto
+
+@{
+    ViewData["Title"] = "Yeni Ürün Ekle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Yeni Ürün Ekle</h2>
+
+    <form asp-action="Add" asp-controller="Product" method="post">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="SKU">SKU</label>
+                <input asp-for="SKU" class="form-control" />
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label asp-for="ModelNo">Model No</label>
+                <input asp-for="ModelNo" class="form-control" />
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label asp-for="Name">Ürün Adı</label>
+                <input asp-for="Name" class="form-control" />
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label asp-for="CategoryID">Kategori</label>
+                <select asp-for="CategoryID" class="form-control" asp-items="ViewBag.Categories">
+                    <option value="">Seçiniz</option>
+                </select>
+                <span asp-validation-for="CategoryID" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label asp-for="BrandID">Marka</label>
+                <select asp-for="BrandID" class="form-control" asp-items="ViewBag.Brands">
+                    <option value="">Seçiniz</option>
+                </select>
+                <span asp-validation-for="BrandID" class="text-danger"></span>
+            </div>
+
+
+            <div class="col-md-6 mb-3">
+                <label asp-for="BasePrice">Fiyat</label>
+                <input asp-for="BasePrice" class="form-control" />
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label asp-for="CostPrice">Maliyet Fiyatı</label>
+                <input asp-for="CostPrice" class="form-control" />
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label asp-for="DiscountedPrice">İndirimli Fiyat</label>
+                <input asp-for="DiscountedPrice" class="form-control" />
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label asp-for="Stock">Stok</label>
+                <input asp-for="Stock" class="form-control" />
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label asp-for="Description">Açıklama</label>
+                <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label asp-for="Link1">Link 1</label>
+                <input asp-for="Link1" class="form-control" />
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label asp-for="Link2">Link 2</label>
+                <input asp-for="Link2" class="form-control" />
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label asp-for="Link3">Link 3</label>
+                <input asp-for="Link3" class="form-control" />
+            </div>
+
+            <div class="col-md-6 mb-3 d-flex align-items-center">
+                <div class="form-check form-switch">
+                    <input asp-for="IsFeatured" class="form-check-input" />
+                    <label asp-for="IsFeatured" class="form-check-label">Öne Çıkan</label>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Kaydet</button>
+        <a href="/Product/Index" class="btn btn-secondary ms-2">İptal</a>
+    </form>
+</div>

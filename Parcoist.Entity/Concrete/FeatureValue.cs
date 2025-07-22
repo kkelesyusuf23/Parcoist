@@ -20,4 +20,4 @@ namespace Parcoist.Entity.Concrete
 
 
 
-//ayrıca tüm ilişkiler tekrar gözden geçirilmeli
+
