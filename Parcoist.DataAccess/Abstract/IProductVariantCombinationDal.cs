@@ -9,5 +9,6 @@ namespace Parcoist.DataAccess.Abstract
 {
     public interface IProductVariantCombinationDal:IGenericDal<ProductVariantCombination>
     {
+        public List<ProductVariantCombination> GetProductVariantWithProductAndValues();
     }
 }

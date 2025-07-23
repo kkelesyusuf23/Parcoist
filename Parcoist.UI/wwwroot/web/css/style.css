@@ -45,11 +45,13 @@ color: #fff;
 .footer-bottom p a:hover{
 color:#fcff19;
 }
-.banner-bg1{
-	background:url(../images/bg.jpg) no-repeat;
-	background-size:cover;
-	min-height:835px;
+.banner-bg1 {
+	/*background: radial-gradient(circle,#fad0c4, #ff9a9e);*/ /* Beyazdan maviye geçiþ */
+	background: radial-gradient(circle,#e3dad8, #ff9a9e); /* Beyazdan maviye geçiþ */
+	min-height: 835px;
 }
+
+
 .banner-bg2 {
 	background:url(../images/bg2.jpg) no-repeat;
 	background-size:cover;
@@ -76,7 +78,7 @@ a.shop{
 .caption{
 	width: 100%;
 	position: absolute;
-	top: 42%;
+	top: 20%;
 	left: 0%;
 	text-align:center;
 }
@@ -185,7 +187,8 @@ a.morebtn:hover{
 }
 /*--categories--*/
 .categories{
-	background:url(../images/cate.jpg) no-repeat;
+	/*background:url(../images/cate.jpg) no-repeat;*/
+	background:url(/source/parfumecategory.jpg) no-repeat;
 	background-size:cover;
 	min-height:600px;
 	text-align:center;
@@ -209,7 +212,7 @@ a.morebtn:hover{
 	margin:0 12px;
 	width:31%;
 }
-.grid1{
+/*.grid1{
 	background:url(../images/c1.jpg) no-repeat;
 }
 .grid2{
@@ -217,7 +220,7 @@ a.morebtn:hover{
 }
 .grid3{
 	background:url(../images/c3.jpg) no-repeat;
-}
+}*/
 .cate-grid h4{
 	color:#fcff19;
 	font-size:1.1em;

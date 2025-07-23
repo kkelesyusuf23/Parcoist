@@ -9,5 +9,6 @@ namespace Parcoist.Business.Abstract
 {
     public interface IProductService:IGenericService<Product>
     {
+        public List<Product> TGetProductsWithAllRelations();
     }
 }

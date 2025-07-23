@@ -1,0 +1,63 @@
+﻿@using Parcoist.UI.Entities
+@model List<Product>
+
+<div class="bikes">
+    <h3>POPULAR BIKES</h3>
+    <div class="bikes-grids">
+        <ul id="flexiselDemo1">
+            @foreach (var item in Model)
+            {
+                <li>
+                    <div class="product-slider">
+                        <div class="slider-for-@item.ProductID">
+                            @foreach (var image in item.ProductImages)
+                            {
+                                <div>
+                                    <img style="width:300px" src="@image.ImagePath" alt="Product Image" class="img-fluid" />
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="bike-info">
+                        <div class="model">
+                            <h4>@item.Name <span>@item.DiscountedPrice.ToString("C")</span></h4>
+                        </div>
+                        <div class="model-info">
+                            @* <select>
+                                <option>OPTION</option>
+                                <option>Option 1</option>
+                                <option>Option 2</option>
+                            </select> *@
+                            <a href="/Product/Detail/@item.ProductID">Satın Al</a>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="viw">
+                        <a href="/Product/Detail/@item.ProductID">Detayları Gör</a>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+
+<!-- Slick CSS ve JS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+<script>
+	$(document).ready(function(){
+		// Her ürünün kendi slider'ı
+		$('[class^=slider-for-]').slick({
+			infinite: true,
+			slidesToShow: 1,
+			slidesToScroll: 1,
+			arrows: true,
+			autoplay: true,
+			autoplaySpeed: 2000
+		});
+	});
+</script>

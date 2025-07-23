@@ -9,5 +9,6 @@ namespace Parcoist.DataAccess.Abstract
 {
     public interface IProductDal:IGenericDal<Product>
     {
+        public List<Product> GetProductsWithAllRelations();
     }
 }

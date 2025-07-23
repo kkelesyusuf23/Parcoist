@@ -38,6 +38,11 @@ namespace Parcoist.Business.Concrete
             return _productDal.GetListAll();
         }
 
+        public List<Product> TGetProductsWithAllRelations()
+        {
+            return _productDal.GetProductsWithAllRelations();
+        }
+
         public void TUpdate(Product entity)
         {
             _productDal.Update(entity);

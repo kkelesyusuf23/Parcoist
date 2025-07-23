@@ -38,6 +38,11 @@ namespace Parcoist.Business.Concrete
             return _productVariantCombinationDal.GetListAll();
         }
 
+        public List<ProductVariantCombination> TGetProductVariantWithProductAndValues()
+        {
+            return _productVariantCombinationDal.GetProductVariantWithProductAndValues();
+        }
+
         public void TUpdate(ProductVariantCombination entity)
         {
             _productVariantCombinationDal.Update(entity);

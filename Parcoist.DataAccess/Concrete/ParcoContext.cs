@@ -20,6 +20,7 @@ namespace Parcoist.DataAccess.Concrete
             _configuration = configuration;
         }
 
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
