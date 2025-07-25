@@ -7,13 +7,13 @@
         <ul id="flexiselDemo1">
             @foreach (var item in Model)
             {
-                <li>
+                <li style="border:1px solid black; min-height:500px;">
                     <div class="product-slider">
                         <div class="slider-for-@item.ProductID">
                             @foreach (var image in item.ProductImages)
                             {
                                 <div>
-                                    <img style="width:300px" src="@image.ImagePath" alt="Product Image" class="img-fluid" />
+                                    <img style="height:300px" src="@image.ImagePath" alt="Product Image" class="img-fluid" />
                                 </div>
                             }
                         </div>

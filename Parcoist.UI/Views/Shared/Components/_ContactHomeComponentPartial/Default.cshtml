@@ -1,14 +1,18 @@
-﻿
+﻿@model ContactViewModel
+
+
 <div class="contact">
 	<div class="container">
 		<h3>CONTACT US</h3>
 		<p>Please contact us for all inquiries and purchase options.</p>
-		<form>
-			<input type="text" placeholder="NAME" required="">
-			<input type="text" placeholder="SURNAME" required="">
-			<input class="user" type="text" placeholder="USER@DOMAIN.COM" required=""><br>
-			<textarea placeholder="MESSAGE"></textarea>
-			<input type="submit" value="SEND">
+
+		<form method="post">
+			<input type="text" name="ContactName" placeholder="NAME" required />
+			<input type="text" name="ContactPhone" placeholder="PHONE" required />
+			<input type="email" name="ContactEmail" placeholder="USER@DOMAIN.COM" required /><br />
+			<input type="text" name="ContactSubject" placeholder="SUBJECT" required />
+			<textarea name="ContactMessage" placeholder="MESSAGE" required>@Model?.ContactMessage</textarea>
+			<input type="submit" value="SEND" />
 		</form>
 	</div>
 </div>

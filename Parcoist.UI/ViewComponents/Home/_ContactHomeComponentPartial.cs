@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Parcoist.Business.Abstract;
 
 namespace Parcoist.UI.ViewComponents.Home
 {
