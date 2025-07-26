@@ -10,5 +10,6 @@ namespace Parcoist.Business.Abstract
     public interface IProductVariantCombinationService:IGenericService<ProductVariantCombination>
     {
         public List<ProductVariantCombination> TGetProductVariantWithProductAndValues();
+        public List<ProductVariantCombination> TGetProductVariantWithProductAndValues(int productId);
     }
 }

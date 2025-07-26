@@ -1,63 +1,247 @@
 ﻿@using Parcoist.UI.Entities
 @model List<Product>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-<div class="bikes">
-    <h3>POPULAR BIKES</h3>
-    <div class="bikes-grids">
-        <ul id="flexiselDemo1">
+<div class="products">
+    <h3 class="section-title">Popular Bikes</h3>
+    <div class="products-slider">
+        <ul id="product-slider">
             @foreach (var item in Model)
             {
-                <li style="border:1px solid black; min-height:500px;">
-                    <div class="product-slider">
-                        <div class="slider-for-@item.ProductID">
+                <li class="product-item">
+                    <!-- Product Image Slider -->
+                    <div class="product-slider-container">
+                        <div class="product-slider-for" data-product-id="@item.ProductID">
                             @foreach (var image in item.ProductImages)
                             {
-                                <div>
-                                    <img style="height:300px" src="@image.ImagePath" alt="Product Image" class="img-fluid" />
+                                <div class="slider-image">
+                                    <img src="@image.ImagePath" alt="@item.Name" class="img-fluid" />
                                 </div>
                             }
                         </div>
+
                     </div>
 
-                    <div class="bike-info">
-                        <div class="model">
-                            <h4>@item.Name <span>@item.DiscountedPrice.ToString("C")</span></h4>
+                    <div class="product-info">
+                        <h4 class="product-name">@item.Name</h4>
+                        <p class="product-price">@item.DiscountedPrice.ToString("C")</p>
+
+                        <!-- Butonlar yan yana -->
+                        <div class="product-buttons">
+                            <a href="/Product/Details/@item.ProductID" class="btn btn-primary">Buy Now</a>
+                            <a href="/Product/Details/@item.ProductID" class="btn btn-link">View Details</a>
                         </div>
-                        <div class="model-info">
-                            @* <select>
-                                <option>OPTION</option>
-                                <option>Option 1</option>
-                                <option>Option 2</option>
-                            </select> *@
-                            <a href="/Product/Detail/@item.ProductID">Satın Al</a>
-                        </div>
-                        <div class="clearfix"></div>
                     </div>
 
-                    <div class="viw">
-                        <a href="/Product/Detail/@item.ProductID">Detayları Gör</a>
-                    </div>
                 </li>
             }
         </ul>
     </div>
 </div>
 
-
 <!-- Slick CSS ve JS -->
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
 <script>
-	$(document).ready(function(){
-		// Her ürünün kendi slider'ı
-		$('[class^=slider-for-]').slick({
-			infinite: true,
-			slidesToShow: 1,
-			slidesToScroll: 1,
-			arrows: true,
-			autoplay: true,
-			autoplaySpeed: 2000
-		});
-	});
+        $(document).ready(function () {
+        $('#product-slider').slick({
+            infinite: true,
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            arrows: true,
+            autoplay: true,
+            autoplaySpeed: 3000,
+            swipe: true,
+            draggable: true,
+            speed: 800,
+            cssEase: 'ease',
+            pauseOnHover: true,
+            prevArrow: '<button type="button" class="slick-prev"><i class="fa-solid fa-chevron-left"></i></button>',
+            nextArrow: '<button type="button" class="slick-next"><i class="fa-solid fa-chevron-right"></i></button>',
+            responsive: [
+                { breakpoint: 1024, settings: { slidesToShow: 3 } },
+                { breakpoint: 768, settings: { slidesToShow: 2 } },
+                { breakpoint: 480, settings: { slidesToShow: 1 } }
+            ]
+        });
+
+        $(".product-slider-for").each(function () {
+            $(this).slick({
+                infinite: true,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: false,
+                autoplay: true,
+                autoplaySpeed: 3000,
+                swipe: true,
+                draggable: true,
+                speed: 800,
+                cssEase: 'ease',
+                pauseOnHover: true,
+                prevArrow: '<button type="button" class="slick-prev"><i class="fa-solid fa-chevron-left"></i></button>',
+                nextArrow: '<button type="button" class="slick-next"><i class="fa-solid fa-chevron-right"></i></button>'
+            });
+        });
+    });
+
+</script>
+
+<style>
+    /* Custom Styles */
+    .products {
+        padding: 20px 0;
+    }
+
+    .section-title {
+        text-align: center;
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+
+    .products-slider {
+        position: relative;
+        overflow: hidden;
+    }
+
+    #product-slider {
+        display: flex;
+        gap: 20px;
+    }
+
+    .product-item {
+        width: 250px;
+        text-align: center;
+        border-radius: 10px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+        .product-item:hover {
+            transform: scale(1.05);
+        }
+
+    .product-slider-container {
+        position: relative;
+        height: 300px;
+        overflow: hidden;
+    }
+
+    .slider-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .product-info {
+        padding: 15px;
+    }
+
+    .product-name {
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+
+    .product-price {
+        font-size: 1rem;
+        color: #FF5722;
+        margin: 10px 0;
+    }
+
+    .btn {
+        text-decoration: none;
+        padding: 10px 20px;
+        background-color: #FF5722;
+        color: white;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn:hover {
+            background-color: #FF3D00;
+        }
+
+    .view-details {
+        margin-top: 10px;
+    }
+
+    .product-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+        .product-buttons .btn-link {
+            background: transparent;
+            color: #FF5722;
+            padding: 10px 20px;
+            border: 1px solid #FF5722;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+            .product-buttons .btn-link:hover {
+                background-color: #FF5722;
+                color: white;
+            }
+
+    .slick-prev, .slick-next {
+        background-color: rgba(255, 87, 34, 0.9);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        z-index: 100;
+        position: absolute;
+        top: 45%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .slick-prev:hover, .slick-next:hover {
+            background-color: rgba(255, 61, 0, 0.9);
+        }
+
+    .slick-prev {
+        left: 0px;
+    }
+
+    .slick-next {
+        right: 0px;
+    }
+
+        .slick-prev i, .slick-next i {
+            font-size: 16px;
+        }
+
+
+</style>
+<script>
+    $(document).ready(function(){
+        // Her ürünün slider'ını başlatıyoruz
+        $(".product-slider-for").each(function() {
+            var productId = $(this).data('product-id'); // ProductID'yi alıyoruz
+
+            $(this).slick({
+                infinite: true,
+                slidesToShow: 1,  // Bir resim gösterilecek
+                slidesToScroll: 1,
+                arrows: true,
+                autoplay: true,  // Otomatik kaydırma aktif
+                autoplaySpeed: 3000, // Her 3 saniyede bir geçiş
+                swipe: true,  // Yatay kaydırma (swipe) etkin
+                draggable: true,  // Mouse ile sürüklenebilirlik
+                speed: 800,  // Geçiş süresi (ms)
+                cssEase: 'ease',  // Geçiş türü
+                pauseOnHover: true,  // Hover ile durdurma
+            });
+        });
+    });
 </script>

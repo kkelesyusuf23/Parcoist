@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Parcoist.Business.Abstract;
 using Parcoist.DTO.ProductDtos;
 using Parcoist.UI.Entities;
@@ -12,13 +13,15 @@ namespace Parcoist.UI.Controllers
         private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
         private readonly IBrandService _brandService;
+        private readonly IProductVariantCombinationService _productVariantCombinationService;
 
-        public ProductController(IWebHostEnvironment webHostEnvironment, IProductService productService, IBrandService brandService, ICategoryService categoryService)
+        public ProductController(IWebHostEnvironment webHostEnvironment, IProductService productService, IBrandService brandService, ICategoryService categoryService, IProductVariantCombinationService productVariantCombinationService)
         {
             _webHostEnvironment = webHostEnvironment;
             _productService = productService;
             _brandService = brandService;
             _categoryService = categoryService;
+            _productVariantCombinationService = productVariantCombinationService;
         }
 
         public IActionResult Index()
@@ -74,7 +77,7 @@ namespace Parcoist.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(CreateProductDto dto)
         {
-            
+
 
             Product product = new Product()
             {
@@ -156,7 +159,7 @@ namespace Parcoist.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(UpdateProductDto p)
         {
-            
+
             var updateProduct = new Product
             {
                 ProductID = p.ProductID,
@@ -184,5 +187,31 @@ namespace Parcoist.UI.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public IActionResult Details(int id)
+        {
+            var product = _productService.TGetProductsWithAllRelations()
+                .FirstOrDefault(p => p.ProductID == id);
+
+            if (product == null)
+                return NotFound();
+
+            // ProductImages
+            var productImages = product.ProductImages.ToList();
+
+            // VariantCombinations + içindeki ProductVariantValues ve onların FeatureType ve FeatureValue ilişkileri
+            var variantCombinations = _productVariantCombinationService.TGetProductVariantWithProductAndValues(id);
+
+            var viewModel = new ProductDetailViewModel
+            {
+                Product = product,
+                ProductImages = productImages,
+                VariantCombinations = variantCombinations
+            };
+
+            return View(viewModel);
+        }
+
     }
 }

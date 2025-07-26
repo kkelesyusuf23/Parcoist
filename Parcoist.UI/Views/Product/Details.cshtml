@@ -1,0 +1,93 @@
+﻿@using Parcoist.UI.Entities
+@using Parcoist.Entity.Concrete
+@model ProductDetailViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<div class="product">
+    <div class="container">
+        <div class="ctnt-bar cntnt">
+            <div class="content-bar">
+                <div class="single-page">
+                    <div class="product-head">
+                        <a href="/">Home</a> <span>::</span>
+                        <span>@Model.Product.Name</span>
+                    </div>
+
+                    <!-- Updated Slider Section -->
+                    <div class="details-left-slider">
+                        <div class="grid images_3_of_2">
+                            <div class="flexslider">
+                               
+
+                                <ul class="slides">
+                                    @foreach (var img in Model.ProductImages)
+                                    {
+                                        <li>
+                                            <img src="@Url.Content("~/" + img.ImagePath)" data-imagezoom="true" class="img-responsive" />
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Information Section -->
+                    <div class="details-left-info">
+                        <h3>@Model.Product.Name</h3>
+                        <h4>Model No: @Model.Product.ModelNo</h4>
+                        <p><label>$</label> @Model.Product.DiscountedPrice <a href="#">Click for offer</a></p>
+
+                        <!-- Varyantlar -->
+                        <h5>Varyantlar</h5>
+                        @foreach (var combination in Model.VariantCombinations)
+                        {
+                            <div class="variant-box" style="margin-bottom: 1rem;">
+                                <strong>Varyant:</strong> @combination.VariantKey <br />
+                                Stok: @combination.Stock <br />
+                                Fiyat Farkı: @combination.PriceAdjustment ₺ <br />
+                                <ul>
+                                    @foreach (var val in combination.ProductVariantValues)
+                                    {
+                                        <li>@val.FeatureType.Value: @val.FeatureValue.Value</li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+
+                        <div class="btn_form">
+                            <a href="/Cart/Buy/@Model.Product.ProductID">buy now</a>
+                            <a href="/Cart/Add/@Model.Product.ProductID">ADD TO CART</a>
+                        </div>
+
+                        <div class="bike-type">
+                            <p>BRAND :: <a href="#">@Model.Product.BrandID</a></p>
+                        </div>
+
+                        <h5>Description ::</h5>
+                        <p class="desc">@Model.Product.Description</p>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Related Products (You can make this dynamic as well) -->
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/jquery.flexslider@2.7.2/jquery.flexslider.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery.flexslider@2.7.2/flexslider.css" type="text/css" media="screen" />
+
+<script>
+    $(window).load(function() {
+        $('.flexslider').flexslider({
+            animation: "slide",
+            controlNav: "thumbnails",
+            directionNav: true
+        });
+    });
+</script>

@@ -27,5 +27,16 @@ namespace Parcoist.DataAccess.EntityFramework
                 .Include(p => p.ProductVariantValues)
                 .ToList();
         }
+
+        public List<ProductVariantCombination> GetProductVariantWithProductAndValues(int productId)
+        {
+            return _context.ProductVariantCombinations
+                .Where(vc => vc.ProductID == productId)
+                .Include(vc => vc.ProductVariantValues)
+                    .ThenInclude(pvv => pvv.FeatureType)
+                .Include(vc => vc.ProductVariantValues)
+                    .ThenInclude(pvv => pvv.FeatureValue)
+                .ToList();
+        }
     }
 }
