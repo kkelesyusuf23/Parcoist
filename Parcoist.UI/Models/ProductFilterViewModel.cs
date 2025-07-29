@@ -6,15 +6,15 @@ namespace Parcoist.UI.Models
     {
         public List<Product> Products { get; set; }
 
-        // Filtre Seçenekleri
-        public List<string> Categories { get; set; }
+        // Filtre seçenekleri
+        public List<Category> Categories { get; set; }
         public List<string> Brands { get; set; }
         public List<decimal> Prices { get; set; }
 
         // Seçili filtreler
-        public string SelectedCategory { get; set; }
+        public int? SelectedCategoryId { get; set; }
         public string SelectedBrand { get; set; }
         public decimal? MaxPrice { get; set; }
+        public decimal? MinPrice { get; set; }
     }
-
 }
