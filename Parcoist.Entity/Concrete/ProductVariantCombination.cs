@@ -18,7 +18,9 @@ namespace Parcoist.Entity.Concrete
         public int Stock { get; set; } // Varyantın stoğu
         public int PriceAdjustment { get; set; } // Fiyat farkı
         public bool isDefault { get; set; } // Varsayılan mı?
+        public bool IsActive { get; set; }
         public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
         public List<ProductVariantValue> ProductVariantValues { get; set; } // Bir kombinasyon birden fazla özellik değeri içerebilir
     }

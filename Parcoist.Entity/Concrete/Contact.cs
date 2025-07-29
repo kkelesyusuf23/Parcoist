@@ -16,5 +16,8 @@ namespace Parcoist.Entity.Concrete
         public DateTime ContactDate { get; set; }
         public string ContactPhone { get; set; }
         public bool ContactStatus { get; set; }
+
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 }

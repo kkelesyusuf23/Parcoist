@@ -15,6 +15,10 @@
         public bool Condition { get; set; } // Ürün durumu (hasar var mı?)
         public int ApprovedQuantity { get; set; } // Onaylanan iade miktarı
         public int RefundAmount { get; set; } // Geri ödeme miktarı
+
+        public bool IsActive { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 
 }

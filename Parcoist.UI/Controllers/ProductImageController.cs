@@ -81,7 +81,11 @@ namespace Parcoist.UI.Controllers
             {
                 ProductID = dto.ProductID,
                 ImagePath = dto.ImagePath,
-                Order = dto.Order
+                Order = dto.Order,
+                IsActive = true,
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now
+
             };
             _productImageService.TAdd(productImage);
             return RedirectToAction("Index");

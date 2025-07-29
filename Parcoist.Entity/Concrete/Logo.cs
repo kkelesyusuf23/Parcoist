@@ -8,5 +8,7 @@
         public string LogoLink { get; set; }
         public DateTime LogoDate { get; set; }
         public bool LogoStatus { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 }

@@ -112,6 +112,9 @@ builder.Services.AddScoped<IFeatureValueService, FeatureValueManager>();
 builder.Services.AddScoped<IProductVariantCombinationDal, EfProductVariantCombinationDal>();
 builder.Services.AddScoped<IProductVariantCombinationService, ProductVariantCombinationManager>();
 
+builder.Services.AddScoped<IProductCommentDal, EfProductCommentDal>();
+builder.Services.AddScoped<IProductCommentService, ProductCommentManager>();
+
 builder.Services.AddDbContext<ParcoContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
         b => b.MigrationsAssembly("Parcoist.DataAccess"))); // ← önemli satır

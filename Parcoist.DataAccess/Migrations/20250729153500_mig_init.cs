@@ -63,7 +63,10 @@ namespace Parcoist.DataAccess.Migrations
                     CityID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PlateCode = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    PlateCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -82,7 +85,9 @@ namespace Parcoist.DataAccess.Migrations
                     ContactMessage = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ContactDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ContactPhone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ContactStatus = table.Column<bool>(type: "bit", nullable: false)
+                    ContactStatus = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -96,7 +101,10 @@ namespace Parcoist.DataAccess.Migrations
                     DeliveryStatusID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -130,11 +138,114 @@ namespace Parcoist.DataAccess.Migrations
                     LogoTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LogoLink = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LogoDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LogoStatus = table.Column<bool>(type: "bit", nullable: false)
+                    LogoStatus = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Logo", x => x.LogoID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ReturnReason",
+                columns: table => new
+                {
+                    ReturnReasonID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RequiresImage = table.Column<bool>(type: "bit", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReturnReason", x => x.ReturnReasonID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ReturnStatus",
+                columns: table => new
+                {
+                    ReturnStatusID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReturnStatus", x => x.ReturnStatusID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Sliders",
+                columns: table => new
+                {
+                    SliderID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SliderTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SliderImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SliderLink = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SliderLinkTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SliderDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SliderStatus = table.Column<bool>(type: "bit", nullable: false),
+                    SliderOrder = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sliders", x => x.SliderID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "User",
+                columns: table => new
+                {
+                    UserID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Surname = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BirthDate = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RoleID = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_User", x => x.UserID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrderBrandStatus",
+                columns: table => new
+                {
+                    OrderBrandStatusID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BrandID = table.Column<int>(type: "int", nullable: false),
+                    TotalSales = table.Column<int>(type: "int", nullable: false),
+                    AvgOrderValue = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderBrandStatus", x => x.OrderBrandStatusID);
+                    table.ForeignKey(
+                        name: "FK_OrderBrandStatus_Brands_BrandID",
+                        column: x => x.BrandID,
+                        principalTable: "Brands",
+                        principalColumn: "BrandID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -165,89 +276,8 @@ namespace Parcoist.DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.ProductID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ReturnReason",
-                columns: table => new
-                {
-                    ReturnReasonID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RequiresImage = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ReturnReason", x => x.ReturnReasonID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ReturnStatus",
-                columns: table => new
-                {
-                    ReturnStatusID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ReturnStatus", x => x.ReturnStatusID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Sliders",
-                columns: table => new
-                {
-                    SliderID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SliderTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SliderImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SliderLink = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SliderLinkTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SliderDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SliderStatus = table.Column<bool>(type: "bit", nullable: false),
-                    SliderOrder = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Sliders", x => x.SliderID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "User",
-                columns: table => new
-                {
-                    UserID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Surname = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BirthDate = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RoleID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_User", x => x.UserID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "OrderBrandStatus",
-                columns: table => new
-                {
-                    OrderBrandStatusID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    BrandID = table.Column<int>(type: "int", nullable: false),
-                    TotalSales = table.Column<int>(type: "int", nullable: false),
-                    AvgOrderValue = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OrderBrandStatus", x => x.OrderBrandStatusID);
                     table.ForeignKey(
-                        name: "FK_OrderBrandStatus_Brands_BrandID",
+                        name: "FK_Products_Brands_BrandID",
                         column: x => x.BrandID,
                         principalTable: "Brands",
                         principalColumn: "BrandID",
@@ -261,7 +291,10 @@ namespace Parcoist.DataAccess.Migrations
                     BrandCategoryID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CategoryID = table.Column<int>(type: "int", nullable: false),
-                    BrandID = table.Column<int>(type: "int", nullable: false)
+                    BrandID = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -287,7 +320,10 @@ namespace Parcoist.DataAccess.Migrations
                     DistrictID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CityID = table.Column<int>(type: "int", nullable: false)
+                    CityID = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -307,7 +343,10 @@ namespace Parcoist.DataAccess.Migrations
                     FeatureTypeCategoryID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FeatureTypeID = table.Column<int>(type: "int", nullable: false),
-                    CategoryID = table.Column<int>(type: "int", nullable: false)
+                    CategoryID = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -336,7 +375,9 @@ namespace Parcoist.DataAccess.Migrations
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PriceAdjustment = table.Column<int>(type: "int", nullable: false),
-                    Stock = table.Column<int>(type: "int", nullable: false)
+                    Stock = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -350,6 +391,50 @@ namespace Parcoist.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Admin",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserID = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Admin", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Admin_User_UserID",
+                        column: x => x.UserID,
+                        principalTable: "User",
+                        principalColumn: "UserID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Customer",
+                columns: table => new
+                {
+                    CustomerID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserID = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Customer", x => x.CustomerID);
+                    table.ForeignKey(
+                        name: "FK_Customer_User_UserID",
+                        column: x => x.UserID,
+                        principalTable: "User",
+                        principalColumn: "UserID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProductImages",
                 columns: table => new
                 {
@@ -357,7 +442,10 @@ namespace Parcoist.DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductID = table.Column<int>(type: "int", nullable: false),
                     ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Order = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Order = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -381,7 +469,9 @@ namespace Parcoist.DataAccess.Migrations
                     Stock = table.Column<int>(type: "int", nullable: false),
                     PriceAdjustment = table.Column<int>(type: "int", nullable: false),
                     isDefault = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -395,44 +485,6 @@ namespace Parcoist.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Admin",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Admin", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Admin_User_UserID",
-                        column: x => x.UserID,
-                        principalTable: "User",
-                        principalColumn: "UserID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Customer",
-                columns: table => new
-                {
-                    CustomerID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Customer", x => x.CustomerID);
-                    table.ForeignKey(
-                        name: "FK_Customer_User_UserID",
-                        column: x => x.UserID,
-                        principalTable: "User",
-                        principalColumn: "UserID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "UserComments",
                 columns: table => new
                 {
@@ -442,7 +494,10 @@ namespace Parcoist.DataAccess.Migrations
                     ProductID = table.Column<int>(type: "int", nullable: false),
                     Comment = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Date = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Date = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -462,38 +517,6 @@ namespace Parcoist.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductVariantValues",
-                columns: table => new
-                {
-                    ProductVariantValueID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CombinationID = table.Column<int>(type: "int", nullable: false),
-                    FeatureTypeID = table.Column<int>(type: "int", nullable: false),
-                    FeatureValueID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductVariantValues", x => x.ProductVariantValueID);
-                    table.ForeignKey(
-                        name: "FK_ProductVariantValues_FeatureTypes_FeatureTypeID",
-                        column: x => x.FeatureTypeID,
-                        principalTable: "FeatureTypes",
-                        principalColumn: "FeatureTypeID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ProductVariantValues_FeatureValues_FeatureValueID",
-                        column: x => x.FeatureValueID,
-                        principalTable: "FeatureValues",
-                        principalColumn: "FeatureValueID");
-                    table.ForeignKey(
-                        name: "FK_ProductVariantValues_ProductVariantCombinations_CombinationID",
-                        column: x => x.CombinationID,
-                        principalTable: "ProductVariantCombinations",
-                        principalColumn: "ProductVariantCombinationID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Adress",
                 columns: table => new
                 {
@@ -509,6 +532,7 @@ namespace Parcoist.DataAccess.Migrations
                     PostalCode = table.Column<bool>(type: "bit", nullable: false),
                     RecipientName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DistrictID1 = table.Column<int>(type: "int", nullable: true)
@@ -550,7 +574,10 @@ namespace Parcoist.DataAccess.Migrations
                     CouponCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ExpireDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsUsed = table.Column<bool>(type: "bit", nullable: false),
-                    Count = table.Column<int>(type: "int", nullable: false)
+                    Count = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -571,7 +598,10 @@ namespace Parcoist.DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CustomerID = table.Column<int>(type: "int", nullable: false),
                     ProductID = table.Column<int>(type: "int", nullable: false),
-                    AddedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    AddedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -610,7 +640,9 @@ namespace Parcoist.DataAccess.Migrations
                     Notes = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DiscountAmount = table.Column<int>(type: "int", nullable: false),
                     ShippingAddressID = table.Column<int>(type: "int", nullable: false),
-                    BillingAddressID = table.Column<int>(type: "int", nullable: false)
+                    BillingAddressID = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -637,6 +669,8 @@ namespace Parcoist.DataAccess.Migrations
                     CardType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsDefault = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CardToken = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -647,6 +681,41 @@ namespace Parcoist.DataAccess.Migrations
                         column: x => x.CustomerID,
                         principalTable: "Customer",
                         principalColumn: "CustomerID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductVariantValues",
+                columns: table => new
+                {
+                    ProductVariantValueID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CombinationID = table.Column<int>(type: "int", nullable: false),
+                    FeatureTypeID = table.Column<int>(type: "int", nullable: false),
+                    FeatureValueID = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductVariantValues", x => x.ProductVariantValueID);
+                    table.ForeignKey(
+                        name: "FK_ProductVariantValues_FeatureTypes_FeatureTypeID",
+                        column: x => x.FeatureTypeID,
+                        principalTable: "FeatureTypes",
+                        principalColumn: "FeatureTypeID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProductVariantValues_FeatureValues_FeatureValueID",
+                        column: x => x.FeatureValueID,
+                        principalTable: "FeatureValues",
+                        principalColumn: "FeatureValueID");
+                    table.ForeignKey(
+                        name: "FK_ProductVariantValues_ProductVariantCombinations_CombinationID",
+                        column: x => x.CombinationID,
+                        principalTable: "ProductVariantCombinations",
+                        principalColumn: "ProductVariantCombinationID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -665,8 +734,9 @@ namespace Parcoist.DataAccess.Migrations
                     PlannedDeliveryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ActualDeliveryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DeliveryStatusID = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UptadetAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -705,7 +775,10 @@ namespace Parcoist.DataAccess.Migrations
                     Discount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     LineTotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     SnapshotFeatureName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SnapshotFeatureValue = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    SnapshotFeatureValue = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -740,7 +813,10 @@ namespace Parcoist.DataAccess.Migrations
                     ReturnStatusID = table.Column<int>(type: "int", nullable: false),
                     ReturnReasonID = table.Column<int>(type: "int", nullable: false),
                     RequestDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ResolutionDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    ResolutionDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -777,7 +853,10 @@ namespace Parcoist.DataAccess.Migrations
                     Reason = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Condition = table.Column<bool>(type: "bit", nullable: false),
                     ApprovedQuantity = table.Column<int>(type: "int", nullable: false),
-                    RefundAmount = table.Column<int>(type: "int", nullable: false)
+                    RefundAmount = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -931,6 +1010,11 @@ namespace Parcoist.DataAccess.Migrations
                 column: "ProductID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Products_BrandID",
+                table: "Products",
+                column: "BrandID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ProductVariantCombinations_ProductID",
                 table: "ProductVariantCombinations",
                 column: "ProductID");
@@ -1048,9 +1132,6 @@ namespace Parcoist.DataAccess.Migrations
                 name: "Categories");
 
             migrationBuilder.DropTable(
-                name: "Brands");
-
-            migrationBuilder.DropTable(
                 name: "FeatureValues");
 
             migrationBuilder.DropTable(
@@ -1079,6 +1160,9 @@ namespace Parcoist.DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "ReturnStatus");
+
+            migrationBuilder.DropTable(
+                name: "Brands");
 
             migrationBuilder.DropTable(
                 name: "Customer");

@@ -16,6 +16,10 @@
 
         public DateTime RequestDate { get; set; } // İade talebinin yapıldığı tarih
         public DateTime? ResolutionDate { get; set; } // İade işleminin tamamlanma tarihi
+
+        public bool IsActive { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 
 

@@ -81,7 +81,10 @@ namespace Parcoist.UI.Controllers
                 LogoTitle = dto.LogoTitle,
                 LogoLink = dto.LogoLink,
                 LogoDate = DateTime.Now,
-                LogoStatus = false
+                LogoStatus = false,
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now
+
             };
             _logoService.TAdd(logo);
             return RedirectToAction("Index");

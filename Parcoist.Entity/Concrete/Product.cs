@@ -27,6 +27,7 @@
         public bool IsActive { get; set; }
 
         public int BrandID { get; set; }
+        public Brand Brand { get; set; } 
 
         // One-to-Many ilişki
         public List<CustomerFavory> CustomerFavorites { get; set; }

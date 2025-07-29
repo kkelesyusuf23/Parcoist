@@ -13,6 +13,8 @@ namespace Parcoist.Entity.Concrete
         public DateTime UpdatedAt { get; set; } 
         public int PriceAdjustment { get; set; } // Bu değerin fiyat üzerindeki etkisi
         public int Stock { get; set; } // Bu değerin stoğu
+        public bool IsActive { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 
 }

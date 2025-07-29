@@ -14,6 +14,10 @@ namespace Parcoist.UI.Entities
 
         public int FeatureValueID { get; set; } // Özellik değeri (örneğin kırmızı)
         public FeatureValue FeatureValue { get; set; }
+
+        public bool IsActive { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 
 }

@@ -29,7 +29,9 @@ namespace Parcoist.UI.Controllers
                 ContactMessage = model.ContactMessage,
                 ContactPhone = model.ContactPhone,
                 ContactDate = DateTime.Now,
-                ContactStatus = false
+                ContactStatus = false,
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now
             };
 
             _contactService.TAdd(contact);

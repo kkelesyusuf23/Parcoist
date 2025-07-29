@@ -82,7 +82,10 @@ namespace Parcoist.UI.Controllers
                 SliderLinkTitle = dto.SliderLinkTitle,
                 SliderDescription = dto.SliderDescription,
                 SliderOrder = dto.SliderOrder,
-                SliderStatus = true, 
+                SliderStatus = true,
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now
+
             };
             _sliderService.TAdd(slider);
             return RedirectToAction("Index");

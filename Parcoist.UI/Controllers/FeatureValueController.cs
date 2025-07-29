@@ -61,7 +61,8 @@ namespace Parcoist.UI.Controllers
                 Value = dto.Value,
                 UpdatedAt = DateTime.Now,
                 PriceAdjustment = dto.PriceAdjustment,
-                Stock = dto.Stock
+                Stock = dto.Stock,
+                CreatedAt = DateTime.Now
             };
             _featureValueService.TAdd(featureValue);
             return RedirectToAction("Index");

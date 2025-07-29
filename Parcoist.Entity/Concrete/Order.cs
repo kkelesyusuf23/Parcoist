@@ -32,6 +32,9 @@
 
         // Siparişe ait iade talepleri ekleniyor
         public List<ReturnRequest> ReturnRequests { get; set; }
+
+        public bool IsActive { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 
 

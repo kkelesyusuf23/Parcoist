@@ -22,7 +22,8 @@ public class Adress
     public bool PostalCode { get; set; }
     public string RecipientName { get; set; }
     public bool IsDefault { get; set; }
-
+    
+    public bool IsActive { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
 }

@@ -14,7 +14,8 @@
         public string CardType { get; set; }
         public bool IsDefault { get; set; } // Varsayılan kart
         public DateTime CreatedAt { get; set; }
-
+        public bool IsActive { get; set; }
+        public DateTime UpdatedAt { get; set; }
         public string CardToken { get; set; } // Kart token'ı, güvenli ödeme için kullanılır
     }
 

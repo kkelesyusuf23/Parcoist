@@ -16,5 +16,7 @@ namespace Parcoist.Entity.Concrete
         public string SliderDescription { get; set; }
         public bool SliderStatus { get; set; }
         public int SliderOrder { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 }

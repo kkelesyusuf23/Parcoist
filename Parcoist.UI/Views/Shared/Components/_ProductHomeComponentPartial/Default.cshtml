@@ -3,41 +3,38 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
 <div class="products">
-    <h3 class="section-title">Popular Bikes</h3>
-    <div class="products-slider">
-        <ul id="product-slider">
-            @foreach (var item in Model)
-            {
-                <li class="product-item">
-                    <!-- Product Image Slider -->
-                    <div class="product-slider-container">
-                        <div class="product-slider-for" data-product-id="@item.ProductID">
-                            @foreach (var image in item.ProductImages)
-                            {
-                                <div class="slider-image">
-                                    <img src="@image.ImagePath" alt="@item.Name" class="img-fluid" />
-                                </div>
-                            }
+    <div class="container">
+        <h3 class="section-title">Popular Bikes</h3>
+        <div class="products-slider">
+            <ul id="product-slider">
+                @foreach (var item in Model)
+                {
+                    <li class="product-item">
+                        <div class="product-slider-container">
+                            <div class="product-slider-for" data-product-id="@item.ProductID">
+                                @foreach (var image in item.ProductImages)
+                                {
+                                    <div class="slider-image">
+                                        <img src="@image.ImagePath" alt="@item.Name" class="img-fluid" />
+                                    </div>
+                                }
+                            </div>
                         </div>
-
-                    </div>
-
-                    <div class="product-info">
-                        <h4 class="product-name">@item.Name</h4>
-                        <p class="product-price">@item.DiscountedPrice.ToString("C")</p>
-
-                        <!-- Butonlar yan yana -->
-                        <div class="product-buttons">
-                            <a href="/Product/Details/@item.ProductID" class="btn btn-primary">Buy Now</a>
-                            <a href="/Product/Details/@item.ProductID" class="btn btn-link">View Details</a>
+                        <div class="product-info">
+                            <h4 class="product-name">@item.Name</h4>
+                            <p class="product-price">@item.DiscountedPrice.ToString("C")</p>
+                            <div class="product-buttons">
+                                <a href="/Product/Details/@item.ProductID" class="btn btn-primary">Buy Now</a>
+                                <a href="/Product/Details/@item.ProductID" class="btn btn-link">View Details</a>
+                            </div>
                         </div>
-                    </div>
-
-                </li>
-            }
-        </ul>
+                    </li>
+                }
+            </ul>
+        </div>
     </div>
 </div>
+
 
 <!-- Slick CSS ve JS -->
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
@@ -88,9 +85,15 @@
 </script>
 
 <style>
-    /* Custom Styles */
     .products {
         padding: 20px 0;
+        background-color: #f9f9f9;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
     }
 
     .section-title {
@@ -101,22 +104,21 @@
 
     .products-slider {
         position: relative;
-        overflow: hidden;
     }
 
     #product-slider {
-        display: flex;
-        gap: 20px;
+        /* flex kaldırıldı, slick bu yapıyı yönetiyor */
+        margin: 0 auto;
     }
 
     .product-item {
-        width: 250px;
         text-align: center;
         border-radius: 10px;
         overflow: hidden;
         background: #fff;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s ease;
+        padding: 10px;
     }
 
         .product-item:hover {
@@ -163,10 +165,6 @@
             background-color: #FF3D00;
         }
 
-    .view-details {
-        margin-top: 10px;
-    }
-
     .product-buttons {
         display: flex;
         justify-content: center;
@@ -210,11 +208,11 @@
         }
 
     .slick-prev {
-        left: 0px;
+        left: -10px;
     }
 
     .slick-next {
-        right: 0px;
+        right: -10px;
     }
 
         .slick-prev i, .slick-next i {

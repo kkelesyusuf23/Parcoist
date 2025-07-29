@@ -48,6 +48,8 @@ namespace Parcoist.UI.Controllers
                 CombinationID = dto.CombinationID,
                 FeatureTypeID = dto.FeatureTypeID,
                 FeatureValueID = dto.FeatureValueID,
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now,
             };
             _productVariantValueService.TAdd(productVariantValue);
             return RedirectToAction("Index");

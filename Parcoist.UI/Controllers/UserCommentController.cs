@@ -60,6 +60,10 @@ namespace Parcoist.UI.Controllers
                 Comment = dto.Comment,
                 Description = dto.Description,
                 Date = DateTime.Now.ToString(),
+                IsActive = true,
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now
+
 
             };
             _userCommentService.TAdd(userComment);

@@ -63,7 +63,9 @@ namespace Parcoist.UI.Controllers
                 Stock = dto.Stock,
                 PriceAdjustment = dto.PriceAdjustment,
                 CreatedAt = DateTime.Now,
-                isDefault = false
+                isDefault = false,
+                UpdatedAt = DateTime.Now
+
             };
             _productVariantCombinationService.TAdd(productImage);
             return RedirectToAction("Index");

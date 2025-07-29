@@ -6,6 +6,7 @@
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
 <div class="product">
     <div class="container">
@@ -18,70 +19,256 @@
                     </div>
 
                     <!-- Updated Slider Section -->
+                    <!-- Ana Slider Alanı -->
                     <div class="details-left-slider">
                         <div class="grid images_3_of_2">
-                            <div class="flexslider">
-                               
-
-                                <ul class="slides">
+                            <!-- Swiper Ana Slider -->
+                            <div class="swiper product-main-slider">
+                                <div class="swiper-wrapper">
                                     @foreach (var img in Model.ProductImages)
                                     {
-                                        <li>
-                                            <img src="@Url.Content("~/" + img.ImagePath)" data-imagezoom="true" class="img-responsive" />
-                                        </li>
+                                        <div class="swiper-slide">
+                                            <img src="@Url.Content("~/" + img.ImagePath)" class="img-fluid" />
+                                        </div>
                                     }
-                                </ul>
+                                </div>
                             </div>
+
+                            <!-- Swiper Thumbnail Slider -->
+                            <div class="swiper product-thumb-slider mt-2">
+                                <div class="swiper-wrapper">
+                                    @foreach (var img in Model.ProductImages)
+                                    {
+                                        <div class="swiper-slide">
+                                            <img src="@Url.Content("~/" + img.ImagePath)" class="img-thumbnail" />
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+
+                            
                         </div>
                     </div>
 
-                    <!-- Product Information Section -->
                     <div class="details-left-info">
                         <h3>@Model.Product.Name</h3>
                         <h4>Model No: @Model.Product.ModelNo</h4>
-                        <p><label>$</label> @Model.Product.DiscountedPrice <a href="#">Click for offer</a></p>
-
-                        <!-- Varyantlar -->
-                        <h5>Varyantlar</h5>
-                        @foreach (var combination in Model.VariantCombinations)
+                        <p><label>₺</label> @Model.Product.DiscountedPrice <a href="#">Click for offer</a></p>
+                        @if (Model.VariantCombinations != null && Model.VariantCombinations.Any())
                         {
-                            <div class="variant-box" style="margin-bottom: 1rem;">
-                                <strong>Varyant:</strong> @combination.VariantKey <br />
-                                Stok: @combination.Stock <br />
-                                Fiyat Farkı: @combination.PriceAdjustment ₺ <br />
-                                <ul>
-                                    @foreach (var val in combination.ProductVariantValues)
-                                    {
-                                        <li>@val.FeatureType.Value: @val.FeatureValue.Value</li>
-                                    }
-                                </ul>
-                            </div>
+                            <h5>Varyantlar</h5>
+                            @foreach (var combination in Model.VariantCombinations)
+                            {
+                                <div class="variant-box" style="margin-bottom: 1rem;">
+                                    <strong>Varyant:</strong> @combination.VariantKey <br />
+                                    Stok: @combination.Stock <br />
+                                    Fiyat Farkı: @combination.PriceAdjustment ₺ <br />
+                                    <ul>
+                                        @foreach (var val in combination.ProductVariantValues)
+                                        {
+                                            <li>@val.FeatureType.Value: @val.FeatureValue.Value</li>
+                                        }
+                                    </ul>
+                                </div>
+                            }
                         }
-
                         <div class="btn_form">
-                            <a href="/Cart/Buy/@Model.Product.ProductID">buy now</a>
-                            <a href="/Cart/Add/@Model.Product.ProductID">ADD TO CART</a>
+                            <a href="/Cart/Buy/@Model.Product.ProductID">SATIN AL</a>
+                            @* <a href="/Cart/Add/@Model.Product.ProductID">ADD TO CART</a> *@
                         </div>
-
                         <div class="bike-type">
-                            <p>BRAND :: <a href="#">@Model.Product.BrandID</a></p>
+                            <p>MARKA :: <a href="#">@Model.Product.Brand.Name</a></p>
                         </div>
-
-                        <h5>Description ::</h5>
+                        <h5>AÇIKLAMA ::</h5>
                         <p class="desc">@Model.Product.Description</p>
                     </div>
                     <div class="clearfix"></div>
                 </div>
             </div>
         </div>
-
-        <!-- Related Products (You can make this dynamic as well) -->
     </div>
+
+    <div class="product-comments mt-5">
+        <h4 class="comment-title">Ürün Yorumları</h4>
+
+        @if (Model.ProductComments != null && Model.ProductComments.Any())
+        {
+            <div class="comment-list">
+                @foreach (var comment in Model.ProductComments)
+                {
+                    <div class="comment-card">
+                        <div class="comment-header">
+                            <div class="user-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="user-info">
+                                <strong>@comment.UserName</strong>
+                                <small>@comment.CreatedDate.ToString("dd MMM yyyy")</small>
+                            </div>
+                        </div>
+                        <div class="comment-body">
+                            <p>@comment.CommentText</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p class="no-comments">Henüz bu ürün için yorum yapılmamış.</p>
+        }
+    </div>
+
+
 </div>
+
+<!-- Font Awesome (kullanılıyor) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+<!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+
+<!-- jQuery (gerekli) -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+<!-- Swiper Ayarları -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const thumbSwiper = new Swiper('.product-thumb-slider', {
+            spaceBetween: 10,
+            slidesPerView: 4,
+            freeMode: true,
+            watchSlidesProgress: true,
+        });
+
+        const mainSwiper = new Swiper('.product-main-slider', {
+            spaceBetween: 10,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            thumbs: {
+                swiper: thumbSwiper,
+            },
+        });
+    });
+</script>
+<style>
+    .product-main-slider {
+        width: 100%;
+        height: 400px;
+        margin-bottom: 10px;
+    }
+
+        .product-main-slider .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+    .product-thumb-slider {
+        height: 100px;
+    }
+
+        .product-thumb-slider .swiper-slide {
+            width: 100px;
+            height: 100px;
+            opacity: 0.4;
+            cursor: pointer;
+        }
+
+        .product-thumb-slider .swiper-slide-thumb-active {
+            opacity: 1;
+            border: 2px solid #333;
+        }
+
+    /* Yorum alanı */
+    .product-comments {
+        max-width: 1140px; /* veya üst yapıya uygunsa 1200px, 960px olabilir */
+        margin: 60px auto 0 auto; /* ortalama ve yukarı boşluk */
+        padding: 30px;
+        border-top: 1px solid #ddd;
+        border-radius: 12px;
+    }
+
+
+    .comment-title {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        font-weight: bold;
+        border-bottom: 2px solid #333;
+        display: inline-block;
+        padding-bottom: 5px;
+    }
+
+    .comment-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .comment-card {
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        transition: transform 0.2s ease;
+    }
+
+        .comment-card:hover {
+            transform: translateY(-3px);
+        }
+
+    .comment-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .user-avatar {
+        width: 45px;
+        height: 45px;
+        background-color: #e2e6ea;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        color: #495057;
+        margin-right: 15px;
+    }
+
+    .user-info strong {
+        display: block;
+        font-weight: 600;
+    }
+
+    .user-info small {
+        color: #6c757d;
+        font-size: 0.85rem;
+    }
+
+    .comment-body p {
+        margin: 0;
+        line-height: 1.6;
+        color: #333;
+    }
+
+    .no-comments {
+        font-style: italic;
+        color: #777;
+        margin-top: 10px;
+    }
+
+</style>
+
+
+@* <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/jquery.flexslider@2.7.2/jquery.flexslider.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery.flexslider@2.7.2/flexslider.css" type="text/css" media="screen" />
-
 <script>
     $(window).load(function() {
         $('.flexslider').flexslider({
@@ -91,3 +278,177 @@
         });
     });
 </script>
+<style>
+    .product-comments {
+        padding: 20px;
+        background: #f9f9f9;
+        border-top: 1px solid #ddd;
+        margin-top: 40px;
+    }
+
+    .comment-box {
+        background: #fff;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+</style>
+
+<!-- FlexSlider CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flexslider@2.7.2/flexslider.css" type="text/css" />
+
+<!-- jQuery + FlexSlider -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flexslider@2.7.2/jquery.flexslider-min.js"></script>
+
+<script>
+    $(window).on('load', function () {
+        // Thumbnail slider
+        $('#carousel').flexslider({
+            animation: "slide",
+            controlNav: false,
+            animationLoop: false,
+            slideshow: false,
+            itemWidth: 100,
+            itemMargin: 10,
+            asNavFor: '#slider'
+        });
+
+        // Main image slider
+        $('#slider').flexslider({
+            animation: "slide",
+            controlNav: false,
+            animationLoop: false,
+            slideshow: false,
+            sync: "#carousel"
+        });
+    });
+</script>
+<style>
+    .product-main-slider {
+        width: 100%;
+        height: 400px;
+        margin-bottom: 10px;
+    }
+
+        .product-main-slider .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+    .product-thumb-slider {
+        height: 100px;
+    }
+
+        .product-thumb-slider .swiper-slide {
+            width: 100px;
+            height: 100px;
+            opacity: 0.4;
+            cursor: pointer;
+        }
+
+        .product-thumb-slider .swiper-slide-thumb-active {
+            opacity: 1;
+            border: 2px solid #333;
+        }
+
+    .product-comments {
+        padding: 30px;
+        border-top: 1px solid #ddd;
+        margin-top: 60px;
+        border-radius: 12px;
+    }
+
+    .comment-title {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        font-weight: bold;
+        border-bottom: 2px solid #333;
+        display: inline-block;
+        padding-bottom: 5px;
+    }
+
+    .comment-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .comment-card {
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        transition: transform 0.2s ease;
+    }
+
+        .comment-card:hover {
+            transform: translateY(-3px);
+        }
+
+    .comment-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .user-avatar {
+        width: 45px;
+        height: 45px;
+        background-color: #e2e6ea;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        color: #495057;
+        margin-right: 15px;
+    }
+
+    .user-info strong {
+        display: block;
+        font-weight: 600;
+    }
+
+    .user-info small {
+        color: #6c757d;
+        font-size: 0.85rem;
+    }
+
+    .comment-body p {
+        margin: 0;
+        line-height: 1.6;
+        color: #333;
+    }
+
+    .no-comments {
+        font-style: italic;
+        color: #777;
+        margin-top: 10px;
+    }
+
+</style>
+<!-- Swiper JS ve CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const thumbSwiper = new Swiper('.product-thumb-slider', {
+            spaceBetween: 10,
+            slidesPerView: 4,
+            freeMode: true,
+            watchSlidesProgress: true,
+        });
+
+        const mainSwiper = new Swiper('.product-main-slider', {
+            spaceBetween: 10,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            thumbs: {
+                swiper: thumbSwiper,
+            },
+        });
+    });
+</script>
+ *@

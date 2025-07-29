@@ -9,6 +9,10 @@
         public DateTime UpdateDate { get; set; } // Görselin güncellenme tarihi
 
         public ReturnRequest ReturnRequest { get; set; } // İade talebine navigasyon
+
+        public bool IsActive { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 
 }

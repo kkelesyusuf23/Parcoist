@@ -20,6 +20,10 @@
 
         public string SnapshotFeatureName { get; set; } // Özellik adı (örneğin, "Renk")
         public string SnapshotFeatureValue { get; set; } // Özellik değeri (örneğin, "Kırmızı")
+
+        public bool IsActive { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 
 

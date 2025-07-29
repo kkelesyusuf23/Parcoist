@@ -12,6 +12,10 @@
         public string Comment { get; set; }
         public string Description { get; set; } // Başlık gibi düşünülebilir
         public string Date { get; set; } // string yerine DateTime tercih edilmeli
+
+        public bool IsActive { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 
 }

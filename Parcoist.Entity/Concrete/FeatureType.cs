@@ -10,6 +10,7 @@
         public bool IsDefault { get; set; } // Varsayılan mı?
 
         public List<FeatureTypeCategory> FeatureTypeCategories { get; set; } // Kategorilere bağlanabilir
+
     }
 
 

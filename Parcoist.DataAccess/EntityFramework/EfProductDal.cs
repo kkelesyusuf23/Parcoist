@@ -27,6 +27,7 @@ namespace Parcoist.DataAccess.EntityFramework
                 .Include(p => p.CustomerFavorites)
                 .Include(p => p.OrderItems)
                 .Include(p => p.UserComments)
+                .Include(p => p.Brand)
                 .ToList();
         }
 

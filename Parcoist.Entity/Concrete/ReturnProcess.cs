@@ -13,6 +13,10 @@
         public DateTime RefundDate { get; set; } // Geri ödeme tarihi
         public string AdminNotes { get; set; } // Yöneticinin sürece dair notları
         public DateTime ComplatedAt { get; set; } // İade sürecinin tamamlanma tarihi
+
+        public bool IsActive { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 
 }
