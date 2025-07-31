@@ -29,8 +29,8 @@ li.dropdown1 {
   border-top-right-radius: 13px;
 }
 li.dropdown1:hover{
-	background:#fcff19;
-	color:#000;
+	background:white;
+	color:black;
 }
 /* Main element of the naviagtion */
 .nav > li {
@@ -66,8 +66,8 @@ li.dropdown1:hover{
 	background:none;
 }
 .nav > li:nth-child(1) > a:hover, .nav > li:nth-child(5) > a:hover, .nav > li:nth-child(6) > a:hover{
-	background:#fcff19;
-	 color: #000;
+	background:black;
+	 color: white;
 }
 .nav > li:hover > a{
 	  color: #000;	
@@ -105,7 +105,7 @@ li.dropdown1:hover{
   font-size: 1.05em;
   font-weight:600;
   display: block;
-  background-color:#fcff19;
+  background-color:white;
   padding: 4px 10px;
   text-transform: uppercase;
   position: relative;
@@ -134,11 +134,11 @@ li.dropdown1:hover{
 }
 .nav ul.dropdown2 {
 	color: #FFF;
-	background-color:#fcff19;
+	background-color:white;
 }
 .nav ul  li:hover > a {
 	color:#000;
-	background:#fcff19;
+	background:white;
 }
 /* Second and third dropdown level */
 .nav > li > ul li ul {
@@ -152,10 +152,10 @@ li.dropdown1:hover{
 	text-align: left;
 	padding: 0px;
 	margin-left: 30px;
-	background-color:#fcff19;
+	background-color:white;
 }
 .nav > li > ul li ul li:hover {
-	background-color:#fcff19;
+	background-color:white;
 }
 input#mobile_menu { display: none; }
 .nav > li > ul li ul li ul {

@@ -7,13 +7,10 @@
 <div class="container">
     <h2>ÜRÜNLER</h2>
     <div class="row">
-        <!-- Filtre Alanı -->
         <div class="col-md-3">
             <div class="filter-sidebar">
                 <h4>Filtrele</h4>
-
                 <form method="get" asp-controller="ProductFilter" asp-action="Index">
-                    <!-- Kategori Filtrele -->
                     <div class="filter-category">
                         <label for="category">Kategori</label>
                         <select id="category" name="categoryId" class="form-control">
@@ -26,8 +23,6 @@
                             }
                         </select>
                     </div>
-
-                    <!-- Marka Filtrele -->
                     <div class="filter-brand mt-4">
                         <label>Marka</label>
                         <div class="form-check">
@@ -42,23 +37,16 @@
                             </div>
                         }
                     </div>
-
-                    <!-- Fiyat Filtrele -->
                     <div class="filter-price mt-4">
                         <label>Fiyat</label>
-
-                        <!-- Dinamik Aralık Girilebilir Fiyat Filtreleme -->
                         <div class="form-group">
                             <label for="minPrice">Min Fiyat:</label>
                             <input type="number" id="minPrice" name="minPrice" class="form-control" placeholder="Min Fiyat" value="@Model.MinPrice" />
                         </div>
-
                         <div class="form-group">
                             <label for="maxPrice">Max Fiyat:</label>
                             <input type="number" id="maxPrice" name="maxPrice" class="form-control" placeholder="Max Fiyat" value="@Model.MaxPrice" />
                         </div>
-
-                        <!-- Aralık Seçenekleri -->
                         <div class="form-check">
                             <input type="radio" name="priceRange" value="50" @(Model.MaxPrice == 50 ? "checked" : "") class="form-check-input">
                             <label class="form-check-label">₺50 ve Altı</label>
@@ -81,20 +69,18 @@
                 </form>
             </div>
         </div>
-
-        <!-- Ürün Listesi -->
         <div class="col-md-9">
             <div class="row">
                 @foreach (var product in Model.Products)
                 {
                     <div class="col-md-4 mb-4">
                         <div class="product-card shadow-sm p-3 rounded">
-                            <img src="" alt="@product.Name" class="img-fluid rounded">
+                            <img src="@product.FirstImageUrl" alt="@product.Name" class="img-fluid rounded">
                             <div class="product-info text-center">
                                 <h5>@product.Name</h5>
                                 <p class="text-muted">@product.DiscountedPrice.ToString("C")</p>
-                                <a href="@Url.Action("Detail", "Product", new { id = product.ProductID })" class="btn btn-info btn-sm">Detay</a>
-                                <a href="@Url.Action("AddToCart", "Cart", new { id = product.ProductID })" class="btn btn-success btn-sm">Sepete Ekle</a>
+                                <a href="@Url.Action("Details", "Product", new { id = product.ProductID })" class="btn btn-info btn-sm">Detay</a>
+                                @* <a href="@Url.Action("AddToCart", "Cart", new { id = product.ProductID })" class="btn btn-success btn-sm">Sepete Ekle</a> *@
                             </div>
                         </div>
                     </div>
@@ -103,51 +89,208 @@
         </div>
     </div>
 </div>
-
-<!-- Add custom styles -->
 <style>
-    .filter-sidebar {
-        background-color: #f9f9f9;
-        padding: 20px;
-        border-radius: 8px;
+    /* Genel Yapı */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
     }
 
+    /* Filtre Sidebar */
+    .filter-sidebar {
+        background-color: #fff;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    }
+
+        .filter-sidebar h4 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+    /* Filtre Alanı */
     .filter-category,
     .filter-brand,
     .filter-price {
+        margin-bottom: 30px;
+    }
+
+        .filter-category label,
+        .filter-brand label,
+        .filter-price label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        /* Kategori Dropdown */
+        .filter-category select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-top: 10px;
+            transition: border-color 0.3s ease;
+        }
+
+            .filter-category select:focus {
+                border-color: #4e73df;
+                outline: none;
+            }
+
+    /* Marka Seçimi */
+    .form-check-input {
+        width: 18px;
+        height: 18px;
+        margin-top: 5px;
+    }
+
+    .form-check-label {
+        font-size: 1rem;
+        color: #555;
+    }
+
+    .form-check input[type="radio"]:checked + .form-check-label {
+        font-weight: bold;
+        color: #4e73df;
+    }
+
+    /* Fiyat Filtreleme */
+    .filter-price input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 1rem;
+        margin-top: 10px;
+        transition: border-color 0.3s ease;
+    }
+
+        .filter-price input:focus {
+            border-color: #4e73df;
+            outline: none;
+        }
+
+    /* Fiyat Aralıkları */
+    .filter-price .form-check-label {
+        font-size: 1rem;
+        color: #555;
+        margin-left: 5px;
+    }
+
+    /* Filtrele Butonu */
+    .btn-primary {
+        background-color: #4e73df;
+        border-color: #4e73df;
+        padding: 12px;
+        font-size: 1.1rem;
+        border-radius: 8px;
+        width: 100%;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            background-color: #2e59d9;
+            border-color: #2e59d9;
+        }
+
+    /* Ürün Kartları */
+    .product-card {
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Ürün Resmi */
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 2px solid #f1f1f1;
+        }
+
+    /* Ürün Bilgisi */
+    .product-info {
+        padding: 15px;
+        text-align: center;
+    }
+
+        .product-info h5 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .product-info p {
+            font-size: 1rem;
+            color: #777;
+            margin-bottom: 15px;
+        }
+
+        .product-info .btn-info,
+        .product-info .btn-success {
+            font-size: 1rem;
+            padding: 10px;
+            width: 100%;
+            margin-top: 5px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .product-info .btn-info {
+            background-color: #17a2b8;
+            border-color: #17a2b8;
+        }
+
+            .product-info .btn-info:hover {
+                background-color: #138496;
+                border-color: #138496;
+            }
+
+        .product-info .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+            .product-info .btn-success:hover {
+                background-color: #218838;
+                border-color: #218838;
+            }
+
+    /* Responsive Düzen */
+    @@media (max-width: 992px) {
+        .col-md-3, .col-md-9
+
+    {
         margin-bottom: 20px;
     }
 
-    .product-card img {
-        max-height: 250px;
-        object-fit: cover;
-        border-radius: 8px;
-    }
-
-    .product-card:hover {
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .product-info h5 {
-        font-size: 1.2rem;
-        margin-bottom: 10px;
-    }
-
-    .product-info p {
-        font-size: 1rem;
-        color: #6c757d;
-    }
-
-    .btn-info,
-    .btn-success {
-        width: 100%;
-        margin-top: 10px;
     }
 
     @@media (max-width: 768px) {
-        .filter-sidebar
+        .container
 
     {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .product-card {
+        border-radius: 8px;
+    }
+
+    .filter-sidebar {
         margin-bottom: 20px;
     }
 

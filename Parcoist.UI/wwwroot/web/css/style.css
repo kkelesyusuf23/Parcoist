@@ -33,7 +33,7 @@ background:#000;
 padding:15px 0;
 }
 .footer-bottom p{
-color:#fcff19;
+color:white;
 font-size:14px;
 line-height:1.8em;
 text-align:center;
@@ -43,7 +43,7 @@ text-decoration:none;
 color: #fff;
 }
 .footer-bottom p a:hover{
-color:#fcff19;
+color:black;
 }
 .banner-bg1 {
 	/*background: radial-gradient(circle,#fad0c4, #ff9a9e);*/ /* Beyazdan maviye geçiþ */
@@ -164,14 +164,14 @@ ul.callbacks_tabs.callbacks1_tabs {
 	margin-bottom:1em;
 }
 .caption p span{
-	color:#fcff19;	
+	color:black;	
 }
 a.morebtn{
 	background:#000;
 	padding:1em 2.3em;
 	font-size:0.875em;
 	text-transform:uppercase;
-	color:#fcff19;
+	color:white;
 	display:inline-block;
 	margin:0 auto;
 	border-radius:7px;
@@ -182,7 +182,7 @@ a.morebtn{
 	-ms-transition:0.5s all ease;
 }
 a.morebtn:hover{
-	background:#fcff19;
+	background:white;
 	color:#000;
 }
 /*--categories--*/
@@ -222,7 +222,7 @@ a.morebtn:hover{
 	background:url(../images/c3.jpg) no-repeat;
 }*/
 .cate-grid h4{
-	color:#fcff19;
+	color:black;
 	font-size:1.1em;
 	font-weight:600;
 	letter-spacing:1px;
@@ -423,7 +423,7 @@ select{
 }
 /*--footer--*/
 .footer{
-	background:#fcff19;
+	background:white;
 	padding:1.5em 0;
 }
 .logo2{

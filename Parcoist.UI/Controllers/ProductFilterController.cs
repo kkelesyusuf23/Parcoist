@@ -26,13 +26,24 @@ namespace Parcoist.UI.Controllers
                     (string.IsNullOrEmpty(brand) || p.Brand?.Name == brand) &&
                     (!minPrice.HasValue || p.DiscountedPrice >= minPrice) &&
                     (!maxPrice.HasValue || p.DiscountedPrice <= maxPrice)
-                ).ToList();
+                )
+                .Select(p => new
+                {
+                    Product = p,
+                    FirstImage = p.ProductImages != null && p.ProductImages.Any()
+                        ? p.ProductImages.FirstOrDefault().ImagePath // ilk resim
+                        : "/images/no-image.png" // resim yoksa default resim
+                })
+                .ToList();
 
-            var allCategories = _categoryService.TGetListAll(); // Kategori listesini direkt servisten al
+            var allCategories = _categoryService.TGetListAll();
 
             var viewModel = new ProductFilterViewModel
             {
-                Products = filteredProducts,
+                Products = filteredProducts.Select(p => {
+                    p.Product.FirstImageUrl = p.FirstImage; // Ürün modelinde ek property
+                    return p.Product;
+                }).ToList(),
                 Categories = allCategories,
                 Brands = allProducts
                     .Select(p => p.Brand?.Name)
@@ -48,6 +59,7 @@ namespace Parcoist.UI.Controllers
 
             return View(viewModel);
         }
+
 
 
 

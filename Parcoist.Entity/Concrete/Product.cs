@@ -1,4 +1,6 @@
-﻿namespace Parcoist.UI.Entities
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Parcoist.UI.Entities
 {
     public class Product
     {
@@ -25,6 +27,9 @@
 
         public bool IsFeatured { get; set; }
         public bool IsActive { get; set; }
+
+        [NotMapped] // DB'ye yansımasın
+        public string FirstImageUrl { get; set; }
 
         public int BrandID { get; set; }
         public Brand Brand { get; set; } 
