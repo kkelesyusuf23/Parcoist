@@ -2,25 +2,16 @@
 using Microsoft.Extensions.Configuration;
 using Parcoist.Entity.Concrete;
 using Parcoist.UI.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Parcoist.DataAccess.Concrete
 {
     public class ParcoContext : DbContext
     {
         readonly IConfiguration _configuration;
-
         public ParcoContext(IConfiguration configuration)
         {
             _configuration = configuration;
         }
-
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
@@ -56,8 +47,6 @@ namespace Parcoist.DataAccess.Concrete
     .WithOne(rr => rr.ReturnItem)
     .HasForeignKey<ReturnItem>(ri => ri.ReturnRequestID)
     .OnDelete(DeleteBehavior.Restrict); // veya DeleteBehavior.NoAction
-
-
         }
 
         //public DbSet<Admin> Admins { get; set; }
@@ -94,6 +83,7 @@ namespace Parcoist.DataAccess.Concrete
         //public DbSet<ReturnStatus> ReturnStatuses { get; set; }
         public DbSet<Slider> Sliders { get; set; }
         public DbSet<UserComment> UserComments { get; set; }
-
+        public DbSet<ActionLog> ActionLogs { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
