@@ -16,25 +16,34 @@ namespace Parcoist.UI.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index(int? categoryId, string brand, decimal? minPrice, decimal? maxPrice)
+        public IActionResult Index(int? categoryId, string? brand, decimal? minPrice, decimal? maxPrice)
         {
             var allProducts = _productService.TGetProductsWithAllRelations();
 
-            var filteredProducts = allProducts
-                .Where(p =>
-                    (!categoryId.HasValue || p.CategoryID == categoryId.Value) &&
-                    (string.IsNullOrEmpty(brand) || p.Brand?.Name == brand) &&
-                    (!minPrice.HasValue || p.DiscountedPrice >= minPrice) &&
-                    (!maxPrice.HasValue || p.DiscountedPrice <= maxPrice)
-                )
+            var query = allProducts.AsQueryable();
+
+            if (categoryId.HasValue)
+                query = query.Where(p => p.CategoryID == categoryId.Value);
+
+            if (!string.IsNullOrEmpty(brand))
+                query = query.Where(p => p.Brand != null && p.Brand.Name.ToLower() == brand.ToLower());
+
+            if (minPrice.HasValue)
+                query = query.Where(p => p.DiscountedPrice >= minPrice.Value);
+
+            if (maxPrice.HasValue)
+                query = query.Where(p => p.DiscountedPrice <= maxPrice.Value);
+
+            var filteredProducts = query
                 .Select(p => new
                 {
                     Product = p,
                     FirstImage = p.ProductImages != null && p.ProductImages.Any()
-                        ? p.ProductImages.FirstOrDefault().ImagePath // ilk resim
-                        : "/images/no-image.png" // resim yoksa default resim
+                        ? p.ProductImages.FirstOrDefault().ImagePath
+                        : "/source/default.png"
                 })
                 .ToList();
+
 
             var allCategories = _categoryService.TGetListAll();
 

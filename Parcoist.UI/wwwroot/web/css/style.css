@@ -28,9 +28,9 @@ margin:0;
 padding:0;
 }
 /*----*/
-.footer-bottom{
-background:#000;
-padding:15px 0;
+.footer-bottom {
+	background: #00704A;
+	padding: 15px 0;
 }
 .footer-bottom p{
 color:white;
@@ -47,7 +47,8 @@ color:black;
 }
 .banner-bg1 {
 	/*background: radial-gradient(circle,#fad0c4, #ff9a9e);*/ /* Beyazdan maviye geçiþ */
-	background: radial-gradient(circle,#e3dad8, #ff9a9e); /* Beyazdan maviye geçiþ */
+	/*background: radial-gradient(circle,#e3dad8, #ff9a9e);*/ /* Beyazdan maviye geçiþ */
+	background-color:#e7dede;
 	min-height: 835px;
 }
 
@@ -186,13 +187,14 @@ a.morebtn:hover{
 	color:#000;
 }
 /*--categories--*/
-.categories{
+.categories {
 	/*background:url(../images/cate.jpg) no-repeat;*/
-	background:url(/source/parfumecategory.jpg) no-repeat;
-	background-size:cover;
-	min-height:600px;
-	text-align:center;
-	padding:5em 0; 
+	/*background: url(/source/parfumecategory.jpg) no-repeat;*/
+	background: url('../../assest/images/sabit/5.jpg') no-repeat;
+	background-size: cover;
+	min-height: 600px;
+	text-align: center;
+	padding: 5em 0;
 }
 .categories h3,.bikes h3{
 	 color:#000;
@@ -422,9 +424,10 @@ select{
 	color:#fcff19;
 }
 /*--footer--*/
-.footer{
-	background:white;
-	padding:1.5em 0;
+.footer {
+	background: #e7dede;
+	padding: 1.5em 0;
+	border-top: 1px solid #00704A;
 }
 .logo2{
 	float:left;
@@ -861,10 +864,10 @@ a.qck:hover{
 }
 /*----*/
 .product-head {
-padding: 0.5em 0;
-border-top: 1px solid #eee;
-border-bottom: 1px solid #eee;
-margin-bottom: 1em;
+	padding: 0.5em 0;
+	border-top: 1px solid #00704A;
+	border-bottom: 1px solid #00704A;
+	margin-bottom: 1em;
 }
 .product-head  a {
 color: #08080B;
@@ -900,14 +903,14 @@ text-transform: uppercase;
 font-weight: 700;
 margin-bottom: 0.3em;
 }
-.details-left-info p {
-margin-top: 2%;
-font-size: 1.8em;
-color:#FF0000;
-line-height: 1.8em;
-text-shadow: 0 1px 0 #ffffff;
-letter-spacing: 1px;
-}
+	.details-left-info p {
+		margin-top: 2%;
+		font-size: 1.8em;
+		color: #00704A;
+		line-height: 1.8em;
+		text-shadow: 0 1px 0 #ffffff;
+		letter-spacing: 1px;
+	}
 .details-left-info p  label{
 	font-size:0.7em;
 }
@@ -925,9 +928,9 @@ font-size: 13px;
 -webkit-text-stroke: 0px;
 letter-spacing: 0px;
 }
-.details-left-info a:hover{
-	color:#ffd400;
-}
+	.details-left-info a:hover {
+		color: #00704A;
+	}
 .details-left-info #quantity {
 	width: 50px;
 	height: 37px;
@@ -954,30 +957,30 @@ a.length{
 .btn_form{
 margin-top:2em;
 }
-.btn_form a {
-	border: none;
-	outline: none;
-	display: inline-block;
-	font-size: 1em;
-	padding: 10px 34px;
-	background:rgb(150, 150, 150);
-	border:1px solid rgb(150, 150, 150);
-	color: #fff;
-	text-transform: uppercase;
-	-webkit-transition: all 0.3s ease-in-out;
-	-moz-transition: all 0.3s ease-in-out;
-	-o-transition: all 0.3s ease-in-out;
-	transition: all 0.3s ease-in-out;
-}
+	.btn_form a {
+		border: none;
+		outline: none;
+		display: inline-block;
+		font-size: 1em;
+		padding: 10px 34px;
+		background: #00704A;
+		border: 1px solid rgb(150, 150, 150);
+		color: #fff;
+		text-transform: uppercase;
+		-webkit-transition: all 0.3s ease-in-out;
+		-moz-transition: all 0.3s ease-in-out;
+		-o-transition: all 0.3s ease-in-out;
+		transition: all 0.3s ease-in-out;
+	}
 .btn_form a:hover{
 	background:transparent;
 	border:1px solid #000;
 	color:#000;
 }
-.bike-type{
+.bike-type {
 	margin: 2em 0;
 	padding: 10px 0 15px 0;
-	border:1px solid #8F8F8F;
+	border: 1px solid #00704A;
 	border-width: 1px 0;
 }
 .bike-type p{
@@ -986,10 +989,10 @@ margin-top:2em;
 	font-family: 'Raleway', sans-serif;
 	font-weight:400;
 }
-.bike-type a{
-font-weight:400;
-color: #ff530d;
-}
+	.bike-type a {
+		font-weight: 400;
+		color: #00704A;
+	}
 p.desc{
 font-size:0.9em;
 line-height:1.8em;
@@ -997,6 +1000,7 @@ color: #808080;
 margin: 0.5em 0;
 }
 .details-left-info h5{
+	color:#00704A;
 margin:1em 0;
 }
 .single-bottom2 {

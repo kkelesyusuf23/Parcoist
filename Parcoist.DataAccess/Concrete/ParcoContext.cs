@@ -83,7 +83,7 @@ namespace Parcoist.DataAccess.Concrete
         //public DbSet<ReturnStatus> ReturnStatuses { get; set; }
         public DbSet<Slider> Sliders { get; set; }
         public DbSet<UserComment> UserComments { get; set; }
-        public DbSet<ActionLog> ActionLogs { get; set; }
+        //public DbSet<ActionLog> ActionLogs { get; set; }
         public DbSet<User> Users { get; set; }
     }
 }

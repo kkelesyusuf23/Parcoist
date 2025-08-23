@@ -14,14 +14,15 @@
                     <div class="filter-category">
                         <label for="category">Kategori</label>
                         <select id="category" name="categoryId" class="form-control">
-                            <option value="">Tümü</option>
+                            <option value="" selected="@(Model.SelectedCategoryId == null ? "selected" : null)">Tümü</option>
                             @foreach (var category in Model.Categories)
                             {
-                                <option value="@category.CategoryID" selected="@((Model.SelectedCategoryId == category.CategoryID) ? "selected" : "")">
+                                <option value="@category.CategoryID" selected="@(Model.SelectedCategoryId == category.CategoryID ? "selected" : null)">
                                     @category.CategoryName
                                 </option>
                             }
                         </select>
+
                     </div>
                     <div class="filter-brand mt-4">
                         <label>Marka</label>
@@ -94,23 +95,35 @@
     .container {
         max-width: 1200px;
         margin: 0 auto;
+        padding: 20px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Başlık */
+    h2 {
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 25px;
     }
 
     /* Filtre Sidebar */
     .filter-sidebar {
-        background-color: #fff;
+        background-color: #f9f9f9;
         padding: 25px;
-        border-radius: 12px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        border-radius: 15px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+        position: sticky;
+        top: 20px;
     }
 
         .filter-sidebar h4 {
             font-size: 1.5rem;
             margin-bottom: 20px;
             font-weight: bold;
+            color: #222;
         }
 
-    /* Filtre Alanı */
+    /* Filtre Alanları */
     .filter-category,
     .filter-brand,
     .filter-price {
@@ -120,20 +133,21 @@
         .filter-category label,
         .filter-brand label,
         .filter-price label {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
-            color: #333;
+            color: #444;
         }
 
-        /* Kategori Dropdown */
+        /* Dropdown */
         .filter-category select {
             width: 100%;
             padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
             font-size: 1rem;
-            margin-top: 10px;
+            margin-top: 8px;
             transition: border-color 0.3s ease;
+            background-color: #fff;
         }
 
             .filter-category select:focus {
@@ -141,16 +155,19 @@
                 outline: none;
             }
 
-    /* Marka Seçimi */
+    /* Radio Seçim */
     .form-check-input {
         width: 18px;
         height: 18px;
-        margin-top: 5px;
+        margin-top: 4px;
+        cursor: pointer;
     }
 
     .form-check-label {
         font-size: 1rem;
-        color: #555;
+        color: #444;
+        margin-left: 6px;
+        cursor: pointer;
     }
 
     .form-check input[type="radio"]:checked + .form-check-label {
@@ -158,15 +175,16 @@
         color: #4e73df;
     }
 
-    /* Fiyat Filtreleme */
+    /* Fiyat Aralıkları */
     .filter-price input {
         width: 100%;
-        padding: 12px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
+        padding: 10px 14px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
         font-size: 1rem;
-        margin-top: 10px;
+        margin-top: 8px;
         transition: border-color 0.3s ease;
+        background-color: #fff;
     }
 
         .filter-price input:focus {
@@ -174,11 +192,27 @@
             outline: none;
         }
 
-    /* Fiyat Aralıkları */
+    /* Fiyat Buton Görünümü */
+    .filter-price .form-check {
+        margin-top: 10px;
+    }
+
+    .filter-price .form-check-input {
+        margin-top: 0;
+    }
+
     .filter-price .form-check-label {
-        font-size: 1rem;
-        color: #555;
-        margin-left: 5px;
+        background-color: #f1f1f1;
+        padding: 8px 12px;
+        border-radius: 20px;
+        display: inline-block;
+        transition: background-color 0.3s ease;
+    }
+
+    .filter-price input[type="radio"]:checked + .form-check-label {
+        background-color: #4e73df;
+        color: white;
+        font-weight: bold;
     }
 
     /* Filtrele Butonu */
@@ -187,9 +221,9 @@
         border-color: #4e73df;
         padding: 12px;
         font-size: 1.1rem;
-        border-radius: 8px;
+        border-radius: 10px;
         width: 100%;
-        transition: background-color 0.3s ease;
+        transition: all 0.3s ease;
     }
 
         .btn-primary:hover {
@@ -199,24 +233,29 @@
 
     /* Ürün Kartları */
     .product-card {
-        background-color: #fff;
-        border-radius: 12px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+        border-radius: 15px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
         overflow: hidden;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 
         .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
         }
 
-        /* Ürün Resmi */
         .product-card img {
             width: 100%;
             height: 200px;
             object-fit: cover;
-            border-bottom: 2px solid #f1f1f1;
+            border-bottom: 1px solid #eee;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
         }
 
     /* Ürün Bilgisi */
@@ -226,31 +265,27 @@
     }
 
         .product-info h5 {
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             font-weight: 600;
-            color: #333;
+            color: #222;
             margin-bottom: 10px;
         }
 
         .product-info p {
             font-size: 1rem;
-            color: #777;
+            color: #666;
             margin-bottom: 15px;
         }
 
-        .product-info .btn-info,
-        .product-info .btn-success {
-            font-size: 1rem;
-            padding: 10px;
+        .product-info .btn-info {
+            font-size: 0.95rem;
+            padding: 8px 12px;
             width: 100%;
             margin-top: 5px;
             border-radius: 8px;
-            transition: background-color 0.3s ease;
-        }
-
-        .product-info .btn-info {
             background-color: #17a2b8;
             border-color: #17a2b8;
+            transition: background-color 0.3s ease;
         }
 
             .product-info .btn-info:hover {
@@ -258,22 +293,16 @@
                 border-color: #138496;
             }
 
-        .product-info .btn-success {
-            background-color: #28a745;
-            border-color: #28a745;
-        }
-
-            .product-info .btn-success:hover {
-                background-color: #218838;
-                border-color: #218838;
-            }
-
-    /* Responsive Düzen */
+    /* Responsive */
     @@media (max-width: 992px) {
         .col-md-3, .col-md-9
 
     {
         margin-bottom: 20px;
+    }
+
+    .product-card img {
+        height: 180px;
     }
 
     }
@@ -287,11 +316,19 @@
     }
 
     .product-card {
-        border-radius: 8px;
+        border-radius: 12px;
     }
 
     .filter-sidebar {
-        margin-bottom: 20px;
+        margin-bottom: 25px;
+    }
+
+    .product-info h5 {
+        font-size: 1rem;
+    }
+
+    .product-info p {
+        font-size: 0.9rem;
     }
 
     }

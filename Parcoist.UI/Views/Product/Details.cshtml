@@ -13,10 +13,10 @@
         <div class="ctnt-bar cntnt">
             <div class="content-bar">
                 <div class="single-page">
-                    <div class="product-head">
-                        <a href="/">Home</a> <span>::</span>
+                   @*  <div class="product-head">
+                        <a href="/">Home</a> <span>::</span>a
                         <span>@Model.Product.Name</span>
-                    </div>
+                    </div> *@
 
                     <!-- Updated Slider Section -->
                     <!-- Ana Slider Alanı -->
@@ -54,8 +54,8 @@
                     <div class="details-left-info">
                         <h3>@Model.Product.Name</h3>
                         <h4>Model No: @Model.Product.ModelNo</h4>
-                        <p><label>₺</label> @Model.Product.DiscountedPrice <a href="#">Click for offer</a></p>
-                        @if (Model.VariantCombinations != null && Model.VariantCombinations.Any())
+                        <p><label>₺</label> @Model.Product.DiscountedPrice @* <a href="#">Click for offer</a> *@</p>
+                       @*  @if (Model.VariantCombinations != null && Model.VariantCombinations.Any())
                         {
                             <h5>Varyantlar</h5>
                             @foreach (var combination in Model.VariantCombinations)
@@ -72,7 +72,7 @@
                                     </ul>
                                 </div>
                             }
-                        }
+                        } *@
                         <div class="btn_form">
                             <a href="/Cart/Buy/@Model.Product.ProductID">SATIN AL</a>
                             @* <a href="/Cart/Add/@Model.Product.ProductID">ADD TO CART</a> *@
@@ -90,7 +90,7 @@
     </div>
 
     <div class="product-comments mt-5">
-        <h4 class="comment-title">Ürün Yorumları</h4>
+        <h4 class="comment-title" style="color:#00704A">Ürün Yorumları</h4>
 
         @if (Model.ProductComments != null && Model.ProductComments.Any())
         {
@@ -158,6 +158,14 @@
     });
 </script>
 <style>
+   /*  .product {
+        position: relative;
+        background: url('/assest/images/sabit/resimgif.gif') no-repeat center center fixed;
+        background-size: cover;
+    } */
+
+
+
     .product-main-slider {
         width: 100%;
         height: 400px;
