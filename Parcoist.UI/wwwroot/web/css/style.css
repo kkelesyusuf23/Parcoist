@@ -195,6 +195,7 @@ a.morebtn:hover{
 	min-height: 600px;
 	text-align: center;
 	padding: 5em 0;
+	opacity: 0.9;
 }
 .categories h3,.bikes h3{
 	 color:#000;
@@ -353,12 +354,13 @@ select{
 	display:block;
 }
 /*--contact--*/
-.contact{
-	background:url(../images/contact.jpg) no-repeat 0px 0px;
-	min-height:560px;
-	background-size:cover;
-	text-align:center;
-	padding:4em 0;
+.contact {
+    background: url('../../assest/images/sabit/10.jpg')no-repeat 0px 0px;
+    min-height: 560px;
+    background-size: cover;
+    text-align: center;
+    padding: 4em 0;
+    opacity: 0.9;
 }
 .contact h3{
 	color: #000;

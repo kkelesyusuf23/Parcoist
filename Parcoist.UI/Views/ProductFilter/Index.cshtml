@@ -5,27 +5,29 @@
 }
 
 <div class="container">
-    <h2>ÜRÜNLER</h2>
-    <div class="row">
+    <div class="page-banner">
+        <h2>ÜRÜNLER</h2>
+    </div>    <div class="row">
         <div class="col-md-3">
             <div class="filter-sidebar">
                 <h4>Filtrele</h4>
                 <form method="get" asp-controller="ProductFilter" asp-action="Index">
                     <div class="filter-category">
                         <label for="category">Kategori</label>
-                        <select id="category" name="categoryId" class="form-control">
+                        <select id="category" name="categoryId" class="form-control" style="height:40px">
                             <option value="" selected="@(Model.SelectedCategoryId == null ? "selected" : null)">Tümü</option>
                             @foreach (var category in Model.Categories)
                             {
-                                <option value="@category.CategoryID" selected="@(Model.SelectedCategoryId == category.CategoryID ? "selected" : null)">
+                                <option value="@category.CategoryID" selected="@(Model.SelectedCategoryId == category.CategoryID ? "selected" : null)" > 
                                     @category.CategoryName
                                 </option>
                             }
                         </select>
 
-                    </div>
-                    <div class="filter-brand mt-4">
-                        <label>Marka</label>
+                    </div> 
+                    <label>Marka</label>
+                    <div class="filter-brand mt-4" style="height: 150px; overflow-x: hidden; overflow-y: scroll;">
+                       
                         <div class="form-check">
                             <input type="radio" name="brand" value="" @(string.IsNullOrEmpty(Model.SelectedBrand) ? "checked" : "") class="form-check-input">
                             <label class="form-check-label">Tümü</label>
@@ -39,30 +41,29 @@
                         }
                     </div>
                     <div class="filter-price mt-4">
-                        <label>Fiyat</label>
-                        <div class="form-group">
-                            <label for="minPrice">Min Fiyat:</label>
-                            <input type="number" id="minPrice" name="minPrice" class="form-control" placeholder="Min Fiyat" value="@Model.MinPrice" />
+                        <div class="price-range">
+                            <div class="form-group">
+                                <label for="minPrice">Min Fiyat:</label>
+                                <input type="number" id="minPrice" name="minPrice" class="form-control" placeholder="Min Fiyat" value="@Model.MinPrice" />
+                            </div>
+                            <div class="form-group">
+                                <label for="maxPrice">Max Fiyat:</label>
+                                <input type="number" id="maxPrice" name="maxPrice" class="form-control" placeholder="Max Fiyat" value="@Model.MaxPrice" />
+                            </div>
+
+                            
                         </div>
-                        <div class="form-group">
-                            <label for="maxPrice">Max Fiyat:</label>
-                            <input type="number" id="maxPrice" name="maxPrice" class="form-control" placeholder="Max Fiyat" value="@Model.MaxPrice" />
-                        </div>
-                        <div class="form-check">
-                            <input type="radio" name="priceRange" value="50" @(Model.MaxPrice == 50 ? "checked" : "") class="form-check-input">
-                            <label class="form-check-label">₺50 ve Altı</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="radio" name="priceRange" value="100" @(Model.MaxPrice == 100 ? "checked" : "") class="form-check-input">
-                            <label class="form-check-label">₺100 ve Altı</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="radio" name="priceRange" value="200" @(Model.MaxPrice == 200 ? "checked" : "") class="form-check-input">
-                            <label class="form-check-label">₺200 ve Altı</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="radio" name="priceRange" value="300" @(Model.MaxPrice == 300 ? "checked" : "") class="form-check-input">
-                            <label class="form-check-label">₺300 ve Altı</label>
+                        <div class="quick-price-buttons mt-3">
+                            <label>Hızlı Fiyat Filtreleri:</label>
+                            <div class="btn-group w-100" role="group">
+                                <button type="button" class="btn btn-outline-secondary hizli-fiyat" onclick="setPrice(0, 500)">500 TL ve altı</button>
+                                <button type="button" class="btn btn-outline-secondary hizli-fiyat" onclick="setPrice(0, 1000)">1000 TL ve altı</button>
+                                <button type="button" class="btn btn-outline-secondary hizli-fiyat" onclick="setPrice(0, 2000)">2000 TL ve altı</button>
+                                <button type="button" class="btn btn-outline-secondary hizli-fiyat" onclick="setPrice(0, 3000)">3000 TL ve altı</button>
+                                <button type="button" class="btn btn-outline-secondary hizli-fiyat" onclick="setPrice(0, 4000)">4000 TL ve altı</button>
+                                <button type="button" class="btn btn-outline-secondary hizli-fiyat" onclick="setPrice(0, 5000)">5000 TL ve altı</button>
+                                <button type="button" class="btn btn-outline-secondary hizli-fiyat" onclick="setPrice(0, 6000)">6000 TL ve altı</button>
+                            </div>
                         </div>
                     </div>
 
@@ -74,12 +75,15 @@
             <div class="row">
                 @foreach (var product in Model.Products)
                 {
-                    <div class="col-md-4 mb-4">
+                    <div class="col-md-4 mb-4" style="margin-bottom:5px"> 
                         <div class="product-card shadow-sm p-3 rounded">
                             <img src="@product.FirstImageUrl" alt="@product.Name" class="img-fluid rounded">
                             <div class="product-info text-center">
                                 <h5>@product.Name</h5>
-                                <p class="text-muted">@product.DiscountedPrice.ToString("C")</p>
+                                <h5 class="product-price">
+                                    <span class="old-price">@product.BasePrice.ToString("C")</span>
+                                    <span class="new-price">@product.DiscountedPrice.ToString("C")</span>
+                                </h5>
                                 <a href="@Url.Action("Details", "Product", new { id = product.ProductID })" class="btn btn-info btn-sm">Detay</a>
                                 @* <a href="@Url.Action("AddToCart", "Cart", new { id = product.ProductID })" class="btn btn-success btn-sm">Sepete Ekle</a> *@
                             </div>
@@ -90,7 +94,101 @@
         </div>
     </div>
 </div>
+
+<script>
+    function setPrice(min, max) {
+        document.getElementById('minPrice').value = min;
+        document.getElementById('maxPrice').value = max;
+        // Formu otomatik gönder
+        document.querySelector('form').submit();
+    }
+</script>
 <style>
+    .product-price {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+
+        .product-price .old-price {
+            text-decoration: line-through;
+            color: #888;
+            font-size: 14px;
+        }
+
+        .product-price .new-price {
+            color: #e60023; /* Kırmızı tonlu indirim rengi */
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+
+    .page-banner {
+        position: relative;
+        text-align: center;
+        padding: 60px 20px; /* Banner yüksekliği ve iç boşluk */
+        margin-bottom: 30px;
+        border-radius: 15px;
+        box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+        border: 2px solid #ddd;
+        /* Arka plan ayarları */
+        background-color: #00704A; /* Resim yüklenmezse görünür */
+        background-image: url('/assest/images/sabit/4.jpg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover; /* resmi alana orantılı şekilde sığdırır */
+        min-height: 200px; /* yükseklik ver ki resim alanı gözüksün */
+    }
+
+
+        .page-banner.with-bg {
+            background: url('/assest/images/sabit/4.jpg'); 
+            border: none; 
+        }
+
+        .page-banner h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fff; 
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.3); 
+            margin: 0;
+        }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .page-banner
+
+    {
+        padding: 40px 15px;
+    }
+
+    .page-banner h2 {
+        font-size: 1.8rem;
+    }
+
+    }
+</style>
+
+<style>
+
+    .hizli-fiyat{
+        border-radius:8px;
+        margin:0 2px 3px 0;
+        font-size:12px;
+    }
+    .price-range {
+        display: flex;
+        gap: 10px; /* Alanlar arası boşluk */
+    }
+
+        .price-range .form-group {
+            flex: 1; /* Eşit genişlik */
+        }
+
+        .price-range input {
+            width: 100%; /* input kutusunu kapsayan alana yay */
+        }
+
     /* Genel Yapı */
     .container {
         max-width: 1200px;

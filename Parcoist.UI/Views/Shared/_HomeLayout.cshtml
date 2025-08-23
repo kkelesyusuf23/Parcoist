@@ -8,7 +8,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Bike Shop a Ecommerce Category Flat Bootstrap Responsive Website Template| Home :: w3layouts</title>
+	<title>Parcoist</title>
+    <link rel="icon" type="image/png" href="~/source/burun.ico" />
+
 	<link href="~/web/css/bootstrap.css" rel='stylesheet' type='text/css' />
 	<script src="~/web/js/jquery.min.js"></script>
 	<link href="~/web/css/style.css" rel="stylesheet" type="text/css" media="all" />
@@ -70,7 +72,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							</ul> *@
 						</li>
 						<li class="dropdown1">
-							<a href="parts.html">Kategoriler</a>
+							<a href="/HomeCategory/Index">Kategoriler</a>
 							@* <ul class="dropdown2">
 								<li><a href="parts.html">CHAINS</a></li>
 								<li><a href="parts.html">TUBES</a></li>
@@ -109,21 +111,54 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<a href="/Home/Index"><img src="~/source/logo.png" alt="" style="width:200px"/></a>
 			</div>
 			<div class="ftr-menu">
-				<ul>
-					<li><a href="bicycles.html">BICYCLES</a></li>
-					<li><a href="parts.html">PARTS</a></li>
-					<li><a href="accessories.html">ACCESSORIES</a></li>
-					<li><a href="404.html">EXTRAS</a></li>
-				</ul>
+					<ul class="nav">
+						<li class="dropdown1">
+							<a href="/ProductFilter/Index">Ürünler</a>
+							@* <ul class="dropdown2">
+								<li><a href="bicycles.html">FIXED / SINGLE SPEED</a></li>
+								<li><a href="bicycles.html">CITY BIKES</a></li>
+								<li><a href="bicycles.html">PREMIMUN SERIES</a></li>
+							</ul> *@
+						</li>
+						<li class="dropdown1">
+							<a href="/HomeCategory/Index">Kategoriler</a>
+							@* <ul class="dropdown2">
+								<li><a href="parts.html">CHAINS</a></li>
+								<li><a href="parts.html">TUBES</a></li>
+								<li><a href="parts.html">TIRES</a></li>
+								<li><a href="parts.html">DISC BREAKS</a></li>
+							</ul> *@
+						</li>
+						@* <li class="dropdown1">
+							<a href="accessories.html">ACCESSORIES</a>
+							 <ul class="dropdown2">
+								<li><a href="accessories.html">LOCKS</a></li>
+								<li><a href="accessories.html">HELMETS</a></li>
+								<li><a href="accessories.html">ARM COVERS</a></li>
+								<li><a href="accessories.html">JERSEYS</a></li>
+							</ul> 
+						</li> *@
+						@* <li class="dropdown1">
+							<a href="404.html">EXTRAS</a>
+							<ul class="dropdown2">
+								<li><a href="404.html">CLASSIC BELL</a></li>
+								<li><a href="404.html">BOTTLE CAGE</a></li>
+								<li><a href="404.html">TRUCK GRIP</a></li>
+							</ul>
+						</li> *@
+						<a class="shop" href="cart.html"><i class="fa-solid fa-2x fa-basket-shopping"></i></a>
+					</ul>
 			</div>
 			<div class="clearfix"></div>
 		</div>
 	</div>
-	<div class="footer-bottom">
-		<div class="container">
-			<p> &copy; @DateTime.Now.Year Parco Parfume Company. All Rights Reserved. </p>
+		<div class="footer-bottom">
+			<div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+				<p>&copy; @DateTime.Now.Year Parco Parfume Company. Tüm hakları saklıdır.</p>
+				@* <p style="margin: 0;">by Yukee</p> *@
+			</div>
 		</div>
-	</div>
+
 </body>
 <script type="text/javascript">
 	 $(window).load(function() {

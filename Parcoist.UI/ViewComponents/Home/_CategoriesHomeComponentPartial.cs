@@ -14,7 +14,7 @@ namespace Parcoist.UI.ViewComponents.Home
 
         public IViewComponentResult Invoke()
         {
-            var categories = _categoryService.TGetListAll();
+            var categories = _categoryService.TGetListAll().Take(3).ToList();
             return View(categories);
         }
     }

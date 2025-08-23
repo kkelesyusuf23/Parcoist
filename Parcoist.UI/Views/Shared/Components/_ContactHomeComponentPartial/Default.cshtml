@@ -1,18 +1,63 @@
 ﻿@model ContactViewModel
 
+<div class="contact" style="color:white">
+    <div class="container">
+        <h3 style="color:white">İLETİŞİM</h3>
+        <p style="color:white">Herhangi bir öneri, şikayet ve talep için bizimle iletişime geçin</p>
 
-<div class="contact">
-	<div class="container">
-		<h3>CONTACT US</h3>
-		<p>Please contact us for all inquiries and purchase options.</p>
+        <form method="post" class="contact-form">
+            <div class="form-row">
+                <input type="text" name="ContactName" placeholder="NAME" required />
+                <input type="text" name="ContactSubject" placeholder="SUBJECT" required />
+            </div>
 
-		<form method="post">
-			<input type="text" name="ContactName" placeholder="NAME" required />
-			<input type="text" name="ContactPhone" placeholder="PHONE" required />
-			<input type="email" name="ContactEmail" placeholder="USER@DOMAIN.COM" required /><br />
-			<input type="text" name="ContactSubject" placeholder="SUBJECT" required />
-			<textarea name="ContactMessage" placeholder="MESSAGE" required>@Model?.ContactMessage</textarea>
-			<input type="submit" value="SEND" />
-		</form>
-	</div>
+            <div class="form-row">
+                <input type="text" name="ContactPhone" placeholder="PHONE" required />
+                <input type="email" name="ContactEmail" placeholder="USER@DOMAIN.COM" required class="contact-form-email" />
+            </div>
+
+            <div class="form-row">
+                <textarea name="ContactMessage" placeholder="Mesajınızı yazın..." required>@Model?.ContactMessage</textarea>
+            </div>
+
+            <div class="form-row text-end">
+                <button type="submit">Gönder</button>
+            </div>
+        </form>
+    </div>
 </div>
+
+<style>
+    .contact-form input {
+        width: 43%;
+        margin-right: 4%;
+        padding: 10px;
+        border: 1px solid #b7b7b7;
+        font-size: 1em;
+        margin-bottom: 2em;
+        font-style: italic;
+        color: #000;
+        background: #fff;
+        outline: none;
+        font-weight: 400;
+        border-radius: 7px;
+    }
+
+
+    .contact-form button {
+        width: 30%;
+        padding: 12px;
+        font-size: 1.1em;
+        color: #fff;
+        background-color: #00704A; /* Starbucks yeşili */
+        border: none;
+        border-radius: 7px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+        .contact-form button:hover {
+            background-color: #00583f; /* Hover daha koyu ton */
+        }
+</style>
