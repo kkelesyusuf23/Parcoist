@@ -21,6 +21,14 @@ namespace Parcoist.UI.Controllers
 
         public IActionResult Index()
         {
+            // Kullanıcı giriş yapmış mı kontrol et
+            var userId = HttpContext.Session.GetInt32("UserID");
+
+            if (userId == null)
+            {
+                // Giriş yapılmamışsa login sayfasına yönlendir
+                return RedirectToAction("Login", "Auth");
+            }
             var logos = _logoService.TGetListAll();
             return View(logos);
         }
@@ -80,7 +88,7 @@ namespace Parcoist.UI.Controllers
                 LogoImage = dto.LogoImage,
                 LogoTitle = dto.LogoTitle,
                 LogoLink = dto.LogoLink,
-                LogoDate = DateTime.Now,
+                //LogoDate = DateTime.Now,
                 LogoStatus = false,
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now
@@ -145,7 +153,7 @@ namespace Parcoist.UI.Controllers
 
             existingProduct.LogoTitle = p.LogoTitle;
             existingProduct.LogoLink = p.LogoLink;
-            existingProduct.LogoDate = DateTime.Now;
+            //existingProduct.LogoDate = DateTime.Now;
             existingProduct.LogoStatus = false; 
 
 

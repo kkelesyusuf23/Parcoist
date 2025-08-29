@@ -1,0 +1,41 @@
+﻿@model Parcoist.UI.Models.AddUserViewModel
+
+@{
+    ViewData["Title"] = "Kullanıcı Ekle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Kullanıcı Ekle</h2>
+
+<!-- ModelState hataları -->
+<div asp-validation-summary="All" class="text-danger"></div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+<form asp-action="AddUser" method="post">
+    <div class="form-group">
+        <label>Ad</label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Soyad</label>
+        <input asp-for="Surname" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Şifre</label>
+        <input asp-for="Password" type="password" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Rol</label>
+        <select asp-for="RoleID" asp-items="@(new SelectList(ViewBag.Roles, "RoleID", "RoleName"))" class="form-control"></select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+</form>

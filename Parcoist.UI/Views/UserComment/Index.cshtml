@@ -1,5 +1,6 @@
-﻿@using Parcoist.UI.Entities
-@model List<UserComment>
+﻿@using Parcoist.Entity.Concrete
+
+@model List<ProductComment>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -43,13 +44,16 @@
                 {
                     <tr>
                         <td>@(Model.IndexOf(item) + 1)</td>
-                        <td>@item.UserID</td>
-                        <td>@item.ProductID</td>
-                        <td>@item.Description</td>
-                        <td>@item.Comment</td>
-                        <td>@item.Date</td>
-                        <td><a href="/UserComment/Delete/@item.UserCommentID" class="btn btn-outline-danger">Sil</a></td>
-                        <td><a href="/UserComment/Update/@item.UserCommentID" class="btn btn-outline-success">Güncelle</a></td>
+                        <td>@item.UserName</td>
+                        <td>@item.ProductId</td>
+                        <td>
+                            @(item.CommentText.Length > 25
+                                ? item.CommentText.Substring(0, 25) + "..."
+                                : item.CommentText)
+                        </td>
+                        <td>@item.CreatedAt</td>
+                        <td><a href="/UserComment/Delete/@item.Id" class="btn btn-outline-danger">Sil</a></td>
+                        <td><a href="/UserComment/Update/@item.Id" class="btn btn-outline-success">Güncelle</a></td>
                     </tr>
                 }
             }

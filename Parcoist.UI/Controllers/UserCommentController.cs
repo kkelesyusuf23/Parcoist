@@ -4,21 +4,30 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Parcoist.Business.Abstract;
 using Parcoist.DTO.CategoryDtos;
 using Parcoist.DTO.UserCommentDtos;
+using Parcoist.Entity.Concrete;
 using Parcoist.UI.Entities;
 
 namespace Parcoist.UI.Controllers
 {
     public class UserCommentController : Controller
     {
-        private readonly IUserCommentService _userCommentService;
+        private readonly IProductCommentService _userCommentService;
         private readonly IProductService _productService;
-        public UserCommentController(IUserCommentService userCommentService, IProductService productService)
+        public UserCommentController(IProductCommentService userCommentService, IProductService productService)
         {
             _userCommentService = userCommentService;
             _productService = productService;
         }
         public IActionResult Index()
         {
+            // Kullanıcı giriş yapmış mı kontrol et
+            var userId = HttpContext.Session.GetInt32("UserID");
+
+            if (userId == null)
+            {
+                // Giriş yapılmamışsa login sayfasına yönlendir
+                return RedirectToAction("Login", "Auth");
+            }
             var userComments = _userCommentService.TGetListAll();
             return View(userComments);
         }
@@ -52,17 +61,15 @@ namespace Parcoist.UI.Controllers
         public async Task<IActionResult> Add(CreateUserCommentDto dto)
         {
             
-            UserComment userComment = new UserComment
+            ProductComment userComment = new ProductComment
             {
                 //UserID = dto.UserID,
-                UserID = 1,
-                ProductID = dto.ProductID,
-                Comment = dto.Comment,
-                Description = dto.Description,
-                Date = DateTime.Now.ToString(),
+                UserName = "Default",
+                ProductId = dto.ProductID,
+                CommentText = dto.Comment,
                 IsActive = true,
                 CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now
+                UpdatedAt = DateTime.Now,
 
 
             };
@@ -78,12 +85,10 @@ namespace Parcoist.UI.Controllers
 
             var dto = new UpdateUserCommentDto
             {
-                UserCommentID = value.UserCommentID,
+                username = value.UserName,
                 //UserID = value.UserID,
-                UserID = 1,
-                ProductID = value.ProductID,
-                Comment = value.Comment,
-                Description = value.Description,
+                ProductID = value.ProductId,
+                Comment = value.CommentText,
             };
 
             var parentProduct = _productService.TGetListAll();
@@ -99,11 +104,9 @@ namespace Parcoist.UI.Controllers
             var existingComment = _userCommentService.TGetById(p.UserCommentID);
 
             //existingComment.UserID = p.UserID;
-            existingComment.UserID = 1;
-            existingComment.ProductID = p.ProductID;
-            existingComment.Comment = p.Comment;
-            existingComment.Description = p.Description;
-            existingComment.Date = DateTime.Now.ToString();
+            existingComment.ProductId = p.ProductID;
+            existingComment.CommentText = p.Comment;
+            existingComment.UpdatedAt = DateTime.Now;
             _userCommentService.TUpdate(existingComment);
 
             return RedirectToAction("Index");

@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Parcoist.Business.Abstract;
 using Parcoist.DTO.ProductDtos;
+using Parcoist.Entity.Concrete;
 using Parcoist.UI.Entities;
+using Parcoist.UI.Models;
 
 namespace Parcoist.UI.Controllers
 {
@@ -14,18 +16,28 @@ namespace Parcoist.UI.Controllers
         private readonly ICategoryService _categoryService;
         private readonly IBrandService _brandService;
         private readonly IProductVariantCombinationService _productVariantCombinationService;
+        private readonly IProductCommentService _productCommentService;
 
-        public ProductController(IWebHostEnvironment webHostEnvironment, IProductService productService, IBrandService brandService, ICategoryService categoryService, IProductVariantCombinationService productVariantCombinationService)
+        public ProductController(IWebHostEnvironment webHostEnvironment, IProductService productService, IBrandService brandService, ICategoryService categoryService, IProductVariantCombinationService productVariantCombinationService, IProductCommentService productCommentService)
         {
             _webHostEnvironment = webHostEnvironment;
             _productService = productService;
             _brandService = brandService;
             _categoryService = categoryService;
             _productVariantCombinationService = productVariantCombinationService;
+            _productCommentService = productCommentService;
         }
 
         public IActionResult Index()
         {
+            // Kullanıcı giriş yapmış mı kontrol et
+            var userId = HttpContext.Session.GetInt32("UserID");
+
+            if (userId == null)
+            {
+                // Giriş yapılmamışsa login sayfasına yönlendir
+                return RedirectToAction("Login", "Auth");
+            }
             var products = _productService.TGetListAll();
             return View(products);
         }
@@ -203,15 +215,44 @@ namespace Parcoist.UI.Controllers
             // VariantCombinations + içindeki ProductVariantValues ve onların FeatureType ve FeatureValue ilişkileri
             var variantCombinations = _productVariantCombinationService.TGetProductVariantWithProductAndValues(id);
 
+            var comments = _productCommentService.TGetListAll().Where(x => x.ProductId == id).ToList();
+
             var viewModel = new ProductDetailViewModel
             {
                 Product = product,
                 ProductImages = productImages,
-                VariantCombinations = variantCombinations
+                VariantCombinations = variantCombinations,
+                ProductComments = comments
             };
 
             return View(viewModel);
         }
+
+        [HttpPost]
+        public IActionResult AddComment(AddProductCommentViewModel model)
+        {
+            var randomsayi = new Random();
+            if (ModelState.IsValid)
+            {
+                var comment = new ProductComment
+                {
+                    ProductId = model.ProductID,
+                    CommentText = model.CommentText,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    IsActive = true,
+                    UserName = "User" + randomsayi.Next(),
+                    //CreatedDate = DateTime.Now
+                };
+
+                _productCommentService.TAdd(comment);
+                return RedirectToAction("Details", new { id = model.ProductID });
+            }
+
+            // Hata olursa tekrar product detayına dön
+            return RedirectToAction("Details", new { id = model.ProductID });
+        }
+
 
     }
 }

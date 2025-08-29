@@ -124,19 +124,36 @@ builder.Services.AddDbContext<ParcoContext>(options =>
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDistributedMemoryCache(); // Session için cache
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // oturum süresi
+    options.Cookie.HttpOnly = true;                 // güvenlik
+    options.Cookie.IsEssential = true;              // GDPR
+});
 
 var app = builder.Build();
-app.UseStaticFiles();
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+
+// Seed verilerini ekle
+using (var scope = app.Services.CreateScope())
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<ParcoContext>();
+
+    // Database var mı kontrol et, yoksa oluştur
+    context.Database.EnsureCreated();
+
+    // Seed verilerini ekle
+    SeedData.Initialize(context);
 }
+app.UseStatusCodePagesWithReExecute("/Error/{0}");
+
+app.UseStaticFiles();
+
 
 app.UseHttpsRedirection();
 app.UseRouting();
+app.UseSession();
 
 app.UseAuthorization();
 

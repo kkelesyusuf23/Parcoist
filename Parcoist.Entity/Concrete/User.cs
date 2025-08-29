@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Parcoist.Entity.Concrete;
+using System.ComponentModel.DataAnnotations;
 
 namespace Parcoist.UI.Entities
 {
@@ -32,13 +33,14 @@ namespace Parcoist.UI.Entities
         // Hesap Durumu
         public bool IsActive { get; set; } = true;
         public bool IsEmailConfirmed { get; set; } = false;
-        public string EmailConfirmationToken { get; set; }
+        public string EmailConfirmationToken { get; set; } = default!;
 
         // Güvenlik
-        public string RefreshToken { get; set; }
-        public DateTime? RefreshTokenExpiry { get; set; }
+        //public string RefreshToken { get; set; }
+        //public DateTime? RefreshTokenExpiry { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime UpdatedAt { get; set; } = DateTime.Now;
         public DateTime? LastLoginAt { get; set; }
 
         public int FailedLoginCount { get; set; } = 0;
@@ -51,7 +53,8 @@ namespace Parcoist.UI.Entities
         public Customer Customer { get; set; }
 
         // One-to-Many İlişkiler
-        public List<UserComment> UserComments { get; set; }
+        public List<ProductComment> ProductComments { get; set; }
+
 
     }
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Parcoist.Business.Abstract;
+using Parcoist.UI.Entities;
 using Parcoist.UI.Models;
 
 namespace Parcoist.UI.Controllers
@@ -35,24 +36,28 @@ namespace Parcoist.UI.Controllers
                 query = query.Where(p => p.DiscountedPrice <= maxPrice.Value);
 
             var filteredProducts = query
-                .Select(p => new
-                {
-                    Product = p,
-                    FirstImage = p.ProductImages != null && p.ProductImages.Any()
-                        ? p.ProductImages.FirstOrDefault().ImagePath
-                        : "/source/default.png"
-                })
-                .ToList();
+    .Select(p => new Product
+    {
+        // var olan Product alanları
+        ProductID = p.ProductID,
+        Name = p.Name,
+        Brand = p.Brand,
+        DiscountedPrice = p.DiscountedPrice,
+        ProductImages = p.ProductImages,
+        // Yeni eklenen property
+        FirstImageUrl = p.ProductImages != null && p.ProductImages.Any()
+            ? p.ProductImages.FirstOrDefault().ImagePath
+            : "/source/default.png"
+    })
+    .ToList();
 
 
             var allCategories = _categoryService.TGetListAll();
 
+           
             var viewModel = new ProductFilterViewModel
             {
-                Products = filteredProducts.Select(p => {
-                    p.Product.FirstImageUrl = p.FirstImage; // Ürün modelinde ek property
-                    return p.Product;
-                }).ToList(),
+                Products = filteredProducts, // artık direkt FirstImageUrl var
                 Categories = allCategories,
                 Brands = allProducts
                     .Select(p => p.Brand?.Name)
@@ -65,6 +70,7 @@ namespace Parcoist.UI.Controllers
                 MinPrice = minPrice,
                 MaxPrice = maxPrice
             };
+
 
             return View(viewModel);
         }

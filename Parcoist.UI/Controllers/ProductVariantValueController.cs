@@ -27,6 +27,14 @@ namespace Parcoist.UI.Controllers
 
         public IActionResult Index()
         {
+            // Kullanıcı giriş yapmış mı kontrol et
+            var userId = HttpContext.Session.GetInt32("UserID");
+
+            if (userId == null)
+            {
+                // Giriş yapılmamışsa login sayfasına yönlendir
+                return RedirectToAction("Login", "Auth");
+            }
             var values = _productVariantValueService.TGetListAll();
             return View(values);
         }

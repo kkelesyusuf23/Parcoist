@@ -47,9 +47,13 @@ namespace Parcoist.DataAccess.Concrete
     .WithOne(rr => rr.ReturnItem)
     .HasForeignKey<ReturnItem>(ri => ri.ReturnRequestID)
     .OnDelete(DeleteBehavior.Restrict); // veya DeleteBehavior.NoAction
+
+
+
+
         }
 
-        //public DbSet<Admin> Admins { get; set; }
+        public DbSet<Admin> Admins { get; set; }
         //public DbSet<Adress> Adresses { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<BrandCategory> BrandCategories { get; set; }
@@ -75,6 +79,7 @@ namespace Parcoist.DataAccess.Concrete
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<ProductVariantCombination> ProductVariantCombinations { get; set; }
         public DbSet<ProductVariantValue> ProductVariantValues { get; set; }
+        public DbSet<ProductComment> ProductComments { get; set; }
         //public DbSet<ReturnImage> ReturnImages { get; set; }
         //public DbSet<ReturnItem> ReturnItems { get; set; }
         //public DbSet<ReturnProcess> ReturnProcesss { get; set; }
@@ -82,8 +87,9 @@ namespace Parcoist.DataAccess.Concrete
         //public DbSet<ReturnRequest> ReturnRequests { get; set; }
         //public DbSet<ReturnStatus> ReturnStatuses { get; set; }
         public DbSet<Slider> Sliders { get; set; }
-        public DbSet<UserComment> UserComments { get; set; }
+        //public DbSet<UserComment> UserComments { get; set; }
         //public DbSet<ActionLog> ActionLogs { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
     }
 }

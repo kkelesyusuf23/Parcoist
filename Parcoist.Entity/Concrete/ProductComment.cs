@@ -12,7 +12,7 @@ namespace Parcoist.Entity.Concrete
         public int ProductId { get; set; }
         public string UserName { get; set; }
         public string CommentText { get; set; }
-        public DateTime CreatedDate { get; set; }
+        //public DateTime CreatedDate { get; set; }
 
         public bool IsActive { get; set; }
         public DateTime CreatedAt { get; set; }

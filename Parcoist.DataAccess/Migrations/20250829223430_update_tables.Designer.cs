@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Parcoist.DataAccess.Concrete;
 
@@ -11,9 +12,11 @@ using Parcoist.DataAccess.Concrete;
 namespace Parcoist.DataAccess.Migrations
 {
     [DbContext(typeof(ParcoContext))]
-    partial class ParcoContextModelSnapshot : ModelSnapshot
+    [Migration("20250829223430_update_tables")]
+    partial class update_tables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

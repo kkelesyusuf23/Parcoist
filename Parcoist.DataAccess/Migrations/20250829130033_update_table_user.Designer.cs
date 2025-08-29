@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Parcoist.DataAccess.Concrete;
 
@@ -11,9 +12,11 @@ using Parcoist.DataAccess.Concrete;
 namespace Parcoist.DataAccess.Migrations
 {
     [DbContext(typeof(ParcoContext))]
-    partial class ParcoContextModelSnapshot : ModelSnapshot
+    [Migration("20250829130033_update_table_user")]
+    partial class update_table_user
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -183,6 +186,9 @@ namespace Parcoist.DataAccess.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("LogoDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("LogoImage")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -204,44 +210,6 @@ namespace Parcoist.DataAccess.Migrations
                     b.HasKey("LogoID");
 
                     b.ToTable("Logo");
-                });
-
-            modelBuilder.Entity("Parcoist.Entity.Concrete.ProductComment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CommentText")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("UserID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserID");
-
-                    b.ToTable("ProductComments");
                 });
 
             modelBuilder.Entity("Parcoist.Entity.Concrete.ProductVariantCombination", b =>
@@ -1393,9 +1361,6 @@ namespace Parcoist.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("UserID");
 
                     b.HasIndex("RoleID");
@@ -1444,7 +1409,7 @@ namespace Parcoist.DataAccess.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("UserComment");
+                    b.ToTable("UserComments");
                 });
 
             modelBuilder.Entity("Adress", b =>
@@ -1487,13 +1452,6 @@ namespace Parcoist.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("FeatureType");
-                });
-
-            modelBuilder.Entity("Parcoist.Entity.Concrete.ProductComment", b =>
-                {
-                    b.HasOne("Parcoist.UI.Entities.User", null)
-                        .WithMany("ProductComments")
-                        .HasForeignKey("UserID");
                 });
 
             modelBuilder.Entity("Parcoist.Entity.Concrete.ProductVariantCombination", b =>
@@ -1819,7 +1777,7 @@ namespace Parcoist.DataAccess.Migrations
                         .IsRequired();
 
                     b.HasOne("Parcoist.UI.Entities.User", "User")
-                        .WithMany()
+                        .WithMany("UserComments")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1921,7 +1879,7 @@ namespace Parcoist.DataAccess.Migrations
                     b.Navigation("Customer")
                         .IsRequired();
 
-                    b.Navigation("ProductComments");
+                    b.Navigation("UserComments");
                 });
 #pragma warning restore 612, 618
         }

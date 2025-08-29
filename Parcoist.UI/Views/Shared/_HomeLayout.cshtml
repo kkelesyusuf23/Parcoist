@@ -103,6 +103,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="clearfix"></div>
 			</div>
 		</div>
+		@if (TempData["ErrorMessage"] != null)
+		{
+			<div class="alert alert-danger">
+				@TempData["ErrorMessage"]
+			</div>
+		}
 
         @RenderBody()
 	<div class="footer">

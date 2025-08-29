@@ -90,27 +90,45 @@
     </div>
 
     <div class="product-comments mt-5">
-        <h4 class="comment-title" style="color:#00704A">Ürün Yorumları</h4>
+
+        <h4 class="comment-title">Yorum Ekle</h4>
+
+        <form id="commentForm" class="comment-form d-flex align-items-start">
+           @*  <div class="user-avatar">
+                <i class="fas fa-user"></i>
+            </div> *@
+            <div class="form-group flex-grow-1 ms-3">
+                <textarea name="CommentText" class="form-control" rows="3" placeholder="Yorumunuzu yazın..." required></textarea>
+                <div class="d-flex justify-content-end mt-2">
+                    <button type="submit" class="btn btn-primary">Gönder</button>
+                </div>
+            </div>
+            <input type="hidden" name="ProductID" value="@Model.Product.ProductID" />
+        </form>
+
+        <h4 class="comment-title mt-5">Ürün Yorumları</h4>
 
         @if (Model.ProductComments != null && Model.ProductComments.Any())
         {
             <div class="comment-list">
                 @foreach (var comment in Model.ProductComments)
                 {
-                    <div class="comment-card">
-                        <div class="comment-header">
-                            <div class="user-avatar">
-                                <i class="fas fa-user"></i>
+                    if(comment.IsActive){
+                        <div class="comment-card">
+                            <div class="comment-header">
+                                <div class="user-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="user-info">
+                                    <strong>@comment.UserName</strong>
+                                    <small>@comment.CreatedAt.ToString("dd MMM yyyy")</small>
+                                </div>
                             </div>
-                            <div class="user-info">
-                                <strong>@comment.UserName</strong>
-                                <small>@comment.CreatedDate.ToString("dd MMM yyyy")</small>
+                            <div class="comment-body">
+                                <p>@comment.CommentText</p>
                             </div>
                         </div>
-                        <div class="comment-body">
-                            <p>@comment.CommentText</p>
-                        </div>
-                    </div>
+                    }
                 }
             </div>
         }
@@ -122,6 +140,48 @@
 
 
 </div>
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#commentForm').submit(function (e) {
+                e.preventDefault(); // Sayfanın reload olmasını engelle
+
+                var formData = {
+                    ProductID: $('input[name="ProductID"]').val(),
+                    CommentText: $('textarea[name="CommentText"]').val()
+                };
+
+                $.ajax({
+                    url: '/Product/AddComment',
+                    type: 'POST',
+                    data: formData,
+                    success: function () {
+                        // Başarılıysa sayfayı yeniden yükle
+                        location.reload();
+                    },
+                    error: function () {
+                        alert('Yorum eklenirken bir hata oluştu.');
+                    }
+                });
+
+                // Gönder butonunu 5 dk boyunca pasif yap
+                var btn = $(this).find('button[type="submit"]');
+                btn.prop('disabled', true);
+                setTimeout(function () {
+                    btn.prop('disabled', false);
+                }, 300000); // 300000 ms = 5 dakika
+            });
+        });
+    </script>
+
+
+
+
+
 
 <!-- Font Awesome (kullanılıyor) -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -158,6 +218,68 @@
     });
 </script>
 <style>
+    /* Modern Yorum Alanı */
+    .comment-form {
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+
+        .comment-form .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #e2e6ea;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: #495057;
+            flex-shrink: 0;
+        }
+
+        .comment-form textarea {
+            border-radius: 20px;
+            padding: 12px 20px;
+            resize: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border: 1px solid #ccc;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+            .comment-form textarea:focus {
+                outline: none;
+                border-color: #007bff;
+                box-shadow: 0 2px 10px rgba(0,123,255,0.2);
+            }
+
+        .comment-form button {
+            border-radius: 20px;
+            padding: 6px 20px;
+        }
+
+    .comment-title {
+        font-size: 1.6rem;
+        font-weight: 600;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #007bff;
+        display: inline-block;
+        padding-bottom: 5px;
+    }
+
+    /* Mevcut yorum kartları zaten modern */
+    .comment-card {
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+        .comment-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+        }
+
    /*  .product {
         position: relative;
         background: url('/assest/images/sabit/resimgif.gif') no-repeat center center fixed;
@@ -273,190 +395,3 @@
 
 </style>
 
-
-@* <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/jquery.flexslider@2.7.2/jquery.flexslider.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery.flexslider@2.7.2/flexslider.css" type="text/css" media="screen" />
-<script>
-    $(window).load(function() {
-        $('.flexslider').flexslider({
-            animation: "slide",
-            controlNav: "thumbnails",
-            directionNav: true
-        });
-    });
-</script>
-<style>
-    .product-comments {
-        padding: 20px;
-        background: #f9f9f9;
-        border-top: 1px solid #ddd;
-        margin-top: 40px;
-    }
-
-    .comment-box {
-        background: #fff;
-        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-    }
-</style>
-
-<!-- FlexSlider CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flexslider@2.7.2/flexslider.css" type="text/css" />
-
-<!-- jQuery + FlexSlider -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/flexslider@2.7.2/jquery.flexslider-min.js"></script>
-
-<script>
-    $(window).on('load', function () {
-        // Thumbnail slider
-        $('#carousel').flexslider({
-            animation: "slide",
-            controlNav: false,
-            animationLoop: false,
-            slideshow: false,
-            itemWidth: 100,
-            itemMargin: 10,
-            asNavFor: '#slider'
-        });
-
-        // Main image slider
-        $('#slider').flexslider({
-            animation: "slide",
-            controlNav: false,
-            animationLoop: false,
-            slideshow: false,
-            sync: "#carousel"
-        });
-    });
-</script>
-<style>
-    .product-main-slider {
-        width: 100%;
-        height: 400px;
-        margin-bottom: 10px;
-    }
-
-        .product-main-slider .swiper-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-    .product-thumb-slider {
-        height: 100px;
-    }
-
-        .product-thumb-slider .swiper-slide {
-            width: 100px;
-            height: 100px;
-            opacity: 0.4;
-            cursor: pointer;
-        }
-
-        .product-thumb-slider .swiper-slide-thumb-active {
-            opacity: 1;
-            border: 2px solid #333;
-        }
-
-    .product-comments {
-        padding: 30px;
-        border-top: 1px solid #ddd;
-        margin-top: 60px;
-        border-radius: 12px;
-    }
-
-    .comment-title {
-        font-size: 1.5rem;
-        margin-bottom: 20px;
-        font-weight: bold;
-        border-bottom: 2px solid #333;
-        display: inline-block;
-        padding-bottom: 5px;
-    }
-
-    .comment-list {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .comment-card {
-        border-radius: 10px;
-        padding: 20px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-        transition: transform 0.2s ease;
-    }
-
-        .comment-card:hover {
-            transform: translateY(-3px);
-        }
-
-    .comment-header {
-        display: flex;
-        align-items: center;
-        margin-bottom: 10px;
-    }
-
-    .user-avatar {
-        width: 45px;
-        height: 45px;
-        background-color: #e2e6ea;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.2rem;
-        color: #495057;
-        margin-right: 15px;
-    }
-
-    .user-info strong {
-        display: block;
-        font-weight: 600;
-    }
-
-    .user-info small {
-        color: #6c757d;
-        font-size: 0.85rem;
-    }
-
-    .comment-body p {
-        margin: 0;
-        line-height: 1.6;
-        color: #333;
-    }
-
-    .no-comments {
-        font-style: italic;
-        color: #777;
-        margin-top: 10px;
-    }
-
-</style>
-<!-- Swiper JS ve CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const thumbSwiper = new Swiper('.product-thumb-slider', {
-            spaceBetween: 10,
-            slidesPerView: 4,
-            freeMode: true,
-            watchSlidesProgress: true,
-        });
-
-        const mainSwiper = new Swiper('.product-main-slider', {
-            spaceBetween: 10,
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            thumbs: {
-                swiper: thumbSwiper,
-            },
-        });
-    });
-</script>
- *@

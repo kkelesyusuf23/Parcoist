@@ -37,5 +37,23 @@ namespace Parcoist.UI.Controllers
             _contactService.TAdd(contact);
             return View();
         }
+
+
+        public IActionResult StatusCode(int code)
+        {
+            if (code == 404)
+            {
+                return View("NotFound"); // Views/Shared/NotFound.cshtml
+            }
+
+            return View("Error"); // Diğer hatalar
+        }
+
+        public IActionResult Error()
+        {
+            // Views/Shared/Error.cshtml sayfasını döner
+            return View("Error");
+        }
+
     }
 }

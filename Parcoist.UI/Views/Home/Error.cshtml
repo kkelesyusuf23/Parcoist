@@ -1,0 +1,16 @@
+﻿@{
+    ViewData["Title"] = "Hata Oluştu";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml"; // Kendi layout'un varsa onu kullan
+}
+
+<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:80vh; text-align:center;">
+    <h1 style="font-size:6rem; color:#ff4c4c;">500</h1>
+    <h2 style="font-size:2rem; margin-bottom:20px;">Üzgünüz, bir hata oluştu.</h2>
+    <p style="font-size:1.2rem; color:#555; max-width:500px;">
+        Sistemsel bir hata meydana geldi. Lütfen daha sonra tekrar deneyin.
+        Eğer problem devam ederse destek ekibimizle iletişime geçin.
+    </p>
+    <a href="/Home/Index" style="margin-top:20px; padding:10px 20px; background-color:#4caf50; color:white; border-radius:5px; text-decoration:none;">
+        Ana Sayfaya Dön
+    </a>
+</div>

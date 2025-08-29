@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "Admin Giriş";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+<div class="formm d-flex align-items-center justify-content-center vh-100 bg-light">
+    <div class="card shadow-lg border-0 rounded-4" style="max-width: 400px; width: 100%;">
+        <div class="card-body p-4">
+            <h3 class="text-center mb-4 fw-bold">🔑 Admin Giriş</h3>
+
+            <div asp-validation-summary="All" class="alert alert-danger" role="alert"></div>
+
+            <form asp-action="Login" method="post" novalidate>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
+                        <input id="email" name="email" type="email" placeholder="Email adresiniz" class="form-control" required />
+                    </div>
+                </div>
+                <br />
+                <div class="mb-3">
+                    <label for="password" class="form-label">Şifre</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                        <input id="password" name="password" type="password" placeholder="Şifreniz" class="form-control" required />
+                    </div>
+                </div>
+                <br /><br />
+                <button type="submit" class="btn btn-primary w-100 fw-semibold" style="width: 400px;">
+                    <i class="bi bi-box-arrow-in-right me-1"></i> Giriş Yap
+                </button>
+            </form>
+
+            <div class="text-center mt-3">
+                <a href="/Auth/ForgotPassword" class="text-decoration-none">Şifremi Unuttum?</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .formm {
+        min-height: 68.8vh; /* tam ekran yüksekliği */
+        display: flex;
+        align-items: center; /* dikey ortalama */
+        justify-content: center; /* yatay ortalama */
+    }
+
+    .input-group .form-control {
+        width: 400px;
+    }
+</style>
