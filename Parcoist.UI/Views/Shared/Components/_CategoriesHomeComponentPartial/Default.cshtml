@@ -3,8 +3,110 @@
 
 <div id="cate" class="categories">
     <div class="container">
-        <h3 style="color:white">KATEGORİLER</h3>
-        @* <div class="categorie-grids">
+        <h3 style="color:white; text-align:center; margin-bottom:30px;">KATEGORİLER</h3>
+
+        <div class="categorie-grids" style="display:flex; flex-wrap:wrap; justify-content:center; gap:20px;">
+
+            <a href="/HomeCategory/Index" class="cate-link">
+                <div class="cate-grid text-center">
+                    <div class="cate-image">
+                        <img src="https://digi-markets.de/wp-content/uploads/2024/07/tom-ford-vanilla-sex-eau-de-parfum-50ml-2.jpg" alt="" class="img-category" />
+                    </div>
+                    <h4 style="color:white">Unisex</h4>
+                    <p>CategoryDescription</p>
+                </div>
+            </a>
+
+            <a href="/HomeCategory/Index" class="cate-link">
+                <div class="cate-grid text-center">
+                    <div class="cate-image">
+                        <img src="https://img.pzrmcdn.com/mnresize/716/716/asset/8011003809219/ef4db635-2748-420b-723a-08daa05a65a3/versaceerosedt100mlerkekparfm-2.jpg" alt="" class="img-category" />
+                    </div>
+                    <h4 style="color:white">Man</h4>
+                    <p>CategoryDescription</p>
+                </div>
+            </a>
+
+            <a href="/HomeCategory/Index" class="cate-link">
+                <div class="cate-grid text-center">
+                    <div class="cate-image">
+                        <img src="https://www.vscoworks.com/img/leoblog/b/lg-b-en-iyi-10-gucci-kadin-parfumu-1.jpg" alt="" class="img-category" />
+                    </div>
+                    <h4 style="color:white">Woman</h4>
+                    <p>CategoryDescription</p>
+                </div>
+            </a>
+
+            <a class="store" href="/HomeCategory/Index" style="display:block; text-align:center; width:50%; margin-top:20px; color:white; text-decoration:none; font-weight:bold;">Tümünü göster</a>
+            <br />
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Kategoriler kutusu */
+    .cate-grid {
+        background-color: rgba(255, 255, 255, 0.05);
+        padding: 20px;
+        border-radius: 10px;
+        transition: transform 0.3s;
+        max-width: 200px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+        .cate-grid:hover {
+            transform: translateY(-5px);
+        }
+
+    .cate-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .img-category {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .categorie-grids
+
+    {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .cate-link {
+        flex: 0 0 calc(50% - 10px); /* Bir satırda iki öğe, gap göz önünde */
+        box-sizing: border-box;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .cate-grid {
+        width: 100%; /* Cate-link kapsayıcısına göre dolacak */
+        max-width: none;
+    }
+
+    }
+</style>
+
+
+
+
+
+
+
+
+@* <div class="categorie-grids">
             @foreach (var item in Model)
             {
                 <a href="/HomeCategory/Index/@item.CategoryID">
@@ -18,61 +120,6 @@
                     </div>
                 </a>
             }
-            <a class="store" href="/HomeCategory/Index">Tümünü göster</a>
+            <a class="store" href="/HomeCategory/Index">Tümünü göster</a>   
             <div class="clearfix"></div>
         </div> *@
-        <div class="categorie-grids">
-
-            <a href="/HomeCategory/Index">
-                <div class="col-md-4 cate-grid grid1 text-center">
-                    <div class="cate-image">
-                        <img src="https://digi-markets.de/wp-content/uploads/2024/07/tom-ford-vanilla-sex-eau-de-parfum-50ml-2.jpg" alt="" class="img-category" />
-                    </div>
-                    <h4 style="color:white">Unısex</h4>
-                    <p>CategoryDescription</p>
-
-                </div>
-            </a>
-            <a href="/HomeCategory/Index">
-                <div class="col-md-4 cate-grid grid1 text-center">
-                    <div class="cate-image">
-                        <img src="https://img.pzrmcdn.com/mnresize/716/716/asset/8011003809219/ef4db635-2748-420b-723a-08daa05a65a3/versaceerosedt100mlerkekparfm-2.jpg" alt="" class="img-category" />
-                    </div>
-                    <h4 style="color:white">Man</h4>
-                    <p>CategoryDescription</p>
-
-                </div>
-            </a>
-            <a href="/HomeCategory/Index">
-                <div class="col-md-4 cate-grid grid1 text-center">
-                    <div class="cate-image">
-                        <img src="https://www.vscoworks.com/img/leoblog/b/lg-b-en-iyi-10-gucci-kadin-parfumu-1.jpg" alt="" class="img-category" />
-                    </div>
-                    <h4 style="color:white">Woman</h4>
-                    <p>CategoryDescription</p>
-
-                </div>
-            </a>
-           
-
-            <a class="store" href="/HomeCategory/Index">Tümünü göster</a>
-            <div class="clearfix"></div>
-        </div>
-    </div>
-</div>
-<style>
-    .cate-image {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 10px;
-    }
-
-        .cate-image .img-category {
-            width: 120px; /* kare boyut */
-            height: 120px;
-            object-fit: cover; /* resmi kırpmadan, orantılı şekilde kareye oturt */
-            border-radius: 50%; /* istersen hafif köşe yuvarlama */
-        }
-
-</style>
