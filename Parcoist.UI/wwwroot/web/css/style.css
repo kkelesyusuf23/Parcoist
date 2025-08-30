@@ -1557,14 +1557,14 @@ select {
 .caption {
   z-index: 0;
 }
-a.shop {
-  display: inline-block;
-  float: left;
-  margin: 0px 0 0 0px;
-  background: #828282;
-  width: 100%;
-  padding: 8px;
-}
+	a.shop {
+		display: inline-block;
+		float: left;
+		margin: 0px 0 0 0px;
+		background: #00704A;
+		width: 100%;
+		padding: 8px;
+	}
 .banner-bg1{
   min-height: 490px;
 }

@@ -13,7 +13,7 @@
         <div class="ctnt-bar cntnt">
             <div class="content-bar">
                 <div class="single-page">
-                   @*  <div class="product-head">
+                    @*  <div class="product-head">
                         <a href="/">Home</a> <span>::</span>a
                         <span>@Model.Product.Name</span>
                     </div> *@
@@ -47,15 +47,27 @@
                             </div>
 
 
-                            
+
                         </div>
                     </div>
 
                     <div class="details-left-info">
                         <h3>@Model.Product.Name</h3>
                         <h4>Model No: @Model.Product.ModelNo</h4>
-                        <p><label>₺</label> @Model.Product.DiscountedPrice @* <a href="#">Click for offer</a> *@</p>
-                       @*  @if (Model.VariantCombinations != null && Model.VariantCombinations.Any())
+                        <p>
+                            <label>₺</label> @Model.Product.DiscountedPrice
+                            <span class="base-price">₺@Model.Product.BasePrice</span>
+                        </p>
+
+                        @if (Model.Product.Stock <= 10)
+                        {
+                            <p class="stock-warning">Stoklarla sınırlı! (@Model.Product.Stock adet kaldı)</p>
+                        }
+                        else
+                        {
+                            <p class="stock-info">Stok Miktarı: @Model.Product.Stock Adet</p>
+                        }
+                        @*  @if (Model.VariantCombinations != null && Model.VariantCombinations.Any())
                         {
                             <h5>Varyantlar</h5>
                             @foreach (var combination in Model.VariantCombinations)
@@ -94,7 +106,7 @@
         <h4 class="comment-title">Yorum Ekle</h4>
 
         <form id="commentForm" class="comment-form d-flex align-items-start">
-           @*  <div class="user-avatar">
+            @*  <div class="user-avatar">
                 <i class="fas fa-user"></i>
             </div> *@
             <div class="form-group flex-grow-1 ms-3">
@@ -110,73 +122,117 @@
 
         @if (Model.ProductComments != null && Model.ProductComments.Any())
         {
-            <div class="comment-list">
-                @foreach (var comment in Model.ProductComments)
-                {
-                    if(comment.IsActive){
-                        <div class="comment-card">
-                            <div class="comment-header">
-                                <div class="user-avatar">
-                                    <i class="fas fa-user"></i>
-                                </div>
-                                <div class="user-info">
-                                    <strong>@comment.UserName</strong>
-                                    <small>@comment.CreatedAt.ToString("dd MMM yyyy")</small>
+            <div class="swiper comment-swiper">
+                <div class="swiper-wrapper">
+                    @foreach (var comment in Model.ProductComments)
+                    {
+                        if (comment.IsActive)
+                        {
+                            <div class="swiper-slide">
+                                <div class="comment-card">
+                                    <div class="comment-header">
+                                        <div class="user-avatar">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                        <div class="user-info">
+                                            <strong>@comment.UserName</strong>
+                                            <small>@comment.CreatedAt.ToString("dd MMM yyyy")</small>
+                                        </div>
+                                    </div>
+                                    <div class="comment-body">
+                                        <p>@comment.CommentText</p>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="comment-body">
-                                <p>@comment.CommentText</p>
-                            </div>
-                        </div>
+                        }
                     }
-                }
+                </div>
             </div>
         }
         else
         {
             <p class="no-comments">Henüz bu ürün için yorum yapılmamış.</p>
         }
+
+
     </div>
 
 
 </div>
 
+<style>
+    .stock-warning {
+        margin-top: 5px;
+    }
+
+    .stock-info {
+        font-weight: normal;
+        margin-top: 5px;
+    }
+
+    .base-price {
+        text-decoration: line-through; /* üstü çizili */
+        color: #888; /* hafif gri */
+        margin-left: 10px; /* indirimli fiyattan biraz boşluk */
+        font-weight: normal;
+    }
+
+    .comment-swiper {
+        padding: 20px 0;
+    }
+
+        .comment-swiper .swiper-slide {
+            width: 300px; /* Genişliği ayarlayabilirsin */
+        }
+
+    .comment-card {
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        transition: transform 0.2s ease;
+        height: 100%;
+    }
+
+        .comment-card:hover {
+            transform: translateY(-3px);
+        }
+
+</style>
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#commentForm').submit(function (e) {
+            e.preventDefault(); // Sayfanın reload olmasını engelle
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('#commentForm').submit(function (e) {
-                e.preventDefault(); // Sayfanın reload olmasını engelle
+            var formData = {
+                ProductID: $('input[name="ProductID"]').val(),
+                CommentText: $('textarea[name="CommentText"]').val()
+            };
 
-                var formData = {
-                    ProductID: $('input[name="ProductID"]').val(),
-                    CommentText: $('textarea[name="CommentText"]').val()
-                };
-
-                $.ajax({
-                    url: '/Product/AddComment',
-                    type: 'POST',
-                    data: formData,
-                    success: function () {
-                        // Başarılıysa sayfayı yeniden yükle
-                        location.reload();
-                    },
-                    error: function () {
-                        alert('Yorum eklenirken bir hata oluştu.');
-                    }
-                });
-
-                // Gönder butonunu 5 dk boyunca pasif yap
-                var btn = $(this).find('button[type="submit"]');
-                btn.prop('disabled', true);
-                setTimeout(function () {
-                    btn.prop('disabled', false);
-                }, 300000); // 300000 ms = 5 dakika
+            $.ajax({
+                url: '/Product/AddComment',
+                type: 'POST',
+                data: formData,
+                success: function () {
+                    // Başarılıysa sayfayı yeniden yükle
+                    location.reload();
+                },
+                error: function () {
+                    alert('Yorum eklenirken bir hata oluştu.');
+                }
             });
+
+            // Gönder butonunu 5 dk boyunca pasif yap
+            var btn = $(this).find('button[type="submit"]');
+            btn.prop('disabled', true);
+            setTimeout(function () {
+                btn.prop('disabled', false);
+            }, 300000); // 300000 ms = 5 dakika
         });
-    </script>
+    });
+</script>
 
 
 
@@ -280,11 +336,11 @@
             box-shadow: 0 6px 18px rgba(0,0,0,0.12);
         }
 
-   /*  .product {
-        position: relative;
-        background: url('/assest/images/sabit/resimgif.gif') no-repeat center center fixed;
-        background-size: cover;
-    } */
+    /*  .product {
+            position: relative;
+            background: url('/assest/images/sabit/resimgif.gif') no-repeat center center fixed;
+            background-size: cover;
+        } */
 
 
 
@@ -395,3 +451,45 @@
 
 </style>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Ürün ana ve thumb slider (varsa)
+        const thumbSwiper = new Swiper('.product-thumb-slider', {
+            spaceBetween: 10,
+            slidesPerView: 4,
+            freeMode: true,
+            watchSlidesProgress: true,
+        });
+
+        const mainSwiper = new Swiper('.product-main-slider', {
+            spaceBetween: 10,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            thumbs: {
+                swiper: thumbSwiper,
+            },
+        });
+
+        // Yorum slider (otomatik ve elle sürüklenebilir)
+        const commentSwiper = new Swiper('.comment-swiper', {
+            slidesPerView: 3,
+            spaceBetween: 20,
+            loop: true, // sonsuz döngü
+            autoplay: {
+                delay: 3000, // her 3 saniyede bir kayar
+                disableOnInteraction: false, // kullanıcı sürüklerse autoplay devam eder
+            },
+            breakpoints: {
+                0: { slidesPerView: 1 },
+                576: { slidesPerView: 1 },
+                768: { slidesPerView: 2 },
+                992: { slidesPerView: 3 }
+            },
+            grabCursor: true, // elle sürükleme göstergesi
+        });
+    });
+
+
+</script>
