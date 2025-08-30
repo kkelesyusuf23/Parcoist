@@ -28,9 +28,10 @@
 </div>
 
 <style>
-    .contact-form input {
-        width: 43%;
-        margin-right: 4%;
+    .contact-form input,
+    .contact-form textarea {
+        width: 48% !important;
+        margin-right:0 !important;
         padding: 10px;
         border: 1px solid #b7b7b7;
         font-size: 1em;
@@ -43,9 +44,14 @@
         border-radius: 7px;
     }
 
+    .contact-form textarea {
+        width: 100% !important;
+        min-height: 120px;
+        margin-right: 0;
+    }
 
     .contact-form button {
-        width: 30%;
+        width: 100%;
         padding: 12px;
         font-size: 1.1em;
         color: #fff;
@@ -60,4 +66,24 @@
         .contact-form button:hover {
             background-color: #00583f; /* Hover daha koyu ton */
         }
+
+    /* Responsive ayarlar */
+    @@media screen and (max-width: 768px) {
+        .contact-form input, .contact-form textarea
+
+    {
+        width: 100% !important;
+        margin-right: 0;
+    }
+
+    .contact-form .form-row {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .contact-form button {
+        width: 100%;
+    }
+
+    }
 </style>
