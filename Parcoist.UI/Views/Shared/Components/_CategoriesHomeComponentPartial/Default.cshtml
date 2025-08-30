@@ -4,7 +4,7 @@
 <div id="cate" class="categories">
     <div class="container">
         <h3 style="color:white">KATEGORİLER</h3>
-        <div class="categorie-grids">
+        @* <div class="categorie-grids">
             @foreach (var item in Model)
             {
                 <a href="/HomeCategory/Index/@item.CategoryID">
@@ -14,10 +14,47 @@
                         </div>
                         <h4 style="color:white">@item.CategoryName</h4>
                         <p>@item.CategoryDescription</p>
-                        
+
                     </div>
                 </a>
             }
+            <a class="store" href="/HomeCategory/Index">Tümünü göster</a>
+            <div class="clearfix"></div>
+        </div> *@
+        <div class="categorie-grids">
+
+            <a href="/HomeCategory/Index">
+                <div class="col-md-4 cate-grid grid1 text-center">
+                    <div class="cate-image">
+                        <img src="https://digi-markets.de/wp-content/uploads/2024/07/tom-ford-vanilla-sex-eau-de-parfum-50ml-2.jpg" alt="" class="img-category" />
+                    </div>
+                    <h4 style="color:white">Unısex</h4>
+                    <p>CategoryDescription</p>
+
+                </div>
+            </a>
+            <a href="/HomeCategory/Index">
+                <div class="col-md-4 cate-grid grid1 text-center">
+                    <div class="cate-image">
+                        <img src="https://img.pzrmcdn.com/mnresize/716/716/asset/8011003809219/ef4db635-2748-420b-723a-08daa05a65a3/versaceerosedt100mlerkekparfm-2.jpg" alt="" class="img-category" />
+                    </div>
+                    <h4 style="color:white">Man</h4>
+                    <p>CategoryDescription</p>
+
+                </div>
+            </a>
+            <a href="/HomeCategory/Index">
+                <div class="col-md-4 cate-grid grid1 text-center">
+                    <div class="cate-image">
+                        <img src="https://www.vscoworks.com/img/leoblog/b/lg-b-en-iyi-10-gucci-kadin-parfumu-1.jpg" alt="" class="img-category" />
+                    </div>
+                    <h4 style="color:white">Woman</h4>
+                    <p>CategoryDescription</p>
+
+                </div>
+            </a>
+           
+
             <a class="store" href="/HomeCategory/Index">Tümünü göster</a>
             <div class="clearfix"></div>
         </div>

@@ -36,20 +36,21 @@ namespace Parcoist.UI.Controllers
                 query = query.Where(p => p.DiscountedPrice <= maxPrice.Value);
 
             var filteredProducts = query
-    .Select(p => new Product
-    {
-        // var olan Product alanları
-        ProductID = p.ProductID,
-        Name = p.Name,
-        Brand = p.Brand,
-        DiscountedPrice = p.DiscountedPrice,
-        ProductImages = p.ProductImages,
-        // Yeni eklenen property
-        FirstImageUrl = p.ProductImages != null && p.ProductImages.Any()
-            ? p.ProductImages.FirstOrDefault().ImagePath
-            : "/source/default.png"
-    })
-    .ToList();
+      .Select(p => new Product
+      {
+          ProductID = p.ProductID,
+          Name = p.Name,
+          Brand = p.Brand,
+          BasePrice = p.BasePrice, // fiyat için eklendi
+          DiscountedPrice = p.DiscountedPrice,
+          ProductImages = p.ProductImages, // tüm resimleri aktar
+          FirstImageUrl = p.ProductImages != null && p.ProductImages.Any()
+              ? p.ProductImages.First().ImagePath
+              : "~/source/default.jpg"
+      })
+      .ToList();
+
+
 
 
             var allCategories = _categoryService.TGetListAll();

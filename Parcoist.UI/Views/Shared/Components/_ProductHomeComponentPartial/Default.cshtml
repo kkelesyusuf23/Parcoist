@@ -13,13 +13,23 @@
                     <li class="product-item" style="margin:5px">
                         <div class="product-slider-container">
                             <div class="product-slider-for" data-product-id="@item.ProductID">
-                                @foreach (var image in item.ProductImages)
+                                @if (item.ProductImages != null && item.ProductImages.Any())
+                                {
+                                    @foreach (var image in item.ProductImages)
+                                    {
+                                        <div class="slider-image">
+                                            <img src="@image.ImagePath" alt="@item.Name" class="img-fluid" />
+                                        </div>
+                                    }
+                                }
+                                else
                                 {
                                     <div class="slider-image">
-                                        <img src="@image.ImagePath" alt="@item.Name" class="img-fluid" />
+                                        <img src="~/source/default.jpg" alt="@item.Name" class="img-fluid" />
                                     </div>
                                 }
                             </div>
+
                         </div>
                         <div class="product-info">
                             <h4 class="product-name">@item.Name</h4>
@@ -241,6 +251,20 @@
 
         .slick-prev i, .slick-next i {
             font-size: 16px;
+        }
+
+    .slider-image {
+        display: flex;
+        justify-content: center; /* Yatay ortalama */
+        align-items: center; /* Dikey ortalama */
+        height: 300px; /* Container yüksekliği */
+        overflow: hidden;
+    }
+
+        .slider-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* Resmin orantılı şekilde görünmesi için */
         }
 
 

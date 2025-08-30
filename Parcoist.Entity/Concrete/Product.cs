@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Parcoist.Entity.Concrete;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Parcoist.UI.Entities
 {
@@ -43,7 +44,7 @@ namespace Parcoist.UI.Entities
         // One-to-Many ilişki: Bir ürün birden fazla görsele sahip olabilir
         public List<ProductImage> ProductImages { get; set; }
 
-        public List<UserComment> UserComments { get; set; }
+        public List<ProductComment> ProductComments { get; set; }
 
     }
 

@@ -132,7 +132,7 @@
                             <div class="swiper-slide">
                                 <div class="product-card">
                                     <a href="/Product/Details/@product.ProductID">
-                                        <img src="@Url.Content(product.ProductImages?.FirstOrDefault()?.ImagePath ?? "~/source/default.jpg")" alt="@product.Name" />
+                                        <img src="@Url.Content(product.FirstImageUrl ?? "~/source/default.jpg")" alt="@product.Name" />
                                     </a>
                                     <div class="product-info">
                                         <h5>@product.Name</h5>
