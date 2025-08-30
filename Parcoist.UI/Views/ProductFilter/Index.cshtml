@@ -9,8 +9,14 @@
         <h2>ÜRÜNLER</h2>
     </div>    <div class="row">
         <div class="col-md-3">
+           
+            <button class="toggle-filter btn-modern mb-3">
+                <span class="btn-text">Filtrele</span>
+                <span class="btn-icon" id="filterArrow">&#9650;</span>
+            </button>
+
             <div class="filter-sidebar">
-                <h4>Filtrele</h4>
+                
                 <form method="get" asp-controller="ProductFilter" asp-action="Index">
                     <div class="filter-category">
                         <label for="category">Kategori</label>
@@ -104,6 +110,41 @@
     }
 </script>
 <style>
+    .btn-modern {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 10px 15px;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #444;
+        background-color: #f1f1f1;
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        .btn-modern:hover {
+            background-color: #4e73df;
+            color: white;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .btn-modern .btn-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .btn-modern.collapsed .btn-icon {
+            transform: rotate(180deg); /* Ok aşağı dönecek */
+        }
+
+    .filter-sidebar {
+        transition: all 0.3s ease;
+    }
+
     .product-price {
         display: flex;
         gap: 8px;
@@ -431,3 +472,18 @@
 
     }
 </style>
+<script>
+    const toggleBtn = document.querySelector('.toggle-filter');
+    const filterSidebar = document.querySelector('.filter-sidebar');
+    const filterArrow = document.getElementById('filterArrow');
+
+    toggleBtn.addEventListener('click', function() {
+        if (filterSidebar.style.display === 'none' || filterSidebar.style.display === '') {
+            filterSidebar.style.display = 'block';
+            filterArrow.innerHTML = '&#9650;'; // yukarı ok
+        } else {
+            filterSidebar.style.display = 'none';
+            filterArrow.innerHTML = '&#9660;'; // aşağı ok
+        }
+    });
+</script>
