@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Parcoist.DataAccess.Concrete;
 using Parcoist.UI.Entities;
 using Parcoist.UI.Models;
@@ -29,7 +30,7 @@ public class UserController : Controller
         {
             TempData["NotSuperAdmin"] = true;
             //TempData["ErrorMessage"] = "Bu sayfaya sadece SuperAdmin erişebilir.";
-            //return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home");
         }
         ViewBag.Roles = _context.Roles.Where(r => r.IsActive).ToList();
 
@@ -39,7 +40,7 @@ public class UserController : Controller
     [HttpPost]
     public IActionResult AddUser(AddUserViewModel model)
     {
-        var role = HttpContext.Session.GetString("Role");
+        var role = HttpContext.Session.GetString("UserRole");
         if (role != "SuperAdmin")
         {
             ModelState.AddModelError("", "Sadece SuperAdmin kullanıcı ekleyebilir.");
@@ -83,5 +84,70 @@ public class UserController : Controller
 
         TempData["Success"] = "Kullanıcı başarıyla eklendi.";
         return RedirectToAction("AddUser");
+    }
+
+
+    [HttpGet]
+    public IActionResult Users()
+    {
+        TempData["NotSuperAdmin"] = false;
+        var role = HttpContext.Session.GetString("UserRole");
+
+
+        if (role != "SuperAdmin")
+        {
+            TempData["NotSuperAdmin"] = true;
+            //TempData["ErrorMessage"] = "Bu sayfaya sadece SuperAdmin erişebilir.";
+        }
+        var users = _context.Users.Include(u => u.Role).ToList();
+        return View(users);
+    }
+    [HttpGet]
+    public IActionResult EditUser(int id)
+    {
+        var user = _context.Users.FirstOrDefault(u => u.UserID == id);
+        if (user == null) return RedirectToAction("Login","Auth");
+
+        ViewBag.Roles = _context.Roles.Where(r => r.IsActive).ToList();
+
+        var model = new UpdateUserViewModel
+        {
+            UserID = user.UserID,
+            Name = user.Name,
+            Surname = user.Surname,
+            Email = user.Email,
+            Phone = user.Phone,
+            BirthDate = user.BirthDate,
+            RoleID = user.RoleID,
+            IsActive = user.IsActive
+        };
+
+        return View(model);
+    }
+    [HttpPost]
+    public IActionResult EditUser(UpdateUserViewModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            ViewBag.Roles = _context.Roles.Where(r => r.IsActive).ToList();
+            return View(model);
+        }
+
+        var user = _context.Users.FirstOrDefault(u => u.UserID == model.UserID);
+        if (user == null) return RedirectToAction("Login","Auth");
+
+        user.Name = model.Name;
+        user.Surname = model.Surname;
+        user.Email = model.Email;
+        user.Phone = model.Phone;
+        user.BirthDate = model.BirthDate;
+        user.RoleID = model.RoleID;
+        user.IsActive = model.IsActive;
+        user.UpdatedAt = DateTime.Now;
+
+        _context.SaveChanges();
+
+        TempData["Success"] = "Kullanıcı başarıyla güncellendi.";
+        return RedirectToAction("Users");
     }
 }

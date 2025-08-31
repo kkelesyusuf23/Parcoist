@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Parcoist.DataAccess.Concrete;
 
@@ -11,9 +12,11 @@ using Parcoist.DataAccess.Concrete;
 namespace Parcoist.DataAccess.Migrations
 {
     [DbContext(typeof(ParcoContext))]
-    partial class ParcoContextModelSnapshot : ModelSnapshot
+    [Migration("20250831074305_mig_update_table_actionlog")]
+    partial class mig_update_table_actionlog
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,33 +91,6 @@ namespace Parcoist.DataAccess.Migrations
                     b.HasIndex("DistrictID1");
 
                     b.ToTable("Adress");
-                });
-
-            modelBuilder.Entity("Parcoist.Entity.Concrete.ActionLog", b =>
-                {
-                    b.Property<int>("ActionLogID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ActionLogID"));
-
-                    b.Property<string>("ActionType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("UserID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ActionLogID");
-
-                    b.ToTable("ActionLogs");
                 });
 
             modelBuilder.Entity("Parcoist.Entity.Concrete.Contact", b =>

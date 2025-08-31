@@ -118,6 +118,9 @@ builder.Services.AddScoped<IProductCommentService, ProductCommentManager>();
 builder.Services.AddScoped<IActionLogDal, EfActionLogDal>();
 builder.Services.AddScoped<IActionLogService, ActionLogManager>();
 
+builder.Services.AddScoped<IUserDal, EfUserDal>();
+builder.Services.AddScoped<IUserService, UserManager>();
+
 builder.Services.AddDbContext<ParcoContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
         b => b.MigrationsAssembly("Parcoist.DataAccess"))); // ← önemli satır

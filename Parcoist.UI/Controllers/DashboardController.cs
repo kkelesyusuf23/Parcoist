@@ -1,22 +1,43 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Parcoist.Business.Abstract;
 
 namespace Parcoist.UI.Controllers
 {
-    public class DashboardController : Controller
+    public class DashboardController(
+        IBrandService brandService,
+        ICategoryService categoryService,
+        IContactService contactService,
+        IProductService productService,
+        IActionLogService actionLogService
+        ) : Controller
     {
         public IActionResult Index()
         {
-            // Kullanıcı giriş yapmış mı kontrol et
-            var userId = HttpContext.Session.GetInt32("UserID");
+            TempData["NotSuperAdmin"] = false;
+        var role = HttpContext.Session.GetString("UserRole");
 
+
+        if (role != "SuperAdmin")
+        {
+            TempData["NotSuperAdmin"] = true;
+            //TempData["ErrorMessage"] = "Bu sayfaya sadece SuperAdmin erişebilir.";
+        }
+
+
+            var userId = HttpContext.Session.GetInt32("UserID");
             if (userId == null)
             {
-                // Giriş yapılmamışsa login sayfasına yönlendir
                 return RedirectToAction("Login", "Auth");
             }
 
-            // Giriş yapılmışsa dashboard sayfasını göster
+            ViewBag.BrandCount = brandService.TGetListAll().Count;
+            ViewBag.CategoryCount = categoryService.TGetListAll().Count;
+            ViewBag.ContactCount = contactService.TGetListAll().Count;
+            ViewBag.ProductCount = productService.TGetListAll().Count;
+            ViewBag.ActionLogCount = actionLogService.TGetListAll();
+
+
             return View();
         }
     }

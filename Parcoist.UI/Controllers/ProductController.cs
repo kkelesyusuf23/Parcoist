@@ -5,6 +5,7 @@ using Parcoist.Business.Abstract;
 using Parcoist.DTO.ProductDtos;
 using Parcoist.Entity.Concrete;
 using Parcoist.UI.Entities;
+using Parcoist.UI.Helpers;
 using Parcoist.UI.Models;
 
 namespace Parcoist.UI.Controllers
@@ -17,8 +18,11 @@ namespace Parcoist.UI.Controllers
         private readonly IBrandService _brandService;
         private readonly IProductVariantCombinationService _productVariantCombinationService;
         private readonly IProductCommentService _productCommentService;
+        private static IActionLogService _actionLogService;
+        private readonly IUserService _userService;
 
-        public ProductController(IWebHostEnvironment webHostEnvironment, IProductService productService, IBrandService brandService, ICategoryService categoryService, IProductVariantCombinationService productVariantCombinationService, IProductCommentService productCommentService)
+
+        public ProductController(IWebHostEnvironment webHostEnvironment, IProductService productService, IBrandService brandService, ICategoryService categoryService, IProductVariantCombinationService productVariantCombinationService, IProductCommentService productCommentService, IUserService userService)
         {
             _webHostEnvironment = webHostEnvironment;
             _productService = productService;
@@ -26,16 +30,14 @@ namespace Parcoist.UI.Controllers
             _categoryService = categoryService;
             _productVariantCombinationService = productVariantCombinationService;
             _productCommentService = productCommentService;
+            _userService = userService;
         }
 
         public IActionResult Index()
         {
-            // Kullanıcı giriş yapmış mı kontrol et
             var userId = HttpContext.Session.GetInt32("UserID");
-
             if (userId == null)
             {
-                // Giriş yapılmamışsa login sayfasına yönlendir
                 return RedirectToAction("Login", "Auth");
             }
             var products = _productService.TGetListAll();
@@ -44,6 +46,11 @@ namespace Parcoist.UI.Controllers
 
         public IActionResult Delete(int id)
         {
+            var userId = HttpContext.Session.GetInt32("UserID");
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Auth");
+            }
             var product = _productService.TGetById(id);
             if (product != null)
             {
@@ -54,6 +61,11 @@ namespace Parcoist.UI.Controllers
         }
         public IActionResult Remove(int id)
         {
+            var userId = HttpContext.Session.GetInt32("UserID");
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Auth");
+            }
             var product = _productService.TGetById(id);
             if (product != null)
             {
@@ -65,6 +77,12 @@ namespace Parcoist.UI.Controllers
         [HttpGet]
         public IActionResult Add()
         {
+            var userId = HttpContext.Session.GetInt32("UserID");
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Auth");
+            }
+
             var categories = _categoryService.TGetListAll();
             if (categories != null)
                 ViewBag.Categories = categories
@@ -83,13 +101,14 @@ namespace Parcoist.UI.Controllers
 
             return View();
         }
-
-
-
         [HttpPost]
         public async Task<IActionResult> Add(CreateProductDto dto)
         {
-
+            var userId = HttpContext.Session.GetInt32("UserID");
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Auth");
+            }
 
             Product product = new Product()
             {
@@ -113,6 +132,7 @@ namespace Parcoist.UI.Controllers
                 Slug = dto.Name.Replace(" ", "-").ToLower()
             };
             _productService.TAdd(product);
+            ActionLogHelper.LogAction(_actionLogService, "Yeni ürün ekleme", dto.Name, userId);
             return RedirectToAction("Index");
         }
 
@@ -120,6 +140,12 @@ namespace Parcoist.UI.Controllers
         [HttpGet]
         public IActionResult Update(int id)
         {
+            var userId = HttpContext.Session.GetInt32("UserID");
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Auth");
+            }
+
             var value = _productService.TGetById(id);
             if (value == null)
             {
@@ -164,14 +190,15 @@ namespace Parcoist.UI.Controllers
 
             return View(dto);
         }
-
-
-
-
         [HttpPost]
         public async Task<IActionResult> Update(UpdateProductDto p)
         {
-
+            var userId = HttpContext.Session.GetInt32("UserID");
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Auth");
+            }
+            var user = _userService.TGetById((int)userId);
             var updateProduct = new Product
             {
                 ProductID = p.ProductID,
@@ -194,11 +221,14 @@ namespace Parcoist.UI.Controllers
                 Slug = p.Name.Replace(" ", "-").ToLower()
             };
 
+            ActionLogHelper.LogAction(_actionLogService, "Ürün güncelleme", p.Name, user.UserID);
+
 
             _productService.TUpdate(updateProduct);
 
             return RedirectToAction("Index");
         }
+
 
         [HttpGet]
         public IActionResult Details(int id)
@@ -225,8 +255,12 @@ namespace Parcoist.UI.Controllers
                 ProductComments = comments
             };
 
+            // Log kaydı
+            ActionLogHelper.LogAction(_actionLogService, "Ürün incelemesi", product.Name,0);
+
             return View(viewModel);
         }
+
 
         [HttpPost]
         public IActionResult AddComment(AddProductCommentViewModel model)
@@ -246,6 +280,8 @@ namespace Parcoist.UI.Controllers
                 };
 
                 _productCommentService.TAdd(comment);
+                var productName = _productService.TGetById(comment.ProductId)?.Name ?? "Ürün bulunamadı";
+                ActionLogHelper.LogAction(_actionLogService, "Ürün yorum ekleme", productName,0);
                 return RedirectToAction("Details", new { id = model.ProductID });
             }
 

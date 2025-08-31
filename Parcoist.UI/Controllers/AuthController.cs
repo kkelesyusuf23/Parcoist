@@ -2,14 +2,18 @@
 using Parcoist.UI.Entities;
 using Parcoist.DataAccess.Concrete;
 using Microsoft.EntityFrameworkCore;
+using Parcoist.UI.Helpers;
+using Parcoist.Business.Abstract;
 
 public class AuthController : Controller
 {
     private readonly ParcoContext _context;
+    private readonly IActionLogService _actionLogService;
 
-    public AuthController(ParcoContext context)
+    public AuthController(ParcoContext context, IActionLogService actionLogService)
     {
         _context = context;
+        _actionLogService = actionLogService;
     }
 
     public IActionResult Login() => View();
@@ -32,17 +36,18 @@ public class AuthController : Controller
             ModelState.AddModelError("", "Şifre yanlış.");
             return View();
         }
-
+        var userId = user.UserID;
         HttpContext.Session.SetInt32("UserID", user.UserID);
         HttpContext.Session.SetString("UserRole", user.Role.RoleName);
         TempData["WelcomeMessage"] = $"Hoşgeldin,  {user.Name} {user.Surname}!";
-
+        ActionLogHelper.LogAction(_actionLogService, "Login",user.Name, userId);
         return RedirectToAction("Index", "Dashboard");
     }
 
     public IActionResult Logout()
     {
         HttpContext.Session.Clear();
+        ActionLogHelper.LogAction(_actionLogService, "Logout", "Kullanıcı çıkış yaptı.", HttpContext.Session.GetInt32("UserID"));
         return RedirectToAction("Login");
     }
 
@@ -89,16 +94,24 @@ public class AuthController : Controller
     //}
 
     [HttpGet]
-    public IActionResult ChangePassword() => View();
+    public IActionResult ChangePassword()
+    {
+        int? userId = HttpContext.Session.GetInt32("UserID");
+        if (userId == null)
+        {
+            return RedirectToAction("Login");
+        }
+        return View();
+    }
 
     [HttpPost]
     public IActionResult ChangePassword(string oldPassword, string newPassword)
     {
         int? userId = HttpContext.Session.GetInt32("UserID");
-        if (userId == null) return Unauthorized();
+        if (userId == null) return RedirectToAction("Login");
 
         var user = _context.Users.FirstOrDefault(u => u.UserID == userId);
-        if (user == null || user.Role.RoleName != "SuperAdmin") return Unauthorized();
+        //if (user == null || user.Role.RoleName != "SuperAdmin") return Unauthorized();
 
         if (!PasswordHelper.VerifyPasswordHash(oldPassword, user.PasswordHash, user.PasswordSalt))
         {
