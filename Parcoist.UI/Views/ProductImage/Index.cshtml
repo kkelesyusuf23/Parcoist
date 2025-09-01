@@ -51,6 +51,15 @@
                         @* <td>@item.IsActive</td> *@
                         <td><a href="/ProductImage/Delete/@item.ProductImageID" class="btn btn-outline-danger">Sil</a></td>
                         <td><a href="/ProductImage/Update/@item.ProductImageID" class="btn btn-outline-success">Güncelle</a></td>
+                        @if (Context.Session.GetString("UserRole") == "SuperAdmin")
+                        {
+                            <td>
+                                <a href="/Brand/RemoveProductImage/@item.ProductImageID" class="btn btn-outline-dark"
+                                   onclick="return confirm('Bu ürün resmini kalıcı olarak kaldırmak istediğinize emin misiniz?');">
+                                    Kaldır
+                                </a>
+                            </td>
+                        }
                     </tr>
                 }
             }

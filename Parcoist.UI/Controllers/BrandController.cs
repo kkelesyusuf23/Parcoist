@@ -28,8 +28,15 @@ namespace Parcoist.UI.Controllers
                 // Giriş yapılmamışsa login sayfasına yönlendir
                 return RedirectToAction("Login", "Auth");
             }
-            var brands = _brandService.TGetListAll();
-            return View(brands);
+            var role = HttpContext.Session.GetString("UserRole");
+            if (role != "SuperAdmin")
+            {
+                var brands = _brandService.TGetListAll().Where(x => x.IsActive).ToList();
+                return View(brands);
+            }
+            var brandss = _brandService.TGetListAll();
+            return View(brandss);
+
         }
 
         public IActionResult DeleteBrand(int id)
@@ -51,6 +58,12 @@ namespace Parcoist.UI.Controllers
 
         public IActionResult RemoveBrand(int id)
         {
+            var role = HttpContext.Session.GetString("UserRole");
+            if (role != "SuperAdmin")
+            {
+                return RedirectToAction("Index");
+            }
+
             var value = _brandService.TGetById(id);
             if (value != null)
             {
@@ -58,6 +71,7 @@ namespace Parcoist.UI.Controllers
             }
             return RedirectToAction("Index");
         }
+
 
         [HttpGet]
         public IActionResult AddBrand()

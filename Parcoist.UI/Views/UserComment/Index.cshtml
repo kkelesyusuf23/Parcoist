@@ -54,6 +54,15 @@
                         <td>@item.CreatedAt</td>
                         <td><a href="/UserComment/Delete/@item.Id" class="btn btn-outline-danger">Sil</a></td>
                         <td><a href="/UserComment/Update/@item.Id" class="btn btn-outline-success">Güncelle</a></td>
+                        @if (Context.Session.GetString("UserRole") == "SuperAdmin")
+                        {
+                            <td>
+                                <a href="/Brand/RemoveUserComment/@item.Id" class="btn btn-outline-dark"
+                                   onclick="return confirm('Bu yorumu kalıcı olarak kaldırmak istediğinize emin misiniz?');">
+                                    Kaldır
+                                </a>
+                            </td>
+                        }
                     </tr>
                 }
             }

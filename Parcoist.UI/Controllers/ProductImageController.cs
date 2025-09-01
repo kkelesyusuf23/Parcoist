@@ -30,6 +30,12 @@ namespace Parcoist.UI.Controllers
                 // Giriş yapılmamışsa login sayfasına yönlendir
                 return RedirectToAction("Login", "Auth");
             }
+            var role = HttpContext.Session.GetString("UserRole");
+            if (role != "SuperAdmin")
+            {
+                var con = _productImageService.TGetListAll().Where(x => x.IsActive).ToList();
+                return View(con);
+            }
             var productImages = _productImageService.TGetListAll();
             return View(productImages);
         }
@@ -37,12 +43,17 @@ namespace Parcoist.UI.Controllers
         public IActionResult Delete(int id)
         {
             var value = _productImageService.TGetById(id);
-            //value.IsActive = false;
+            value.IsActive = false;
             _productImageService.TUpdate(value);
             return RedirectToAction("Index");
         }
         public IActionResult Remove(int id)
         {
+            var role = HttpContext.Session.GetString("UserRole");
+            if (role != "SuperAdmin")
+            {
+                return RedirectToAction("Index");
+            }
             var value = _productImageService.TGetById(id);
             if (value != null)
             {

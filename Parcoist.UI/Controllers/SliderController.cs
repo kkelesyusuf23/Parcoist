@@ -21,6 +21,19 @@ namespace Parcoist.UI.Controllers
 
         public IActionResult Index()
         {
+            var userId = HttpContext.Session.GetInt32("UserID");
+
+            if (userId == null)
+            {
+                // Giriş yapılmamışsa login sayfasına yönlendir
+                return RedirectToAction("Login", "Auth");
+            }
+            var role = HttpContext.Session.GetString("UserRole");
+            if (role != "SuperAdmin")
+            {
+                var con = _sliderService.TGetListAll().Where(x => x.SliderStatus).ToList();
+                return View(con);
+            }
             var sliders = _sliderService.TGetListAll();
             return View(sliders);
         }
@@ -34,6 +47,11 @@ namespace Parcoist.UI.Controllers
         }
         public IActionResult Remove(int id)
         {
+            var role = HttpContext.Session.GetString("UserRole");
+            if (role != "SuperAdmin")
+            {
+                return RedirectToAction("Index");
+            }
             var value = _sliderService.TGetById(id);
             if (value != null)
             {

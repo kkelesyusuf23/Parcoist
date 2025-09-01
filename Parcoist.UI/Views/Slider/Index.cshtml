@@ -54,6 +54,15 @@
                         <td>@item.SliderDescription</td>
                         <td><a href="/Slider/Delete/@item.SliderID" class="btn btn-outline-danger">Sil</a></td>
                         <td><a href="/Slider/Update/@item.SliderID" class="btn btn-outline-success">Güncelle</a></td>
+                        @if (Context.Session.GetString("UserRole") == "SuperAdmin")
+                        {
+                            <td>
+                                <a href="/Brand/RemoveSlider/@item.SliderID" class="btn btn-outline-dark"
+                                   onclick="return confirm('Bu slider ı kalıcı olarak kaldırmak istediğinize emin misiniz?');">
+                                    Kaldır
+                                </a>
+                            </td>
+                        }
                     </tr>
                 }
             }

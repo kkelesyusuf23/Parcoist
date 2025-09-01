@@ -53,6 +53,15 @@
                         <td>@item.IsActive</td>
                         <td><a href="/Category/Delete/@item.CategoryID" class="btn btn-outline-danger">Sil</a></td>
                         <td><a href="/Category/Update/@item.CategoryID" class="btn btn-outline-success">Güncelle</a></td>
+                        @if (Context.Session.GetString("UserRole") == "SuperAdmin")
+                        {
+                            <td>
+                                <a href="/Brand/RemoveCategory/@item.CategoryID" class="btn btn-outline-dark"
+                                   onclick="return confirm('Bu kategoriyi kalıcı olarak kaldırmak istediğinize emin misiniz?');">
+                                    Kaldır
+                                </a>
+                            </td>
+                        }
                     </tr>
                 }
             }

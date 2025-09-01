@@ -53,6 +53,15 @@
                         <td>@item.ContactPhone</td>
                         <td><a href="/Contact/Delete/@item.ContactID" class="btn btn-outline-danger">Sil</a></td>
                         <td><a href="/Contact/Update/@item.ContactID" class="btn btn-outline-success">Güncelle</a></td>
+                        @if (Context.Session.GetString("UserRole") == "SuperAdmin")
+                        {
+                            <td>
+                                <a href="/Brand/RemoveContact/@item.ContactID" class="btn btn-outline-dark"
+                                   onclick="return confirm('Bu mesajı kalıcı olarak kaldırmak istediğinize emin misiniz?');">
+                                    Kaldır
+                                </a>
+                            </td>
+                        }
                     </tr>
                 }
             }

@@ -53,6 +53,15 @@
                         <td>@item.LogoStatus</td>
                         <td><a href="/Logo/Delete/@item.LogoID" class="btn btn-outline-danger">Sil</a></td>
                         <td><a href="/Logo/Update/@item.LogoID" class="btn btn-outline-success">Güncelle</a></td>
+                        @if (Context.Session.GetString("UserRole") == "SuperAdmin")
+                        {
+                            <td>
+                                <a href="/Brand/RemoveLogo/@item.LogoID" class="btn btn-outline-dark"
+                                   onclick="return confirm('Bu logoyu kalıcı olarak kaldırmak istediğinize emin misiniz?');">
+                                    Kaldır
+                                </a>
+                            </td>
+                        }
                     </tr>
                 }
             }

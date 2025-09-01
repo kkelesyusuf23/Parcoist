@@ -22,6 +22,12 @@ namespace Parcoist.UI.Controllers
                 // Giriş yapılmamışsa login sayfasına yönlendir
                 return RedirectToAction("Login", "Auth");
             }
+            var role = HttpContext.Session.GetString("UserRole");
+            if (role != "SuperAdmin")
+            {
+                var con = _contactService.TGetListAll().Where(x => x.ContactStatus).ToList();
+                return View(con);
+            }
             var contacts = _contactService.TGetListAll();
             return View(contacts);
         }
@@ -35,6 +41,11 @@ namespace Parcoist.UI.Controllers
         }
         public IActionResult Remove(int id)
         {
+            var role = HttpContext.Session.GetString("UserRole");
+            if (role != "SuperAdmin")
+            {
+                return RedirectToAction("Index");
+            }
             var value = _contactService.TGetById(id);
             if (value != null)
             {

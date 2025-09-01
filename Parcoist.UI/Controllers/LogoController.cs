@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Humanizer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Parcoist.Business.Abstract;
 using Parcoist.DTO.CategoryDtos;
@@ -29,6 +30,12 @@ namespace Parcoist.UI.Controllers
                 // Giriş yapılmamışsa login sayfasına yönlendir
                 return RedirectToAction("Login", "Auth");
             }
+            var role = HttpContext.Session.GetString("UserRole");
+            if (role != "SuperAdmin")
+            {
+                var con = _logoService.TGetListAll().Where(x => x.LogoStatus).ToList();
+                return View(con);
+            }
             var logos = _logoService.TGetListAll();
             return View(logos);
         }
@@ -43,6 +50,11 @@ namespace Parcoist.UI.Controllers
         }
         public IActionResult Remove(int id)
         {
+            var role = HttpContext.Session.GetString("UserRole");
+            if (role != "SuperAdmin")
+            {
+                return RedirectToAction("Index");
+            }
             var value = _logoService.TGetById(id);
             if (value != null)
             {

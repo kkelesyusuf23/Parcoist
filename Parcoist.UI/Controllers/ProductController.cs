@@ -49,6 +49,12 @@ namespace Parcoist.UI.Controllers
             {
                 return RedirectToAction("Login", "Auth");
             }
+            var role = HttpContext.Session.GetString("UserRole");
+            if (role != "SuperAdmin")
+            {
+                var con = _productService.TGetListAll().Where(x => x.IsActive).ToList();
+                return View(con);
+            }
             var products = _productService.TGetListAll();
             return View(products);
         }
@@ -70,10 +76,16 @@ namespace Parcoist.UI.Controllers
         }
         public IActionResult Remove(int id)
         {
+
             var userId = HttpContext.Session.GetInt32("UserID");
             if (userId == null)
             {
                 return RedirectToAction("Login", "Auth");
+            }
+            var role = HttpContext.Session.GetString("UserRole");
+            if (role != "SuperAdmin")
+            {
+                return RedirectToAction("Index");
             }
             var product = _productService.TGetById(id);
             if (product != null)

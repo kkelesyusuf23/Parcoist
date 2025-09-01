@@ -53,6 +53,15 @@
                         <td>@item.IsActive</td>
                         <td><a href="/Brand/DeleteBrand/@item.BrandID" class="btn btn-outline-danger">Sil</a></td>
                         <td><a href="/Brand/UpdateBrand/@item.BrandID" class="btn btn-outline-success">Güncelle</a></td>
+                        @if (Context.Session.GetString("UserRole") == "SuperAdmin")
+                        {
+                            <td>
+                                <a href="/Brand/RemoveBrand/@item.BrandID" class="btn btn-outline-dark"
+                                   onclick="return confirm('Bu markayı kalıcı olarak kaldırmak istediğinize emin misiniz?');">
+                                    Kaldır
+                                </a>
+                            </td>
+                        }
                     </tr>
                 }
             }
