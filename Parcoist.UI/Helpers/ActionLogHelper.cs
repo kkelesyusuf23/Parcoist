@@ -5,7 +5,7 @@ namespace Parcoist.UI.Helpers
 {
     public static class ActionLogHelper
     {
-        public static void LogAction(IActionLogService actionLogService,string actionType, string description,int? id = null)
+        public static void LogAction(IActionLogService actionLogService,string actionType, string description,int? id = default)
         {
             var actionLog = new ActionLog
             {

@@ -22,7 +22,15 @@ namespace Parcoist.UI.Controllers
         private readonly IUserService _userService;
 
 
-        public ProductController(IWebHostEnvironment webHostEnvironment, IProductService productService, IBrandService brandService, ICategoryService categoryService, IProductVariantCombinationService productVariantCombinationService, IProductCommentService productCommentService, IUserService userService)
+        public ProductController(
+            IWebHostEnvironment webHostEnvironment, 
+            IProductService productService, 
+            IBrandService brandService, 
+            ICategoryService categoryService, 
+            IProductVariantCombinationService productVariantCombinationService, 
+            IProductCommentService productCommentService, 
+            IUserService userService,
+            IActionLogService actionLogService)
         {
             _webHostEnvironment = webHostEnvironment;
             _productService = productService;
@@ -31,6 +39,7 @@ namespace Parcoist.UI.Controllers
             _productVariantCombinationService = productVariantCombinationService;
             _productCommentService = productCommentService;
             _userService = userService;
+            _actionLogService = actionLogService;
         }
 
         public IActionResult Index()
@@ -256,7 +265,7 @@ namespace Parcoist.UI.Controllers
             };
 
             // Log kaydı
-            ActionLogHelper.LogAction(_actionLogService, "Ürün incelemesi", product.Name,0);
+            ActionLogHelper.LogAction(_actionLogService, "Ürün incelemesi", product.Name,null);
 
             return View(viewModel);
         }

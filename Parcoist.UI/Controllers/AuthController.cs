@@ -40,6 +40,8 @@ public class AuthController : Controller
         HttpContext.Session.SetInt32("UserID", user.UserID);
         HttpContext.Session.SetString("UserRole", user.Role.RoleName);
         TempData["WelcomeMessage"] = $"Hoşgeldin,  {user.Name} {user.Surname}!";
+        HttpContext.Session.SetString("UserFullName", $"{user.Name} {user.Surname}");
+
         ActionLogHelper.LogAction(_actionLogService, "Login",user.Name, userId);
         return RedirectToAction("Index", "Dashboard");
     }
