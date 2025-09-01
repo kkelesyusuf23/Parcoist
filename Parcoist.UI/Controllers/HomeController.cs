@@ -8,14 +8,28 @@ namespace Parcoist.UI.Controllers
     public class HomeController : Controller
     {
         private readonly IContactService _contactService;
+        private readonly ILogoService _logoService;
 
-        public HomeController(IContactService contactService)
+        public HomeController(IContactService contactService, ILogoService logoService)
         {
             _contactService = contactService;
+            _logoService = logoService;
         }
 
         public IActionResult Index()
         {
+            var activeLogo = _logoService.TGetListAll()
+                .Where(l => l.LogoStatus == true)
+                .Take(1).FirstOrDefault();
+
+            if (activeLogo != null)
+            {
+                HttpContext.Session.SetString("ActiveLogo", activeLogo.LogoImage);
+            }
+            else
+            {
+                HttpContext.Session.SetString("ActiveLogo", "~/source/logo.png"); 
+            }
             return View();
         }
         [HttpPost]

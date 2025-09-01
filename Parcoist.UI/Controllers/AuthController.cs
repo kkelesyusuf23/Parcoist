@@ -4,6 +4,7 @@ using Parcoist.DataAccess.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Parcoist.UI.Helpers;
 using Parcoist.Business.Abstract;
+using Microsoft.EntityFrameworkCore.Storage;
 
 public class AuthController : Controller
 {
@@ -40,6 +41,7 @@ public class AuthController : Controller
         HttpContext.Session.SetInt32("UserID", user.UserID);
         HttpContext.Session.SetString("UserRole", user.Role.RoleName);
         TempData["WelcomeMessage"] = $"Hoşgeldin,  {user.Name} {user.Surname}!";
+        
         HttpContext.Session.SetString("UserFullName", $"{user.Name} {user.Surname}");
 
         ActionLogHelper.LogAction(_actionLogService, "Login",user.Name, userId);
@@ -48,8 +50,12 @@ public class AuthController : Controller
 
     public IActionResult Logout()
     {
+        int? userId = HttpContext.Session.GetInt32("UserID");
+        var user = _context.Users.FirstOrDefault(u => u.UserID == userId);
+        var message = user != null ? $"{user.Name} {user.Surname} çıkış yaptı." : "Bilinmeyen kullanıcı çıkış yaptı.";
+        ActionLogHelper.LogAction(_actionLogService, "Logout", message, userId);
         HttpContext.Session.Clear();
-        ActionLogHelper.LogAction(_actionLogService, "Logout", "Kullanıcı çıkış yaptı.", HttpContext.Session.GetInt32("UserID"));
+        
         return RedirectToAction("Login");
     }
 

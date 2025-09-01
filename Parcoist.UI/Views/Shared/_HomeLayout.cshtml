@@ -1,7 +1,7 @@
 ﻿
 @{
-    ViewData["Title"] = "_HomeLayout";
-    Layout = null;
+	ViewData["Title"] = "_HomeLayout";
+	Layout = null;
 }
 
 
@@ -55,7 +55,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="container">
 			<div class="header">
 				<div class="logo">
-					<a href="/Home/Index"><img style="max-width:200px" src="~/source/logo.png" alt="" /></a>
+					<a href="/Home/Index">
+						<img style="max-width:200px"
+							 src="@Context.Session.GetString("ActiveLogo")" alt="Logo" />
+					</a>
 				</div>
 				<div class="top-nav">
 					<label class="mobile_menu" for="mobile_menu">
