@@ -193,12 +193,12 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
-                        @if (TempData["NotSuperAdmin"] != null && !(bool)TempData["NotSuperAdmin"])
+                        @if (Context.Session.GetString("IsSuperAdmin") == "true")
                         {
                             <li class="nav-item">
                                 <a href="/User/Users/" class="nav-link">
                                     <i class="nav-icon fas fa-th"></i>
-                                    <p>Kullanıclar</p>
+                                    <p>Kullanıcılar</p>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -208,6 +208,7 @@
                                 </a>
                             </li>
                         }
+
 
                         <li class="nav-item">
                             <a href="/Auth/ChangePassword/" class="nav-link">

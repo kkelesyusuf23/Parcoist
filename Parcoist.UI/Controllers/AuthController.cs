@@ -22,31 +22,45 @@ public class AuthController : Controller
     [HttpPost]
     public IActionResult Login(string email, string password)
     {
+        // Kullanıcıyı email ve aktiflik durumuna göre getir
         var user = _context.Users
-    .Include(u => u.Admin)
-    .Include(u => u.Role)   
-    .FirstOrDefault(u => u.Email == email && u.IsActive);
+            .Include(u => u.Admin)
+            .Include(u => u.Role)
+            .FirstOrDefault(u => u.Email == email && u.IsActive);
+
+        // Kullanıcı veya Admin bilgisi yoksa
         if (user == null || user.Admin == null)
         {
             ModelState.AddModelError("", "Geçersiz kullanıcı veya yetkisiz giriş.");
             return View();
         }
 
+        // Şifre doğrulama
         if (!PasswordHelper.VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
         {
             ModelState.AddModelError("", "Şifre yanlış.");
             return View();
         }
-        var userId = user.UserID;
-        HttpContext.Session.SetInt32("UserID", user.UserID);
-        HttpContext.Session.SetString("UserRole", user.Role.RoleName);
-        TempData["WelcomeMessage"] = $"Hoşgeldin,  {user.Name} {user.Surname}!";
-        
-        HttpContext.Session.SetString("UserFullName", $"{user.Name} {user.Surname}");
 
-        ActionLogHelper.LogAction(_actionLogService, "Login",user.Name, userId);
+        // Session bilgilerini ayarla
+        HttpContext.Session.SetInt32("UserID", user.UserID);
+        HttpContext.Session.SetString("UserFullName", $"{user.Name} {user.Surname}");
+        HttpContext.Session.SetString("UserRole", user.Role.RoleName);
+
+        // SuperAdmin kontrolü
+        bool isSuperAdmin = user.Role.RoleName == "SuperAdmin";
+        HttpContext.Session.SetString("IsSuperAdmin", isSuperAdmin.ToString().ToLower()); // "true" / "false"
+
+        // Hoş geldin mesajı
+        TempData["WelcomeMessage"] = $"Hoşgeldin, {user.Name} {user.Surname}!";
+
+        // Aksiyon logu
+        ActionLogHelper.LogAction(_actionLogService, "Login", user.Name, user.UserID);
+
+        // Dashboard'a yönlendir
         return RedirectToAction("Index", "Dashboard");
     }
+
 
     public IActionResult Logout()
     {

@@ -98,6 +98,7 @@ public class UserController : Controller
         {
             TempData["NotSuperAdmin"] = true;
             //TempData["ErrorMessage"] = "Bu sayfaya sadece SuperAdmin erişebilir.";
+            return RedirectToAction("Index", "Home");
         }
         var users = _context.Users.Include(u => u.Role).ToList();
         return View(users);
@@ -150,4 +151,35 @@ public class UserController : Controller
         TempData["Success"] = "Kullanıcı başarıyla güncellendi.";
         return RedirectToAction("Users");
     }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult ChangePassword(PasswordChangeByUserViewModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            TempData["Error"] = "Geçersiz veri. Lütfen tekrar deneyin.";
+            return RedirectToAction("Users");
+        }
+
+        var user = _context.Users.FirstOrDefault(u => u.UserID == model.UserID);
+        if (user == null)
+        {
+            TempData["Error"] = "Kullanıcı bulunamadı.";
+            return RedirectToAction("Users");
+        }
+
+        // Yeni şifreyi hashle
+        PasswordHelper.CreatePasswordHash(model.NewPassword, out string hash, out string salt);
+
+        user.PasswordHash = hash;
+        user.PasswordSalt = salt;
+        user.UpdatedAt = DateTime.Now;
+
+        _context.SaveChanges();
+
+        TempData["Success"] = "Şifre başarıyla değiştirildi.";
+        return RedirectToAction("Users");
+    }
+
 }
