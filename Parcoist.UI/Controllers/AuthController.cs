@@ -73,47 +73,7 @@ public class AuthController : Controller
         return RedirectToAction("Login");
     }
 
-    //[HttpGet]
-    //public IActionResult Register() => View();
 
-    //[HttpPost]
-    //public IActionResult Register(string name, string surname, string email, string password, string roleName)
-    //{
-    //    var currentRole = HttpContext.Session.GetString("Role");
-    //    if (currentRole != "SuperAdmin") return Unauthorized("Sadece SuperAdmin yeni admin ekleyebilir.");
-
-    //    var role = _context.Roles.FirstOrDefault(r => r.RoleName == roleName);
-    //    if (role == null) return BadRequest("Role bulunamadı.");
-
-    //    PasswordHelper.CreatePasswordHash(password, out string hash, out string salt);
-
-    //    var user = new User
-    //    {
-    //        Name = name,
-    //        Surname = surname,
-    //        Email = email,
-    //        PasswordHash = hash,
-    //        PasswordSalt = salt,
-    //        RoleID = role.RoleID,
-    //        IsActive = true,
-    //        IsEmailConfirmed = true,
-    //        CreatedAt = DateTime.Now
-    //    };
-
-    //    _context.Users.Add(user);
-    //    _context.SaveChanges();
-
-    //    _context.Admins.Add(new Admin
-    //    {
-    //        UserID = user.UserID,
-    //        IsActive = true,
-    //        CreatedAt = DateTime.Now,
-    //        UpdatedAt = DateTime.Now
-    //    });
-    //    _context.SaveChanges();
-
-    //    return RedirectToAction("Login");
-    //}
 
     [HttpGet]
     public IActionResult ChangePassword()
@@ -130,24 +90,37 @@ public class AuthController : Controller
     public IActionResult ChangePassword(string oldPassword, string newPassword)
     {
         int? userId = HttpContext.Session.GetInt32("UserID");
-        if (userId == null) return RedirectToAction("Login");
+        if (userId == null)
+            return RedirectToAction("Login");
 
         var user = _context.Users.FirstOrDefault(u => u.UserID == userId);
-        //if (user == null || user.Role.RoleName != "SuperAdmin") return Unauthorized();
+        if (user == null)
+        {
+            ModelState.AddModelError("", "Kullanıcı bulunamadı.");
+            return View();
+        }
 
+        // Eski şifre kontrolü
         if (!PasswordHelper.VerifyPasswordHash(oldPassword, user.PasswordHash, user.PasswordSalt))
         {
             ModelState.AddModelError("", "Mevcut şifre yanlış.");
             return View();
         }
 
+        // Yeni şifre hash oluştur
         PasswordHelper.CreatePasswordHash(newPassword, out string hash, out string salt);
         user.PasswordHash = hash;
         user.PasswordSalt = salt;
         _context.SaveChanges();
 
-        return RedirectToAction("Login");
+        ActionLogHelper.LogAction(_actionLogService, "ChangePassword", $"{user.Name} {user.Surname} şifresini değiştirdi.", user.UserID);
+
+
+        // Başarı mesajı
+        TempData["SuccessMessage"] = "Şifreniz başarıyla değiştirildi.";
+        return RedirectToAction("ChangePassword");
     }
+
 
 
     [HttpGet]

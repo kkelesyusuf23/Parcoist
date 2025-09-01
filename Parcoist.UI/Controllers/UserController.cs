@@ -1,13 +1,16 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Parcoist.Business.Abstract;
 using Parcoist.DataAccess.Concrete;
 using Parcoist.UI.Entities;
+using Parcoist.UI.Helpers;
 using Parcoist.UI.Models;
 
 public class UserController : Controller
 {
     private readonly ParcoContext _context;
+    private readonly IActionLogService _actionLogService;
 
     public UserController(ParcoContext context)
     {
@@ -177,6 +180,15 @@ public class UserController : Controller
         user.UpdatedAt = DateTime.Now;
 
         _context.SaveChanges();
+
+        int? adminId = HttpContext.Session.GetInt32("UserID");
+        string adminName = HttpContext.Session.GetString("UserFullName") ?? "Bilinmeyen Admin";
+        ActionLogHelper.LogAction(
+            _actionLogService,
+            "ChangePasswordByAdmin",
+            $"{adminName}, {user.Name} {user.Surname} adlı kullanıcının şifresini değiştirdi.",
+            adminId
+        );
 
         TempData["Success"] = "Şifre başarıyla değiştirildi.";
         return RedirectToAction("Users");
