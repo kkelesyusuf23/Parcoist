@@ -72,7 +72,7 @@ namespace Parcoist.UI.Controllers
                     ContactMessage = contact.ContactMessage,
                     ContactPhone = contact.ContactPhone,
                     ContactDate = DateTime.Now,
-                    ContactStatus = false,
+                    ContactStatus = true,
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now
                 };
