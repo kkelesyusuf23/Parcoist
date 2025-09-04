@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Parcoist.Business.Abstract;
+using Parcoist.UI.Models;
 
 namespace Parcoist.UI.Controllers
 {
@@ -46,6 +47,20 @@ namespace Parcoist.UI.Controllers
             ViewBag.Messages = contactService.TGetListAll().Where(x => x.ContactStatus).ToList();
             ViewBag.UserComments = userCommentService.TGetListAll().Where(x => x.IsActive).ToList();
 
+
+            var logs = actionLogService.TGetListAll();
+            var products = productService.TGetProductsWithAllRelations();
+
+            var result = products
+                .Select(p => new ProductActionLogViewModel
+                {
+                    ProductName = p.Name,
+                    LogCount = logs.Count(l => l.Description != null && l.Description.Contains(p.Name))
+                })
+                .Where(r => r.LogCount > 0) // sadece logu olan ürünler gelsin
+                .ToList();
+
+            ViewBag.ProductActionLogs = result;
 
             return View();
         }

@@ -12,7 +12,7 @@ namespace Parcoist.Entity.Concrete
         public int ActionLogID { get; set; }
         public int? UserID { get; set; } 
         public string ActionType { get; set; }
-        public string Description { get; set; }
+        public string Description { get; set; }// id değerleri burada tutuluyor
         public DateTime Date { get; set; } = DateTime.Now;
     }
 }

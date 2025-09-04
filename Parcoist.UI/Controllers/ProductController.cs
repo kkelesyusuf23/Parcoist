@@ -277,7 +277,7 @@ namespace Parcoist.UI.Controllers
             };
 
             // Log kaydı
-            ActionLogHelper.LogAction(_actionLogService, "Ürün incelemesi", product.Name,null);
+            ActionLogHelper.LogAction(_actionLogService, "Ürün incelemesi", product.Name,id);
 
             return View(viewModel);
         }
