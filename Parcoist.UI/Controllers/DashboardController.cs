@@ -9,7 +9,9 @@ namespace Parcoist.UI.Controllers
         ICategoryService categoryService,
         IContactService contactService,
         IProductService productService,
-        IActionLogService actionLogService
+        IActionLogService actionLogService,
+        IProductCommentService userCommentService,
+        IUserService userService
         ) : Controller
     {
         public IActionResult Index()
@@ -31,11 +33,18 @@ namespace Parcoist.UI.Controllers
                 return RedirectToAction("Login", "Auth");
             }
 
-            ViewBag.BrandCount = brandService.TGetListAll().Count;
-            ViewBag.CategoryCount = categoryService.TGetListAll().Count;
-            ViewBag.ContactCount = contactService.TGetListAll().Count;
-            ViewBag.ProductCount = productService.TGetListAll().Count;
-            ViewBag.ActionLogCount = actionLogService.TGetListAll();
+            ViewBag.BrandCount = brandService.TGetListAll().Where(x=>x.IsActive).ToList().Count;
+            ViewBag.CategoryCount = categoryService.TGetListAll().Where(x => x.IsActive).ToList().Count;
+            ViewBag.ProductCount = productService.TGetProductsWithAllRelations().Where(x => x.IsActive).ToList().Count;
+            ViewBag.CommentCount = userCommentService.TGetListAll().Where(x => x.IsActive).ToList().Count;
+
+            //ViewBag.ContactCount = contactService.TGetListAll().Count;
+            //ViewBag.UserCount = userService.TGetListAll().Count;
+            //ViewBag.ActionCount = actionLogService.TGetListAll().Count;
+
+            //ViewBag.ActionLogs = actionLogService.TGetListAll();
+            ViewBag.Messages = contactService.TGetListAll().Where(x => x.ContactStatus).ToList();
+            ViewBag.UserComments = userCommentService.TGetListAll().Where(x => x.IsActive).ToList();
 
 
             return View();

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Parcoist.DataAccess.Concrete;
 
@@ -11,9 +12,11 @@ using Parcoist.DataAccess.Concrete;
 namespace Parcoist.DataAccess.Migrations
 {
     [DbContext(typeof(ParcoContext))]
-    partial class ParcoContextModelSnapshot : ModelSnapshot
+    [Migration("20250904091826_mig_add_table")]
+    partial class mig_add_table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1520,7 +1523,7 @@ namespace Parcoist.DataAccess.Migrations
 
             modelBuilder.Entity("Parcoist.Entity.Concrete.ProductComment", b =>
                 {
-                    b.HasOne("Parcoist.UI.Entities.Product", "Product")
+                    b.HasOne("Parcoist.UI.Entities.Product", null)
                         .WithMany("ProductComments")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1529,8 +1532,6 @@ namespace Parcoist.DataAccess.Migrations
                     b.HasOne("Parcoist.UI.Entities.User", null)
                         .WithMany("ProductComments")
                         .HasForeignKey("UserID");
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Parcoist.Entity.Concrete.ProductVariantCombination", b =>
